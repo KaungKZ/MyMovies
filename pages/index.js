@@ -38,6 +38,7 @@ export default function Home() {
   const router = useRouter();
 
   const token = "82a18ed118951da924967971e5b70de4";
+  console.log("this is new homie");
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
