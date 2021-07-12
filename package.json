@@ -15,9 +15,11 @@
     "nextjs-progressbar": "0.0.11",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "sass": "^1.35.2",
     "swiper": "^6.7.5"
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "autoprefixer": "^10.2.6",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",

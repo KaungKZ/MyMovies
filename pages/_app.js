@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/styles.scss";
 import NextNprogress from "nextjs-progressbar";
 import React from "react";
 import Layout from "../components/Layout";
