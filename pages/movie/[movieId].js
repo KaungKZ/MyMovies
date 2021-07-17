@@ -63,7 +63,6 @@ export async function getStaticProps({ params }) {
   //   `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=82a18ed118951da924967971e5b70de4&language=en-US`,
   //   timeout: 2000, // in milliseconds
   // });
-  const token = "82a18ed118951da924967971e5b70de4";
 
   const instance = axios.create({
     baseURL: `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`,

@@ -3,12 +3,23 @@
 @tailwind utilities;
 @import "./typography.css";
 /* @import "./styles.scss"; */
+
 html,
 body {
   padding: 0;
   margin: 0;
+
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Inter, sans-serif; */
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+:root {
+  --bg-color: #f7f7f8;
+  --light-bg-color: #fdfdfd;
 }
 
 a {
@@ -21,8 +32,8 @@ a {
 }
 
 h1 {
-  font-size: 1.5rem;
-  font-family: Helvetica Neue, sans-serif;
+  /* font-size: 1.5rem; */
+  /* font-family: Helvetica Neue, sans-serif; */
 }
 
 .navbar {

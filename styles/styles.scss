@@ -3,7 +3,12 @@
   //   display: none;
 
   &__title-link {
-    font-family: "Work Sans", sans-serif;
+    // font-family: var(--main-font);
     font-weight: 700;
+  }
+
+  &__search-bar,
+  &__nav {
+    // font-family: var(--main-font);
   }
 }
