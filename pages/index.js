@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import Error from "next/error";
+import HomeHeader from "../components/HomeHeader";
+import HomeMovieCategories from "../components/HomeMovieCategories";
 
 // -- configuration --
 
@@ -51,13 +53,29 @@ import Error from "next/error";
 export default function Home(props) {
   // const router = useRouter();
 
+  // console.log(props);
+
   if (props.errorCode) {
     return <Error statusCode={errorCode} />;
   }
 
   return (
     <>
-      <div>
+      <HomeHeader></HomeHeader>
+      <HomeMovieCategories
+        data={props.data.trending}
+        title="Trending Right Now"
+      ></HomeMovieCategories>
+
+      <HomeMovieCategories
+        data={props.data.popular}
+        title="Popular"
+      ></HomeMovieCategories>
+      <HomeMovieCategories
+        data={props.data.topRated}
+        title="Top Rated"
+      ></HomeMovieCategories>
+      {/* <div>
         <h1>Trending</h1>
         {props.data.trending.results.map((movie, index) => {
           return (
@@ -81,7 +99,7 @@ export default function Home(props) {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }
@@ -91,45 +109,75 @@ export default function Home(props) {
 
 export async function getStaticProps() {
   // try {
-  const token = "82a18ed118951da924967971e5b70de4";
+  // const instance = axios.create({
+  //   baseURL: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
+  //   timeout: 7000, // in milliseconds
+  // });
+  var promises = [];
 
-  const instance = axios.create({
-    baseURL: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
-    timeout: 7000, // in milliseconds
+  const urls = [
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
+    `https://api.themoviedb.org/3/movie/popular?ap_key=${process.env.API_KEY}&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`,
+  ];
+
+  urls.forEach(function (url) {
+    promises.push(
+      axios.get(url).then(
+        function (data) {
+          return { success: true, data: data };
+        },
+        function () {
+          return { success: false };
+        }
+      )
+    );
   });
+  const [trendingRes, popularRes, topRatedRes] = await Promise.all(promises);
 
-  const [trendingRes, popularRes] = await Promise.all([
-    instance.get(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
-    ),
-    axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
-    ),
-  ]);
-  const trending = trendingRes.data;
-  const popular = popularRes.data;
+  // console.log(popularRes);
 
-  console.log(trendingRes);
-  const errorCode =
-    trendingRes.statusText === "OK" ? false : trendingRes.status;
+  // if () {
 
-  // const [trending, popular] = await Promise.all([
-  //   trendingRes.json(),
-  //   popularRes.json(),
-  // ]);
+  // } else {}
 
-  // if (trendingRes.errno === "ETIMEDOUT" || popularRes.code === "ETIMEDOUT") {
-  //   return { notFound: true };
+  // if (trendingRes.success === false) {
+  //   const trending = 'error';
+  // } else if (popularRes.success === false) {
+
+  // } else if (topRatedRes.success === false) {
+
   // }
 
-  // console.log(data);
+  const trending = trendingRes.success === false ? null : trendingRes.data.data;
+  const popular = popularRes.success === false ? null : popularRes.data.data;
+  const topRated = topRatedRes.success === false ? null : topRatedRes.data.data;
 
-  return { props: { errorCode, data: { trending, popular } } };
+  // console.log(trending);
+
+  return { props: { data: { trending, popular, topRated } } };
+
+  // const [trendingRes, popularRes, topRatedRes] = await Promise.race([
+  //   instance.get(
+  //     `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
+  //   ),
+  //   axios.get(
+  //     `https://api.themoviedb.org/3/movie/popular?ap_key=${process.env.API_KEY}&language=en-US&page=1`
+  //   ),
+  //   axios.get(
+  //     `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
+  //   ),
+  // ]);
+  // const trending = trendingRes.data;
+  // const popular = popularRes.data;
+  // const topRated = topRatedRes.data;
+
+  // const errorCode =
+  //   trendingRes.statusText === "OK" ? false : trendingRes.status;
+
+  // return { props: { errorCode, data: { trending, popular, topRated } } };
+  // } catch (err) {
+  //   console.log(err);
+  //   return { notFound: true };
+  // }
 }
-
-// catch (err) {
-//   const errorCode = err.statusCode;
-
-//   return { errorCode };
-// }
-// }

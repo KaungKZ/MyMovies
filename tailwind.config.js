@@ -21,10 +21,29 @@ module.exports = {
       colors: {
         lightGray: "var(--light-bg-color)",
       },
+      width: {
+        "95%": "95%",
+      },
       boxShadow: {
         emerald:
           "0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06)",
       },
+    },
+    screens: {
+      "2xl": { max: "1535px" },
+      // => @media (max-width: 1535px) { ... }
+
+      xl: { max: "1279px" },
+      // => @media (max-width: 1279px) { ... }
+
+      lg: { max: "1023px" },
+      // => @media (max-width: 1023px) { ... }
+
+      md: { max: "767px" },
+      // => @media (max-width: 767px) { ... }
+
+      sm: { max: "639px" },
+      // => @media (max-width: 639px) { ... }
     },
   },
   variants: {
