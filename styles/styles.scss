@@ -12,3 +12,10 @@
     // font-family: var(--main-font);
   }
 }
+
+.category {
+  &__title-bg {
+    // transform: translateY(calc(-50% - 15px));
+    top: calc(50% - 5px);
+  }
+}

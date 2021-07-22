@@ -2,8 +2,17 @@
 
 var os = require("os");
 
+// if(pathname === '/static/fonts/Avenir.ttc' || pathname === '/static/fonts/Poppins-Regular.ttf') {
+//     res.setHeader('Cache-Control', 'public,max-age=31536000');
+// }
+
 export default function handler(req, res) {
   var networkInterfaces = os.networkInterfaces();
+
+  const parsedUrl = parse(req.url, true);
+  const { pathname, query } = parsedUrl;
+
+  console.log(pathname);
 
   // console.log(networkInterfaces);
   // const key =

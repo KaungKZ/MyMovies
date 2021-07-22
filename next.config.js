@@ -1,10 +1,14 @@
 // module.exports = {
 // }
+const { withPlaiceholder } = require("@plaiceholder/next");
 
-module.exports = {
+module.exports = withPlaiceholder({
   reactStrictMode: true,
+  images: {
+    domains: ["image.tmdb.org"],
+  },
 
-  webpack(config) {
+  webpack: (config, isServer) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -12,4 +16,4 @@ module.exports = {
 
     return config;
   },
-};
+});

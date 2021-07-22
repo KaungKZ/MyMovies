@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderIllustration from "../assets/home-main-illustration.svg";
+import HeaderIllustration from "../public/static/assets/home-main-illustration.svg";
 
 export default function HomeHeader() {
   return (
     <div className="header my-20">
-      <div className="header__title mb-16">
+      <div className="header__title mb-16 w-4/5 mx-auto">
         <h1 className="header__title-text capitalize text-5xl font-secondary text-center font-bold text-gray-600">
           Keep track of movies, <span className="text-green-400">here.</span>
         </h1>

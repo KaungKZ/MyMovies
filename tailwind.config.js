@@ -2,10 +2,20 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   // purge: [],
+  // important: "#cass",
   mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    aspectRatio: {
+      260: "260",
+      391: "391",
+    },
+    scale: {
+      "-1": "-1",
+      110: "1.1",
+    },
+
     extend: {
       zIndex: {
         "-1": "-1",
@@ -47,7 +57,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      textColor: ["group-focus"],
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };

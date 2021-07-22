@@ -2,15 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 @import "./typography.css";
+
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./typography.css"; */
 /* @import "./styles.scss"; */
+
+@layer components {
+  .navbar__link {
+    @apply hover:text-gray-900 transition font-medium;
+  }
+}
+
+@layer utilities {
+  .placeholder-medium::placeholder {
+    @apply font-medium;
+  }
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Inter, sans-serif; */
 }
 
 body {
@@ -29,13 +43,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-h1 {
-  /* font-size: 1.5rem; */
-  /* font-family: Helvetica Neue, sans-serif; */
-}
-
-.navbar {
-  /* font-family: "Inter", sans-serif; */
 }
