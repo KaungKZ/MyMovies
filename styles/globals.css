@@ -13,6 +13,10 @@
   .navbar__link {
     @apply hover:text-gray-900 transition font-medium;
   }
+
+  .swiper-navigation-btn {
+    @apply absolute top-0 z-10 bg-gray-900 h-[348px] opacity-90 w-14 flex justify-center items-center;
+  }
 }
 
 @layer utilities {

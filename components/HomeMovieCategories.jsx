@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
@@ -93,73 +94,78 @@ export default function HomeMovieCategories(props) {
             loop={true}
             allowTouchMove={false}
             speed={800}
-            // navigation={true}
+            navigation={true}
             navigation={
               (true,
               {
-                nextEl: ".swiper-button-next-unique",
-                prevEl: ".swiper-button-prev-unique",
+                nextEl: `.swiper-navigation-next-${props.title
+                  .split(" ")
+                  .join("")}`,
+                prevEl: `.swiper-navigation-prev-${props.title
+                  .split(" ")
+                  .join("")}`,
               })
             }
-            className="mySwiper w-[95%] mx-auto my-20"
+            className="mySwiper my-20 w-[95%] mx-auto"
           >
-            {props.data.map((movie, index) => {
-              return (
-                <SwiperSlide
-                  key={index}
-                  style={{ width: "auto" }}
-                  className="group"
-                >
-                  <Link href={`/movie/${movie.id}`}>
-                    <a>
-                      <div className="category__movie-banner overflow-hidden rounded border-4 border-green-400">
-                        {movie.img.blurDataURL ? (
-                          <div className="category__movie-canvas relative block h-[340px] transform group-hover:scale-110 transition duration-500">
-                            <BlurhashCanvas
-                              punch={1}
-                              hash={movie.img.blurDataURL.hash}
-                              width={movie.img.blurDataURL.height}
-                              height={movie.img.blurDataURL.width}
-                              className="absolute left-0 top-0 w-full h-full inset-0"
-                            />
+            <div className="test">
+              {props.data.map((movie, index) => {
+                return (
+                  <SwiperSlide
+                    key={index}
+                    style={{ width: "auto" }}
+                    className="group"
+                  >
+                    <Link href={`/movie/${movie.id}`}>
+                      <a>
+                        <div className="category__movie-banner overflow-hidden rounded border-4 border-green-400">
+                          {movie.img.blurDataURL ? (
+                            <div className="category__movie-canvas relative block h-[340px] transform group-hover:scale-110 transition duration-500">
+                              <BlurhashCanvas
+                                punch={1}
+                                hash={movie.img.blurDataURL.hash}
+                                width={movie.img.blurDataURL.height}
+                                height={movie.img.blurDataURL.width}
+                                className="absolute left-0 top-0 w-full h-full inset-0"
+                              />
 
+                              <Image
+                                src={movie.img.src}
+                                width="auto"
+                                height="340"
+                                // alt={movie.original_title}
+                                className="object-cover"
+                              />
+                            </div>
+                          ) : (
                             <Image
-                              src={movie.img.src}
+                              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                               width="auto"
                               height="340"
                               // alt={movie.original_title}
                               className="object-cover"
                             />
-                          </div>
-                        ) : (
-                          <Image
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                            width="auto"
-                            height="340"
-                            // alt={movie.original_title}
-                            className="object-cover"
-                          />
-                        )}
-                      </div>
-                      <div className="category__movie-summary my-3">
-                        <h1 className="category__movie-title text-gray-700 font-bold text-base group-hover:underline">
-                          {movie.original_title}
-                        </h1>
-                        <span className="category__movie-date text-sm text-gray-600">
-                          {movie.release_date?.split("-")[0] ?? ""}
-                        </span>
-                      </div>
-                    </a>
-                  </Link>
-                </SwiperSlide>
-              );
-            })}
-            <div className="swiper-button-prev-unique">Prev</div>
-            <div className="swiper-button-next-unique">Next</div>
+                          )}
+                        </div>
+                        <div className="category__movie-summary my-3">
+                          <h1 className="category__movie-title text-gray-700 font-bold text-base group-hover:underline">
+                            {movie.original_title}
+                          </h1>
+                          <span className="category__movie-date text-sm text-gray-600">
+                            {movie.release_date?.split("-")[0] ?? ""}
+                          </span>
+                        </div>
+                      </a>
+                    </Link>
+                  </SwiperSlide>
+                );
+              })}
+            </div>
           </Swiper>
         ) : (
           "Not Found"
         )}
+
         <div className="category__content-bg-shape absolute -top-10 left-0 w-full">
           <CategoryBgShape
             className={`mx-auto lg:h-full ${
@@ -177,6 +183,26 @@ export default function HomeMovieCategories(props) {
             preserveAspectRatio="none"
             width="100%"
           />
+        </div>
+        <div className="swiper-navigation-wrapper">
+          <div
+            className={`swiper-navigation-prev-${props.title
+              .split(" ")
+              .join("")} swiper-navigation-btn left-0`}
+          >
+            <div className="">
+              <ChevronLeftIcon className="h-10 w-10 text-white" />
+            </div>
+          </div>
+          <div
+            className={`swiper-navigation-next-${props.title
+              .split(" ")
+              .join("")} absolute swiper-navigation-btn right-0`}
+          >
+            <div className="">
+              <ChevronRightIcon className="h-10 w-10 text-white" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
