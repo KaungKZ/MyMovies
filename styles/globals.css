@@ -15,7 +15,7 @@
   }
 
   .swiper-navigation-btn {
-    @apply absolute top-0 z-10 bg-gray-900 h-[348px] opacity-90 w-14 flex justify-center items-center;
+    @apply absolute top-0 z-10 bg-bgGray h-[348px] opacity-70 w-14 flex justify-center items-center;
   }
 }
 

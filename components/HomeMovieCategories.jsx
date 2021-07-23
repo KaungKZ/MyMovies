@@ -184,6 +184,7 @@ export default function HomeMovieCategories(props) {
             width="100%"
           />
         </div>
+        {/* rgba(20,20,20,.7) */}
         <div className="swiper-navigation-wrapper">
           <div
             className={`swiper-navigation-prev-${props.title
