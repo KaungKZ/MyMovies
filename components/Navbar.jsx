@@ -1,18 +1,19 @@
 import React from "react";
 import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.svg";
 import { SearchIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <div className="navbar h-28 shadow-emerald bg-lightGray">
       <div className="navbar__content flex w-4/5 justify-between items-center m-auto h-full">
         <div className="navbar__title relative">
-          <a
-            href="#"
-            className="navbar__title-link text-gray-600 text-2xl relative z-10"
-          >
-            MyMovies
-          </a>
+          <Link href={`/`}>
+            <a className="navbar__title-link text-gray-600 text-2xl relative z-10">
+              MyMovies
+            </a>
+          </Link>
+
           <div className="navbar__title-bg-shape absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 z-0">
             <NavbarTitleBgShape />
           </div>
@@ -34,18 +35,25 @@ export default function Navbar() {
             </label>
           </div>
           <nav className="navbar__nav flex text-gray-500 ">
-            <a className="navbar__link mr-4" href="#">
-              Trending
-            </a>
-            <a className="navbar__link mr-4" href="#">
-              Popular
-            </a>
-            <a className="navbar__link mr-4" href="#">
+            <Link href={`/`}>
+              <a className="navbar__link mr-4">Trending</a>
+            </Link>
+            <Link href={`/`}>
+              <a className="navbar__link mr-4">Popular</a>
+            </Link>
+            <Link href={`/`}>
+              <a className="navbar__link mr-4">Upcoming</a>
+            </Link>
+            <Link href={`/`}>
+              <a className="navbar__link">Top Rated</a>
+            </Link>
+
+            {/* <a className="navbar__link mr-4" href="#">
               Upcoming
             </a>
             <a className="navbar__link" href="#">
               Top Rated
-            </a>
+            </a> */}
           </nav>
         </div>
       </div>

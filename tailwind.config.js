@@ -30,7 +30,6 @@ module.exports = {
       },
       colors: {
         lightGray: "var(--light-bg-color)",
-        bgGray: "#141414",
       },
       width: {
         "95%": "95%",

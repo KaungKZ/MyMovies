@@ -18,4 +18,53 @@
     // transform: translateY(calc(-50% - 15px));
     top: calc(50% - 5px);
   }
+
+  &__myswiper .swiper-wrapper {
+    // margin-left: calc(100% - 50px);
+    // width: calc(100% - 50px);
+    // margin-right: calc(100% - 50px);
+    padding-top: 45px;
+  }
+
+  &__myswiper .swiper-navigation-btn {
+    // top: calc(50% - 48px);
+    top: calc(50% - 3px);
+  }
+
+  &__myswiper > .swiper-pagination {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    height: 24px;
+  }
+
+  &__myswiper {
+    /* change the size of the bullet and active color */
+
+    .swiper-pagination-bullet {
+      background-color: theme("colors.green.500");
+      display: inline-block;
+      width: 2.5rem;
+      height: 2.5px;
+      border-radius: 4px;
+    }
+
+    // &:hover {
+    //   .swiper-pagination
+    // }
+
+    /* change color of next 2 bullets in sequence to white*/
+
+    .swiper-pagination-bullet-active-next,
+    .swiper-pagination-bullet-active-next-next {
+      background-color: white;
+    }
+
+    /* change color of previous bullet to white*/
+
+    .swiper-pagination-bullet-active-prev {
+      background-color: white;
+    }
+  }
 }
