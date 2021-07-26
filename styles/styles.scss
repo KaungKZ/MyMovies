@@ -50,9 +50,24 @@
       border-radius: 4px;
     }
 
-    // &:hover {
-    //   .swiper-pagination
+    // .swiper-navigation-wrapper {
+
     // }
+
+    &:hover {
+      .swiper-navigation-wrapper {
+        // display: none;
+
+        .swiper-navigation-btn {
+          pointer-events: all;
+          opacity: 1;
+
+          &:hover svg {
+            transform: scale(1.25);
+          }
+        }
+      }
+    }
 
     /* change color of next 2 bullets in sequence to white*/
 
@@ -61,10 +76,55 @@
       background-color: white;
     }
 
-    /* change color of previous bullet to white*/
-
     .swiper-pagination-bullet-active-prev {
       background-color: white;
     }
+  }
+
+  &__effect-zoe figcaption::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -webkit-linear-gradient(
+      top,
+      rgba(72, 76, 97, 0) 0%,
+      rgba(0, 0, 0, 0.8) 75%
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba(72, 76, 97, 0) 0%,
+      rgba(0, 0, 0, 0.8) 75%
+    );
+    content: "";
+    opacity: 0;
+    -webkit-transform: translate3d(0, 50%, 0);
+    transform: translate3d(0, 50%, 0);
+  }
+
+  &__effect-zoe figcaption::before,
+  &__description {
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+  }
+
+  &__description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1.5em;
+    width: 100%;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
+    color: #fff;
+  }
+
+  &__swiperslide:hover figcaption::before,
+  &__swiperslide:hover &__description {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }

@@ -39,14 +39,14 @@ export default function index(props) {
 }
 
 export async function getStaticPaths() {
-  const token = "82a18ed118951da924967971e5b70de4";
+  // const token = "82a18ed118951da924967971e5b70de4";
 
-  const instance = axios.create({
-    baseURL: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
-    timeout: 7000, // in milliseconds
-  });
+  // const instance = axios.create({
+  //   baseURL: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
+  //   timeout: 7000, // in milliseconds
+  // });
 
-  const res = await instance.get(
+  const res = await axios.get(
     `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
   );
 
@@ -64,12 +64,12 @@ export async function getStaticProps({ params }) {
   //   timeout: 2000, // in milliseconds
   // });
 
-  const instance = axios.create({
-    baseURL: `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`,
-    timeout: 7000, // in milliseconds
-  });
+  // const instance = axios.create({
+  //   baseURL: `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`,
+  //   timeout: 7000, // in milliseconds
+  // });
   // try {
-  const res = await instance.get(
+  const res = await axios.get(
     `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`
   );
 

@@ -15,7 +15,7 @@
   }
 
   .swiper-navigation-btn {
-    @apply absolute z-10 bg-green-500 h-16 w-10 flex justify-center items-center rounded shadow-2xl transform -translate-y-1/2 cursor-pointer group-hover:hidden;
+    @apply absolute z-10 bg-green-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 cursor-pointer group-hover:hidden opacity-0 pointer-events-none transition duration-300 hover:bg-green-600;
   }
 }
 

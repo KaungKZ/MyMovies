@@ -12,7 +12,7 @@ export default function handler(req, res) {
   const parsedUrl = parse(req.url, true);
   const { pathname, query } = parsedUrl;
 
-  console.log(pathname);
+  // console.log(pathname);
 
   // console.log(networkInterfaces);
   // const key =

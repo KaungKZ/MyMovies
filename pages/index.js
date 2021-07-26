@@ -169,6 +169,8 @@ export async function getStaticProps() {
     )
   ).then((data) => data);
 
+  // console.log(trendingRes);
+
   const trending = trendingRes.success === false ? null : trendingRes.data;
   const popular = popularRes.success === false ? null : popularRes.data;
   const upcoming = upcomingRes.success === false ? null : upcomingRes.data;
