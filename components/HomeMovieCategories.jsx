@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/outline";
 
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
-// import { Router } from "next/router";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -29,7 +29,7 @@ export default function HomeMovieCategories(props) {
   // const divRef = useRef();
 
   // console.log(divRef);
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     setMovieData({ ...props });
@@ -158,7 +158,15 @@ export default function HomeMovieCategories(props) {
                     style={{ width: "auto" }}
                     className="group category__swiperslide"
                   >
-                    <Link passHref href={`/movie/${movie.id}`}>
+                    <Link
+                      // onClick={() =>
+                      //   router.push({
+                      //     pathname: `movie/${movie.id}`,
+                      //     query: { title: movie.original_title },
+                      //   })
+                      // }
+                      href={`/movie/${movie.original_title}-${movie.id}`}
+                    >
                       <a>
                         <div className="category__movie-banner overflow-hidden rounded relative">
                           {movie.img.blurDataURL ? (

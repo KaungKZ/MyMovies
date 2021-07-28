@@ -5,7 +5,7 @@ const { withPlaiceholder } = require("@plaiceholder/next");
 module.exports = withPlaiceholder({
   reactStrictMode: true,
   images: {
-    domains: ["image.tmdb.org"],
+    domains: ["image.tmdb.org", "yts.mx"],
   },
 
   webpack: (config, isServer) => {
