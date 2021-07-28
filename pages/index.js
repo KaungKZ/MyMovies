@@ -160,7 +160,7 @@ export async function getStaticProps() {
                 .then(({ blurhash, img }) => {
                   return { ...one, img: { ...img, blurDataURL: blurhash } };
                 })
-                .catch(() => ({ ...one, img: { ...img, blurDataURL: null } }));
+                .catch(() => ({ ...one, img: { blurDataURL: null } }));
             })
           ).then((values) => ({ success: true, data: values })),
 

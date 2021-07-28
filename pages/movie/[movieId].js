@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Error from "next/error";
+import MovieDetail from "../../components/MovieDetail";
 
 export default function index(props) {
   // const [isLoading, setIsLoading] = useState(true);
   // const [data, setData] = useState();
-  if (props.errorCode) {
-    return <Error statusCode={errorCode} />;
-  }
+  // if (props.errorCode) {
+  //   return <Error statusCode={errorCode} />;
+  // }
+
+  // console.log(props);
 
   const router = useRouter();
 
-  // console.log(props);
+  // console.log(router.query);
 
   // if (router.isFallback) {
   //   return <div>Loading...</div>;
@@ -30,10 +33,7 @@ export default function index(props) {
 
   return (
     <>
-      <div>
-        xi par {props.data.tmdbData.original_title}
-        {props.data.ytxData === null ? <></> : renderYtsMovieDetail()}
-      </div>
+      <MovieDetail data={props.data.tmdbData}></MovieDetail>
     </>
   );
 }
@@ -58,19 +58,23 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
-  // const instance = axios.create({
-  //   `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=82a18ed118951da924967971e5b70de4&language=en-US`,
-  //   timeout: 2000, // in milliseconds
-  // });
+// export async function getStaticProps(context) {
+//   console.log(context.params); // return { params: {movieId: 'Mortal Kombat' }, ... }
 
-  // const instance = axios.create({
-  //   baseURL: `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`,
-  //   timeout: 7000, // in milliseconds
-  // });
-  // try {
+//   return {
+//     props: {},
+//   };
+// }
+// export async function getServerSideProps(context) {
+//   return {
+//     props: {}, // will be passed to the page component as props
+//   };
+// }
+
+export async function getStaticProps(context) {
+  // console.log(context);
   const res = await axios.get(
-    `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${process.env.API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/movie/${context.params.movieId}?api_key=${process.env.API_KEY}&language=en-US`
   );
 
   const tmdbData = res.data;
@@ -100,9 +104,11 @@ export async function getStaticProps({ params }) {
   return {
     props: { errorCode, data: { tmdbData, ytxData } },
   };
-  // }
+  // console.log(context);
+  // returns { id: episode.itunes.episode, title: episode.title}
 
-  // catch (err) {
-  //   return { notFound: true };
-  // }
+  //you can make DB queries using the data in context.query
+  // return {
+  //   props: {},
+  // };
 }

@@ -17,17 +17,19 @@ import {
 } from "@heroicons/react/outline";
 
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
+// import { Router } from "next/router";
 
 SwiperCore.use([Pagination, Navigation]);
 
 // import {useState, useEffect} from
 
 export default function HomeMovieCategories(props) {
-  const [movieData, setMovieData] = useState({});
+  const [movieData, setMovieData] = useState({ data: [] });
   // const [height, setHeight] = useState();
   // const divRef = useRef();
 
   // console.log(divRef);
+  // const router = useRouter();
 
   useEffect(() => {
     setMovieData({ ...props });
@@ -156,7 +158,7 @@ export default function HomeMovieCategories(props) {
                     style={{ width: "auto" }}
                     className="group category__swiperslide"
                   >
-                    <Link href={`/movie/${movie.id}`}>
+                    <Link passHref href={`/movie/${movie.id}`}>
                       <a>
                         <div className="category__movie-banner overflow-hidden rounded relative">
                           {movie.img.blurDataURL ? (
@@ -186,14 +188,14 @@ export default function HomeMovieCategories(props) {
                               className="object-cover"
                             />
                           )}
-                          <figure class="category__effect-zoe">
+                          <figure className="category__effect-zoe">
                             {/* <img src="https://tympanus.net/Development/HoverEffectIdeas/img/25.jpg" alt="img25"/> */}
                             <figcaption>
                               {/* <h2>
                             Creative <span>Zoe</span>
                           </h2> */}
 
-                              <p class="category__description text-md">
+                              <p className="category__description text-md">
                                 {movie.overview.length > 125
                                   ? movie.overview
                                       .substring(125, 0)
@@ -237,14 +239,14 @@ export default function HomeMovieCategories(props) {
             </Swiper>
             <div className="category__content-bg-shape absolute -top-10 left-0 w-full">
               <CategoryBgShape
-                className={`mx-auto lg:h-full w-full ${
+                className={`mx-auto w-full ${
                   movieData.reverse ? "-scale-x-1" : "scale-x-1"
                 }`}
                 viewBox="0 0 1440 250"
                 preserveAspectRatio="none"
               />
               <CategoryBgShape
-                className={`mx-auto lg:h-full ${
+                className={`mx-auto ${
                   movieData.reverse ? "scale-x-1" : "-scale-x-1"
                 } rotate-180`}
                 viewBox="0 0 1440 250"
