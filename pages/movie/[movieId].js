@@ -94,7 +94,7 @@ export async function getStaticProps(context) {
       async (data) => {
         // console.log(data);
         return getPlaiceholder(
-          `https://image.tmdb.org/t/p/w500${data.data.poster_path}`
+          `https://image.tmdb.org/t/p/original${data.data.poster_path}`
         ).then(({ blurhash, img }) => {
           return {
             ...data.data,

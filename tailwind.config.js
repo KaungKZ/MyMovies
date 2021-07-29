@@ -15,6 +15,24 @@ module.exports = {
       "-1": "-1",
       110: "1.1",
     },
+    fontSize: {
+      0: [
+        "0px",
+        {
+          letterSpacing: "0px",
+        },
+      ],
+      xs: ".75rem",
+      sm: ".875rem",
+      base: "1rem",
+      lg: "1.125rem",
+      xl: "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
+      "6xl": "4rem",
+    },
 
     extend: {
       zIndex: {
@@ -28,6 +46,7 @@ module.exports = {
       minWidth: {
         300: "300px",
       },
+
       colors: {
         lightGray: "var(--light-bg-color)",
       },

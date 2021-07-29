@@ -128,3 +128,15 @@
     transform: translate3d(0, 0, 0);
   }
 }
+
+.detail {
+  &__image-wrapper {
+    // perspective: 1px;
+  }
+  //   &__banner-bg-shape {
+  //     width: 500px;
+  //     rect {
+  //       width: 500px;
+  //     }
+  //   }
+}
