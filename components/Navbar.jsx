@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.svg";
 import { SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Navbar() {
+  const [searchValue, setSearchValue] = useState("");
+  // const [searchResults, setSearchResults] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `
+  //   https://api.themoviedb.org/3/search/movie?api_key=82a18ed118951da924967971e5b70de4&language=en-US&query=${
+  //     searchValue === "" ? null : searchValue
+  //   }&page=1&include_adult=false`
+  //     )
+  //     .then((data) => setSearchResults(data.data));
+  // }, [searchValue]);
+
+  // console.log(searchResults);
+
   return (
     <div className="navbar h-28 shadow-emerald bg-lightGray">
       <div className="navbar__content flex w-4/5 justify-between items-center m-auto h-full">
@@ -29,6 +46,8 @@ export default function Navbar() {
                 name="search"
                 id="search"
                 type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
                 className="navbar__search-input focus:outline-none focus:ring-green-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-green-100 transition rounded-lg text-sm w-full placeholder-gray-500"
                 placeholder="Search Anything .."
               />

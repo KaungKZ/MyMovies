@@ -5,14 +5,16 @@ import Link from "next/link";
 import { Portal, PortalWithState } from "react-portal";
 import DownloadPopup from "../components/DownloadPopup";
 import { ClockIcon } from "@heroicons/react/solid";
+import { StarIcon } from "@heroicons/react/solid";
+import { VideoCameraIcon } from "@heroicons/react/solid";
 import { DownloadIcon } from "@heroicons/react/outline";
 import DetailBgShape from "../public/static/assets/movie-detail-bg-shape.svg";
 
-export default function MovieDetail({ data }) {
-  const [tmdbData] = useState(data.data.res);
-  const [ytxData] = useState(data.data.ytxData);
+export default function MovieDetail({ tmdbData, ytxData }) {
+  // const [tmdbData] = useState(data.data.res);
+  // const [ytxData] = useState(data.data.ytxData);
 
-  console.log(tmdbData);
+  // console.log(tmdbData);
   // console.log(ytxData.data.movies[0]);
 
   function removeDuplicate() {
@@ -113,13 +115,13 @@ export default function MovieDetail({ data }) {
           </div>
           {ytxData && (
             <>
-              <div className="detail__resolution mb-3">
-                Available in:{" "}
+              <div className="detail__resolution mb-3 text-gray-600">
+                Available in:
                 {removeDuplicate().map((t, i) => {
                   return (
                     <span
                       key={i}
-                      className="text-green-500 font-medium mr-1.5 last:mr-0"
+                      className="text-green-500 font-medium mr-1.5 last:mr-0 ml-2"
                     >
                       {t.quality}
                     </span>
@@ -129,10 +131,13 @@ export default function MovieDetail({ data }) {
                 return <Link href={t.url}>{`${t.quality} (${t.type})`}</Link>;
               })} */}
               </div>
-              <div className="detail__voting mb-6">
+              <div className="detail__voting mb-6 flex items-center text-gray-600">
                 Voting:{" "}
-                <span className="text-green-500 font-bold">
+                <span className="text-green-500 font-bold ml-2">
                   {tmdbData.vote_average}
+                </span>
+                <span>
+                  <StarIcon className="w-4 h-4 ml-1 text-green-500" />
                 </span>
               </div>
               <PortalWithState closeOnOutsideClick closeOnEsc>
@@ -140,7 +145,7 @@ export default function MovieDetail({ data }) {
                   <>
                     <button
                       onClick={openPortal}
-                      className="py-2 px-6 bg-green-400 rounded text-white hover:bg-green-500 transition flex items-center text-sm"
+                      className="py-2 px-6 bg-green-400 rounded text-white hover:bg-green-500 transition flex items-center text-base"
                     >
                       Download
                       <span>
@@ -157,8 +162,15 @@ export default function MovieDetail({ data }) {
           )}
         </div>
       </div>
-      <div className="trailer"></div>
-      <div className="similar"></div>
+      <div className="trailer">
+        <div className="trailer__title category__title-text font-bold font-secondary text-3xl text-gray-700 underline flex items-center">
+          <h1>Watch trailer</h1>
+          <span>
+            <VideoCameraIcon className="w-5 h-5 text-green-500" />
+          </span>
+        </div>
+        <div className="trailter__content"></div>
+      </div>
     </>
   );
 }

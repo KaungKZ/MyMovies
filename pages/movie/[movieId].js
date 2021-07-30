@@ -5,6 +5,7 @@ import Error from "next/error";
 import MovieDetail from "../../components/MovieDetail";
 import { getPlaiceholder } from "plaiceholder";
 import Head from "next/head";
+import HomeMovieCategories from "../../components/HomeMovieCategories";
 
 export default function index(props) {
   // const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +34,7 @@ export default function index(props) {
   //   );
   // }
 
-  console.log(router.query.movieId.split("-"));
+  // console.log(router.query.movieId.split("-"));
 
   return (
     <>
@@ -41,7 +42,19 @@ export default function index(props) {
         <title>{router.query.movieId.split("-").slice(0, -1)}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <MovieDetail data={props}></MovieDetail>
+      {props.data.detailRes ? (
+        <MovieDetail
+          tmdbData={props.data.detailRes}
+          ytxData={props.data.ytxData}
+        ></MovieDetail>
+      ) : (
+        "Detail not found"
+      )}
+
+      <HomeMovieCategories
+        data={props.data.similarRes.data}
+        title="Similiar Movies"
+      ></HomeMovieCategories>
     </>
   );
 }
@@ -80,37 +93,74 @@ export async function getStaticPaths() {
 // }
 
 export async function getStaticProps(context) {
-  const [movieId] = context.params.movieId.split("-").slice(-1);
-  // console.log(context);
-  // const id = context.params.movieId.split("?id=")[1];
-  // movieId = movieId[movieId.length - 1];
+  const movieId = context.params.movieId.split("-").slice(-1);
 
-  // console.log(context);
-  const res = await axios
-    .get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`
+  // console.log(movieId);
+
+  const urls = [
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`,
+    // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.API_KEY}&language=en-US&page=1`,
+  ];
+
+  // const _data = data.data.results ? data.data.results : [data.data];
+  const [detailRes, similarRes] = await Promise.all(
+    urls.map((url) =>
+      axios.get(url).then(
+        (data) =>
+          Promise.all(
+            (data.data.results ? data.data.results : [data.data]).map((one) => {
+              return getPlaiceholder(
+                `https://image.tmdb.org/t/p/w500${one.poster_path}`
+              )
+                .then(({ blurhash, img }) => {
+                  return { ...one, img: { ...img, blurDataURL: blurhash } };
+                })
+                .catch(() => ({ ...one, img: { blurDataURL: null } }));
+            })
+          ).then((values) => ({ success: true, data: values })),
+        () => ({ success: false })
+      )
     )
-    .then(
-      async (data) => {
-        // console.log(data);
-        return getPlaiceholder(
-          `https://image.tmdb.org/t/p/original${data.data.poster_path}`
-        ).then(({ blurhash, img }) => {
-          return {
-            ...data.data,
-            img: { ...img, blurDataURL: blurhash },
-            success: true,
-          };
-        });
-      },
-      () => ({ success: true })
-    )
-    .then((data) => data);
+  ).then((data) => {
+    // console.log(data);
+    // data[0] = { success: data[0].success, ...data[0].data[0] };
 
-  // const tmdbData = res;
+    const detail =
+      data[0].success === false
+        ? null
+        : { success: data[0].success, ...data[0].data[0] };
+    const similar = data[1].success === false ? null : data[1];
 
-  // console.log(tmdbData);
-  const imdb_code = res.imdb_id;
+    // console.log(movieId, similar.data);
+
+    return [detail, similar];
+  });
+
+  console.log(detailRes);
+
+  // https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1
+  // const res = await axios
+  //   .get(
+  //     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`
+  //   )
+  //   .then(
+  //     async (data) => {
+  //       return getPlaiceholder(
+  //         `https://image.tmdb.org/t/p/original${data.data.poster_path}`
+  //       ).then(({ blurhash, img }) => {
+  //         return {
+  //           ...data.data,
+  //           img: { ...img, blurDataURL: blurhash },
+  //           success: true,
+  //         };
+  //       });
+  //     },
+  //     () => ({ success: true })
+  //   )
+  //   .then((data) => data);
+
+  const imdb_code = detailRes ? detailRes.imdb_id : "";
 
   // let errorCode;
 
@@ -136,8 +186,10 @@ export async function getStaticProps(context) {
 
   // ytxData = ytxRes.data;
 
+  // console.log(movieId, similarRes.data);
+
   return {
-    props: { success: res.success, data: { res, ytxData } },
+    props: { data: { detailRes, similarRes, ytxData } },
   };
   // console.log(context);
   // returns { id: episode.itunes.episode, title: episode.title}

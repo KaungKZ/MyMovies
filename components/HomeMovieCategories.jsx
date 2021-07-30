@@ -29,12 +29,12 @@ export default function HomeMovieCategories(props) {
   // const divRef = useRef();
 
   // console.log(divRef);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     setMovieData({ ...props });
     // setHeight(divRef.current.)
-  }, []);
+  }, [props]);
 
   // useEffect(() => {
   //   setHeight(divRef.current.clientHeight);
@@ -124,19 +124,8 @@ export default function HomeMovieCategories(props) {
                   slidesPerGroup: 5,
                 },
               }}
-              // spaceBetween={30}
               loop={true}
               allowTouchMove={false}
-              // pagination={
-              //   (true,
-              //   {
-              //     el: ".swiper-pagination",
-              //     renderBullet: (index, className) => {
-              //       return `<span class="dot swiper-pagination-bullet">${index}</span>`;
-
-              //     },
-              //   })
-              // }
               pagination={true}
               speed={800}
               // navigation={true}
