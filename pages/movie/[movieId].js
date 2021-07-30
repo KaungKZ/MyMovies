@@ -18,7 +18,7 @@ export default function index(props) {
 
   const router = useRouter();
 
-  // console.log(router);
+  console.log(props.data.similarRes.data);
 
   // if (router.isFallback) {
   //   return <div>Loading...</div>;
@@ -68,7 +68,8 @@ export async function getStaticPaths() {
   // });
 
   const res = await axios.get(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
+    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    // `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
   );
 
   const data = res.data;

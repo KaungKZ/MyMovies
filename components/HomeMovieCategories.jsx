@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 // import CategoryTitleBgShape from "/static/assets/section-title-bg-shape.png";
 import Image from "next/image";
@@ -17,7 +17,6 @@ import {
 } from "@heroicons/react/outline";
 
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
-import { useRouter } from "next/router";
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -25,6 +24,7 @@ SwiperCore.use([Pagination, Navigation]);
 
 export default function HomeMovieCategories(props) {
   const [movieData, setMovieData] = useState({ data: [] });
+  const [swiper, setSwiper] = useState(null);
   // const [height, setHeight] = useState();
   // const divRef = useRef();
 
@@ -33,8 +33,22 @@ export default function HomeMovieCategories(props) {
 
   useEffect(() => {
     setMovieData({ ...props });
+
+    // console.log(swiper);
+    if (swiper) {
+      // console.log("yes");
+      swiper.slideToLoop(0);
+    }
+
+    // swiperRef.current?.swiper.toSlide(0, 1, false);
+
+    // swiper?.slideTo(2);
     // setHeight(divRef.current.)
-  }, [props]);
+  }, [props, swiper]);
+
+  // useEffect(() => {
+
+  // }, [swiper, props]);
 
   // useEffect(() => {
   //   setHeight(divRef.current.clientHeight);
@@ -97,6 +111,8 @@ export default function HomeMovieCategories(props) {
         {movieData.data ? (
           <>
             <Swiper
+              // ref={swiperRef}
+              onSwiper={(s) => setSwiper(s)}
               breakpoints={{
                 280: {
                   slidesPerView: 1,
@@ -151,10 +167,10 @@ export default function HomeMovieCategories(props) {
                       // onClick={() =>
                       //   router.push({
                       //     pathname: `movie/${movie.id}`,
-                      //     query: { title: movie.original_title },
+                      //     query: { title: movie.title },
                       //   })
                       // }
-                      href={`/movie/${movie.original_title}-${movie.id}`}
+                      href={`/movie/${movie.title}-${movie.id}`}
                     >
                       <a>
                         <div className="category__movie-banner overflow-hidden rounded relative">
@@ -172,7 +188,7 @@ export default function HomeMovieCategories(props) {
                                 src={movie.img.src}
                                 width="auto"
                                 height="340"
-                                // alt={movie.original_title}
+                                // alt={movie.title}
                                 className="object-cover"
                               />
                             </div>
@@ -181,7 +197,7 @@ export default function HomeMovieCategories(props) {
                               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                               width="auto"
                               height="340"
-                              // alt={movie.original_title}
+                              // alt={movie.title}
                               className="object-cover"
                             />
                           )}
@@ -208,11 +224,9 @@ export default function HomeMovieCategories(props) {
                           // ref={divRef}
                         >
                           <h1 className="category__movie-title text-gray-700 font-bold text-base group-hover:underline">
-                            {movie.original_title.length > 22
-                              ? movie.original_title
-                                  .substring(0, 22)
-                                  .concat(" ...")
-                              : movie.original_title}
+                            {movie.title.length > 22
+                              ? movie.title.substring(0, 22).concat(" ...")
+                              : movie.title}
                           </h1>
                           <span className="category__movie-date text-xs text-gray-600">
                             {movie.release_date?.split("-")[0] ?? ""}

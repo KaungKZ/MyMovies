@@ -97,7 +97,7 @@ export default function Home(props) {
           return (
             <div key={index}>
               <Link href={`/movie/${movie.id}`}>
-                <a>{movie.original_title}</a>
+                <a>{movie.title}</a>
               </Link>
             </div>
           );
@@ -110,7 +110,7 @@ export default function Home(props) {
           return (
             <div key={index}>
               <Link href={`/movie/${movie.id}`}>
-                <a>{movie.original_title}</a>
+                <a>{movie.title}</a>
               </Link>
             </div>
           );

@@ -72,7 +72,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 src={tmdbData.img.src}
                 width="325px"
                 height="500"
-                alt={tmdbData.original_title}
+                alt={tmdbData.title}
                 className="object-cover rounded-lg"
               />
             </div>
@@ -81,7 +81,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               src={`https://image.tmdb.org/t/p/original${tmdbData.poster_path}`}
               width="325px"
               height="500"
-              alt={tmdbData.original_title}
+              alt={tmdbData.title}
               className="object-cover rounded-lg"
             />
           )}
@@ -92,7 +92,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
         <div className="detail__content flex-1 max-w-lg">
           {/* <div className="detail__title-wrapper flex items-center font-bold font-secondary text-3xl"> */}
           <h1 className="detail__title mr-2 text-4xl font-bold text-gray-700 mb-1">
-            {tmdbData.original_title}
+            {tmdbData.title}
             <span className="detail__date ml-2 text-base">{`(${
               ytxData ? tmdbData.release_date.split("-")[0] : getFullDate()
             })`}</span>
