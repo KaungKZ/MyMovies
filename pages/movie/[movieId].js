@@ -18,7 +18,7 @@ export default function index(props) {
 
   const router = useRouter();
 
-  console.log(props.data.similarRes.data);
+  // console.log(props.data.similarRes.data);
 
   // if (router.isFallback) {
   //   return <div>Loading...</div>;

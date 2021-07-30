@@ -37,7 +37,7 @@ export default function HomeMovieCategories(props) {
     // console.log(swiper);
     if (swiper) {
       // console.log("yes");
-      swiper.slideToLoop(0);
+      swiper.slideToLoop(0, 0, false);
     }
 
     // swiperRef.current?.swiper.toSlide(0, 1, false);
@@ -174,33 +174,36 @@ export default function HomeMovieCategories(props) {
                     >
                       <a>
                         <div className="category__movie-banner overflow-hidden rounded relative">
-                          {movie.img.blurDataURL ? (
-                            <div className="category__movie-canvas relative block h-[340px] transform group-hover:scale-110 transition duration-500">
-                              <BlurhashCanvas
-                                punch={1}
-                                hash={movie.img.blurDataURL.hash}
-                                width={movie.img.blurDataURL.height}
-                                height={movie.img.blurDataURL.width}
-                                className="absolute left-0 top-0 w-full h-full inset-0"
-                              />
+                          {/* {movie.img.blurDataURL ? ( */}
+                          <div className="category__movie-canvas relative block h-[340px] transform group-hover:scale-110 transition duration-500">
+                            <BlurhashCanvas
+                              punch={1}
+                              hash={movie.img.blurDataURL.hash}
+                              width={movie.img.blurDataURL.height}
+                              height={movie.img.blurDataURL.width}
+                              className="absolute left-0 top-0 w-full h-full inset-0"
+                            />
 
-                              <Image
-                                src={movie.img.src}
-                                width="auto"
-                                height="340"
-                                // alt={movie.title}
-                                className="object-cover"
-                              />
-                            </div>
-                          ) : (
                             <Image
-                              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                              src={movie.img.src}
                               width="auto"
                               height="340"
                               // alt={movie.title}
                               className="object-cover"
                             />
-                          )}
+                          </div>
+                          {/* )  */}
+
+                          {/* : (
+                            <Image
+                              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                              width="auto"
+                              height="340"
+                              className="object-cover"
+                            />
+                          )
+                          
+                          } */}
                           <figure className="category__effect-zoe">
                             {/* <img src="https://tympanus.net/Development/HoverEffectIdeas/img/25.jpg" alt="img25"/> */}
                             <figcaption>

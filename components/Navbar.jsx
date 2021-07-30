@@ -7,8 +7,10 @@ import axios from "axios";
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [closeResults, setCloseResults] = useState(false);
+  const [closeResults, setCloseResults] = useState(true);
   const resultsRef = useRef();
+
+  console.log(closeResults);
 
   useEffect(() => {
     axios
@@ -70,7 +72,13 @@ export default function Navbar() {
                 type="text"
                 autoComplete="off"
                 value={searchValue}
-                onFocus={() => setCloseResults(false)}
+                onFocus={(e) => {
+                  if (e.target.value === "") {
+                    setCloseResults(true);
+                  } else {
+                    setCloseResults(false);
+                  }
+                }}
                 onChange={(e) => {
                   setSearchValue(e.target.value);
                   setCloseResults(false);
