@@ -1,9 +1,16 @@
 // module.exports = {
 // }
 const { withPlaiceholder } = require("@plaiceholder/next");
+const withPlugins = require("next-compose-plugins");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-module.exports = withPlaiceholder({
+const nextConfig = {
   reactStrictMode: true,
+  future: {
+    webpack5: true,
+  },
   images: {
     domains: ["image.tmdb.org", "yts.mx"],
   },
@@ -16,4 +23,9 @@ module.exports = withPlaiceholder({
 
     return config;
   },
-});
+};
+
+module.exports = withPlugins(
+  [[withPlaiceholder], [withBundleAnalyzer]],
+  nextConfig
+);

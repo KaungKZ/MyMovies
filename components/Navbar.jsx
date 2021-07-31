@@ -10,7 +10,7 @@ export default function Navbar() {
   const [closeResults, setCloseResults] = useState(true);
   const resultsRef = useRef();
 
-  console.log(closeResults);
+  // console.log(closeResults);
 
   useEffect(() => {
     axios

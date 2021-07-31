@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { BlurhashCanvas } from "react-blurhash";
 import Link from "next/link";
@@ -9,12 +9,30 @@ import { StarIcon } from "@heroicons/react/solid";
 import { VideoCameraIcon } from "@heroicons/react/solid";
 import { DownloadIcon } from "@heroicons/react/outline";
 import DetailBgShape from "../public/static/assets/movie-detail-bg-shape.svg";
+import axios from "axios";
+// import Image from "next/image";
 
 export default function MovieDetail({ tmdbData, ytxData }) {
   // const [tmdbData] = useState(data.data.res);
   // const [ytxData] = useState(data.data.ytxData);
+  // const router = useRouter();
+  // const [movieId] = useState(router.query.movieId.split("-").slice(-1));
+  // const [movieImages, setMovieImages] = useState();
+  // const [movieId] = context.params.movieId.split("-").slice(-1);
 
   // console.log(tmdbData);
+
+  // console.log(movieId);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=82a18ed118951da924967971e5b70de4`
+  //     )
+  //     .then((data) => setMovieImages(data.data));
+  // }, []);
+
+  // console.log(movieImages);
   // console.log(ytxData.data.movies[0]);
 
   function removeDuplicate() {
@@ -48,6 +66,17 @@ export default function MovieDetail({ tmdbData, ytxData }) {
     const now = new Date(tmdbData.release_date);
 
     return `${months[now.getMonth()]} ${now.getDate()} ${now.getFullYear()}`;
+  }
+
+  function renderYtsMovieDetail() {
+    return (
+      <iframe
+        src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3`}
+        className="h-60 w-96"
+      >
+        Youtube
+      </iframe>
+    );
   }
 
   // console.log(removeDuplicate());
@@ -162,14 +191,54 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           )}
         </div>
       </div>
-      <div className="trailer">
-        <div className="trailer__title category__title-text font-bold font-secondary text-3xl text-gray-700 underline flex items-center">
-          <h1>Watch trailer</h1>
-          <span>
-            <VideoCameraIcon className="w-5 h-5 text-green-500" />
-          </span>
+      <div className="trailer w-4/5 mx-auto">
+        <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20">
+          <div className="category-title-wrapper relative">
+            <div className="flex items-center">
+              <h1 className="captalize text-3xl underline font-bold font-secondary">
+                Watch trailer
+              </h1>
+              <span>
+                <VideoCameraIcon className="w-7 h-7 text-green-500 ml-3" />
+              </span>
+            </div>
+
+            <div
+              // className="category__title-bg"
+              className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
+            >
+              <Image
+                src="/static/assets/section-title-bg-shape.png"
+                width="143.38"
+                height="130.21"
+                placeholder="blur"
+                alt="category title background shape"
+              />
+            </div>
+          </div>
         </div>
-        <div className="trailter__content"></div>
+        <div className="trailer__content flex justify-between">
+          <div className="trailer__video mr-5">{renderYtsMovieDetail()}</div>
+          <div className="trailer__banners mr-5 h-60">
+            <Image
+              src={`https://image.tmdb.org/t/p/original${tmdbData.backdrop_path}`}
+              width="auto"
+              height="240"
+              className="object-cover"
+            />
+          </div>
+          <div className="trailer__banners h-60">
+            <Image
+              src={`https://image.tmdb.org/t/p/original${
+                tmdbData.belongs_to_collection?.backdrop_path ??
+                tmdbData.poster_path
+              }`}
+              width="auto"
+              height="240"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
     </>
   );

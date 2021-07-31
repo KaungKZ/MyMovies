@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import Error from "next/error";
 import MovieDetail from "../../components/MovieDetail";
 import { getPlaiceholder } from "plaiceholder";
 import Head from "next/head";
 import HomeMovieCategories from "../../components/HomeMovieCategories";
+import { useRouter } from "next/router";
+
+// import { useRouter } from "next/router";
 
 export default function index(props) {
+  const router = useRouter();
+
   // const [isLoading, setIsLoading] = useState(true);
   // const [data, setData] = useState();
   // if (props.errorCode) {
@@ -16,22 +20,10 @@ export default function index(props) {
 
   // console.log(props);
 
-  const router = useRouter();
-
-  // console.log(props.data.similarRes.data);
+  // console.log(props.data.similarRes);
 
   // if (router.isFallback) {
   //   return <div>Loading...</div>;
-  // }
-
-  // function renderYtsMovieDetail() {
-  //   return (
-  //     <a
-  //       href={`https://www.youtube.com/embed/${props.data.ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3`}
-  //     >
-  //       Youtube
-  //     </a>
-  //   );
   // }
 
   // console.log(router.query.movieId.split("-"));
@@ -50,11 +42,13 @@ export default function index(props) {
       ) : (
         "Detail not found"
       )}
-
-      <HomeMovieCategories
-        data={props.data.similarRes.data}
-        title="Similiar Movies"
-      ></HomeMovieCategories>
+      {props.data.similarRes && (
+        <HomeMovieCategories
+          data={props.data.similarRes.data}
+          title="Similiar Movies"
+          noNotFound={true}
+        ></HomeMovieCategories>
+      )}
     </>
   );
 }
@@ -94,15 +88,23 @@ export async function getStaticPaths() {
 // }
 
 export async function getStaticProps(context) {
-  const movieId = context.params.movieId.split("-").slice(-1);
+  const [movieId] = context.params.movieId.split("-").slice(-1);
 
-  // console.log(movieId);
+  // console.log(process.env.API_KEY);
 
   const urls = [
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`,
     // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`,
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.API_KEY}&language=en-US&page=1`,
   ];
+
+  // axios
+  //   .get(
+  //     `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`
+  //   )
+  //   .then((data) => {
+  //     console.log(data.data.results);
+  //   });
 
   // const _data = data.data.results ? data.data.results : [data.data];
   const [detailRes, similarRes] = await Promise.all(
@@ -131,14 +133,15 @@ export async function getStaticProps(context) {
       data[0].success === false
         ? null
         : { success: data[0].success, ...data[0].data[0] };
-    const similar = data[1].success === false ? null : data[1];
+    const similar =
+      data[1].success === false || !data[1].data.length ? null : data[1];
 
     // console.log(movieId, similar.data);
 
     return [detail, similar];
   });
 
-  console.log(detailRes);
+  // console.log(similarRes);
 
   // https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1
   // const res = await axios
