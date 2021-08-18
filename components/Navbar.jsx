@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.svg";
 import { SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import Image from "next/image";
+// import Link from "next/link";
+
 import axios from "axios";
 
 export default function Navbar() {
@@ -89,15 +92,50 @@ export default function Navbar() {
             </label>
             {!closeResults && (
               <div
-                className="search-results absolute top-[50px] left-0 bg-green-50 rounded p-4 w-full"
+                className="results absolute top-[50px] left-0 bg-gray-50 rounded p-4 w-full shadow-lg"
                 ref={resultsRef}
               >
                 {searchResults.length > 0 ? (
                   <ul>
-                    {searchResults.slice(0, 10).map((r, i) => {
+                    {searchResults.slice(0, 5).map((r, i) => {
+                      console.log(r);
                       return (
-                        <li key={i} className="p-1">
-                          <a href="#">{r.title}</a>
+                        <li key={i} className="p-1 results__li">
+                          <Link
+                            href={`/movie/[movieId]`}
+                            as={`/movie/${r.title}-${r.id}`}
+                          >
+                            <a className="flex">
+                              {r.poster_path ? (
+                                <div className="results__photo w-[70px] h-[80px]">
+                                  <Image
+                                    src={`https://image.tmdb.org/t/p/original${r.poster_path}`}
+                                    width="70"
+                                    height="80"
+                                    alt={r.title}
+                                    className="object-cover rounded-lg"
+                                    placeholder="blur"
+                                    blurDataURL={`/_next/image?url=https://image.tmdb.org/t/p/original${r.poster_path}&w=17&q=1`}
+                                  />
+                                </div>
+                              ) : (
+                                <div className="rounded-lg bg-gray-100 w-[70px] h-[80px] mr-4" />
+                              )}
+                              <div className="results__detail ml-4 flex-1">
+                                <h3
+                                  className="font-medium text-base"
+                                  title={r.title}
+                                >
+                                  {r.title.length > 40
+                                    ? r.title.substring(40, 0).concat(" ...")
+                                    : r.title}
+                                </h3>
+                                <span className="text-sm">
+                                  {r.release_date?.split("-")[0] ?? ""}
+                                </span>
+                              </div>
+                            </a>
+                          </Link>
                         </li>
                       );
                     })}

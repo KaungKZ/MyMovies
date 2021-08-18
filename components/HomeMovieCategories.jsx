@@ -176,16 +176,9 @@ export default function HomeMovieCategories(props) {
                       className="group category__swiperslide"
                     >
                       <Link
-                        // onClick={() =>
-                        //   router.push({
-                        //     pathname: `movie/${movie.id}`,
-                        //     query: { title: movie.title },
-                        //   })
-                        // }
-                        // href={`/movie/${movie.title}-${movie.id}`}
                         href={`/movie/[movieId]`}
+                        // href={`/movie/${movie.title}-${movie.id}`}
                         as={`/movie/${movie.title}-${movie.id}`}
-                        // onClick={() => refreshData()}
                       >
                         <a>
                           <div className="category__movie-banner overflow-hidden rounded relative">

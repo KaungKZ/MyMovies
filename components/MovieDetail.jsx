@@ -72,7 +72,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
     return (
       <iframe
         src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3`}
-        className="h-60 w-96"
+        className="h-60 w-full"
       >
         Youtube
       </iframe>
@@ -191,55 +191,60 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           )}
         </div>
       </div>
-      <div className="trailer w-4/5 mx-auto">
-        <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20">
-          <div className="category-title-wrapper relative">
-            <div className="flex items-center">
-              <h1 className="captalize text-3xl underline font-bold font-secondary">
-                Watch trailer
-              </h1>
-              <span>
-                <VideoCameraIcon className="w-7 h-7 text-green-500 ml-3" />
-              </span>
-            </div>
+      {ytxData && (
+        <div className="trailer w-4/5 mx-auto">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20">
+            <div className="category-title-wrapper relative">
+              <div className="flex items-center">
+                <h1 className="captalize text-3xl underline font-bold font-secondary">
+                  Watch trailer
+                </h1>
+                <span>
+                  <VideoCameraIcon className="w-7 h-7 text-green-500 ml-3" />
+                </span>
+              </div>
 
-            <div
-              // className="category__title-bg"
-              className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
-            >
+              <div
+                // className="category__title-bg"
+                className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
+              >
+                <Image
+                  src="/static/assets/section-title-bg-shape.png"
+                  width="143.38"
+                  height="130.21"
+                  placeholder="blur"
+                  alt="category title background shape"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="trailer__content flex justify-between">
+            <div className="trailer__video mr-5 w-2/6">
+              {renderYtsMovieDetail()}
+            </div>
+            <div className="trailer__banners mr-5 h-60 w-2/6 relative">
               <Image
-                src="/static/assets/section-title-bg-shape.png"
-                width="143.38"
-                height="130.21"
-                placeholder="blur"
-                alt="category title background shape"
+                src={`https://image.tmdb.org/t/p/original${tmdbData.backdrop_path}`}
+                layout="fill"
+                objectFit="cover"
+                className=""
+                style={{ width: "100%", height: "unset" }}
+              />
+            </div>
+            <div className="trailer__banners h-60 w-2/6 relative">
+              <Image
+                src={`https://image.tmdb.org/t/p/original${
+                  tmdbData.belongs_to_collection?.backdrop_path ??
+                  tmdbData.poster_path
+                }`}
+                layout="fill"
+                objectFit="cover"
+                style={{ width: "100%", height: "unset" }}
               />
             </div>
           </div>
         </div>
-        <div className="trailer__content flex justify-between">
-          <div className="trailer__video mr-5">{renderYtsMovieDetail()}</div>
-          <div className="trailer__banners mr-5 h-60">
-            <Image
-              src={`https://image.tmdb.org/t/p/original${tmdbData.backdrop_path}`}
-              width="auto"
-              height="240"
-              className="object-cover"
-            />
-          </div>
-          <div className="trailer__banners h-60">
-            <Image
-              src={`https://image.tmdb.org/t/p/original${
-                tmdbData.belongs_to_collection?.backdrop_path ??
-                tmdbData.poster_path
-              }`}
-              width="auto"
-              height="240"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </div>
+      )}
     </>
   );
 }
