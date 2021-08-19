@@ -170,7 +170,7 @@
 
 .results {
   &__detail {
-    max-width: 60%;
+    // max-width: 60%;
   }
 
   &__photo {
@@ -197,4 +197,8 @@
       @include key_frame();
     }
   }
+}
+
+.download {
+  z-index: 101;
 }

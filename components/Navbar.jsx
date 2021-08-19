@@ -3,6 +3,8 @@ import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.s
 import { SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
 // import Link from "next/link";
 
 import axios from "axios";
@@ -12,6 +14,15 @@ export default function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
   const [closeResults, setCloseResults] = useState(true);
   const resultsRef = useRef();
+  const router = useRouter();
+
+  useEffect(() => {
+    // console.log(router.asPath);
+    if (router.asPath) {
+      // setSearchResults([]);
+      setCloseResults(true);
+    }
+  }, [router.asPath]);
 
   // console.log(closeResults);
 
@@ -119,7 +130,7 @@ export default function Navbar() {
                                   />
                                 </div>
                               ) : (
-                                <div className="rounded-lg bg-gray-100 w-[70px] h-[80px] mr-4" />
+                                <div className="rounded-lg bg-gray-100 w-[70px] h-[80px]" />
                               )}
                               <div className="results__detail ml-4 flex-1">
                                 <h3
@@ -130,7 +141,7 @@ export default function Navbar() {
                                     ? r.title.substring(40, 0).concat(" ...")
                                     : r.title}
                                 </h3>
-                                <span className="text-sm">
+                                <span className="text-sm text-gray-500">
                                   {r.release_date?.split("-")[0] ?? ""}
                                 </span>
                               </div>
@@ -147,7 +158,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <nav className="navbar__nav flex text-gray-500 ">
+          <nav className="navbar__nav flex text-gray-400 ">
             <Link href={`/`}>
               <a className="navbar__link mr-4">Trending</a>
             </Link>

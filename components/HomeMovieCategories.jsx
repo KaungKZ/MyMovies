@@ -44,16 +44,18 @@ export default function HomeMovieCategories(props) {
     // }
   }, [props]);
 
+  // console.log(props);
+
   useEffect(() => {
-    if (swiper && props) {
+    if (swiper?.params && props) {
       swiper.slideToLoop(0, 0, false);
     }
   }, [props, swiper]);
 
-  const refreshData = () => {
-    console.log("refreshings");
-    router.replace(router.asPath);
-  };
+  // const refreshData = () => {
+  //   console.log("refreshings");
+  //   router.replace(router.asPath);
+  // };
 
   // useEffect(() => {
   //   refreshData();
@@ -119,7 +121,7 @@ export default function HomeMovieCategories(props) {
             </div>
           </div>
         </div>
-        <div className="category__swiper relative mt-20">
+        <div className="category__swiper relative mt-14">
           {movieData.data ? (
             <>
               <Swiper
@@ -194,10 +196,9 @@ export default function HomeMovieCategories(props) {
 
                               <Image
                                 src={movie.img.src}
-                                width="auto"
-                                height="340"
+                                layout="fill"
                                 // alt={movie.title}
-                                className="object-cover"
+                                className="object-cover w-full"
                               />
                             </div>
                             {/* )  */}

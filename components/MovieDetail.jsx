@@ -14,26 +14,14 @@ import axios from "axios";
 
 export default function MovieDetail({ tmdbData, ytxData }) {
   // const [tmdbData] = useState(data.data.res);
-  // const [ytxData] = useState(data.data.ytxData);
-  // const router = useRouter();
-  // const [movieId] = useState(router.query.movieId.split("-").slice(-1));
-  // const [movieImages, setMovieImages] = useState();
-  // const [movieId] = context.params.movieId.split("-").slice(-1);
 
-  // console.log(tmdbData);
+  function handleDownloadOpen() {
+    document.body.classList.add("portal-open");
+  }
 
-  // console.log(movieId);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=82a18ed118951da924967971e5b70de4`
-  //     )
-  //     .then((data) => setMovieImages(data.data));
-  // }, []);
-
-  // console.log(movieImages);
-  // console.log(ytxData.data.movies[0]);
+  function handleDownloadClose() {
+    document.body.classList.remove("portal-open");
+  }
 
   function removeDuplicate() {
     var result = ytxData.data.movies[0].torrents.reduce((unique, o) => {
@@ -47,6 +35,8 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
     return result;
   }
+
+  // console.log(tmdbData, ytxData);
 
   function getFullDate() {
     const months = [
@@ -71,11 +61,14 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   function renderYtsMovieDetail() {
     return (
       <iframe
-        src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=1&iv_load_policy=3`}
         className="h-60 w-full"
-      >
-        Youtube
-      </iframe>
+        src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=1&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
+        frameborder="0"
+      />
+      // <embed
+      //   src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
+      //   className="h-60 w-full"
+      // />
     );
   }
 
@@ -86,45 +79,51 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   return (
     <>
       <div className="detail w-3/4 mx-auto my-20 flex justify-between">
-        <div className="detail__image-wrapper w-[325px] text-0 relative mr-16">
-          {tmdbData.img.blurDataURL ? (
-            <div className="category__movie-canvas relative">
-              <BlurhashCanvas
-                punch={1}
-                hash={tmdbData.img.blurDataURL.hash}
-                width={tmdbData.img.blurDataURL.height}
-                height={tmdbData.img.blurDataURL.width}
-                className="absolute left-0 top-0 h-full w-full inset-0 rounded-lg"
-              />
+        {tmdbData.poster_path ? (
+          <div className="detail__image-wrapper w-[325px] text-0 relative mr-16">
+            {tmdbData.img.blurDataURL ? (
+              <div className="category__movie-canvas relative">
+                <BlurhashCanvas
+                  punch={1}
+                  hash={tmdbData.img.blurDataURL.hash}
+                  width={tmdbData.img.blurDataURL.height}
+                  height={tmdbData.img.blurDataURL.width}
+                  className="absolute left-0 top-0 h-full w-full inset-0 rounded-lg"
+                />
 
+                <Image
+                  src={tmdbData.img.src}
+                  width="325px"
+                  height="500"
+                  alt={tmdbData.title}
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            ) : (
               <Image
-                src={tmdbData.img.src}
+                src={`https://image.tmdb.org/t/p/original${tmdbData.poster_path}`}
                 width="325px"
                 height="500"
                 alt={tmdbData.title}
                 className="object-cover rounded-lg"
               />
-            </div>
-          ) : (
-            <Image
-              src={`https://image.tmdb.org/t/p/original${tmdbData.poster_path}`}
-              width="325px"
-              height="500"
-              alt={tmdbData.title}
-              className="object-cover rounded-lg"
-            />
-          )}
-          <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1" />
-          <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1" />
-        </div>
+            )}
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1" />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1" />
+          </div>
+        ) : (
+          <div>There is no image for this movie</div>
+        )}
 
         <div className="detail__content flex-1 max-w-lg">
           {/* <div className="detail__title-wrapper flex items-center font-bold font-secondary text-3xl"> */}
           <h1 className="detail__title mr-2 text-4xl font-bold text-gray-700 mb-1">
             {tmdbData.title}
-            <span className="detail__date ml-2 text-base">{`(${
-              ytxData ? tmdbData.release_date.split("-")[0] : getFullDate()
-            })`}</span>
+            {(tmdbData.release_date !== "" || tmdbData.release_date) && (
+              <span className="detail__date ml-2 text-base">{`(${
+                ytxData ? tmdbData.release_date.split("-")[0] : getFullDate()
+              })`}</span>
+            )}
           </h1>
 
           {/* </div> */}
@@ -169,7 +168,12 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                   <StarIcon className="w-4 h-4 ml-1 text-green-500" />
                 </span>
               </div>
-              <PortalWithState closeOnOutsideClick closeOnEsc>
+              <PortalWithState
+                closeOnOutsideClick
+                closeOnEsc
+                onOpen={handleDownloadOpen}
+                onClose={handleDownloadClose}
+              >
                 {({ openPortal, closePortal, isOpen, portal }) => (
                   <>
                     <button
@@ -182,7 +186,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                       </span>
                     </button>
 
-                    {portal(<DownloadPopup></DownloadPopup>)}
+                    {portal(<DownloadPopup isOpen={isOpen}></DownloadPopup>)}
                   </>
                 )}
               </PortalWithState>
@@ -192,7 +196,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
         </div>
       </div>
       {ytxData && (
-        <div className="trailer w-4/5 mx-auto">
+        <div className="trailer w-4/5 mx-auto pb-10">
           <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">

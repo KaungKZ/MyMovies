@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { useEffect, useState } from "react";
+// import Head from "next/head";
+// import { useEffect, useState } from "react";
 import axios from "axios";
 import Error from "next/error";
 import HomeHeader from "../components/HomeHeader";
