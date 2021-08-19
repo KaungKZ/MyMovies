@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.svg";
-import { SearchIcon } from "@heroicons/react/outline";
+import { SearchIcon, ChevronDownIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -13,8 +13,17 @@ export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [closeResults, setCloseResults] = useState(true);
+  const [sliceNumber, setSliceNumber] = useState(5);
   const resultsRef = useRef();
   const router = useRouter();
+
+  console.log(sliceNumber, searchResults.length);
+
+  useEffect(() => {
+    if (closeResults) {
+      setSliceNumber(5);
+    }
+  }, [closeResults]);
 
   useEffect(() => {
     // console.log(router.asPath);
@@ -55,6 +64,13 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [resultsRef]);
+
+  function handleOnClickMore() {
+    // setSearchResults(searchResults.splice(0, 10));
+    setSliceNumber((val) => val + 5);
+  }
+
+  // console.log(searchResults);
 
   // console.log(searchResults.slice(0, 10));
   // console.log(closeResults);
@@ -103,15 +119,18 @@ export default function Navbar() {
             </label>
             {!closeResults && (
               <div
-                className="results absolute top-[50px] left-0 bg-gray-50 rounded p-4 w-full shadow-lg"
+                className="results absolute top-[50px] left-0 bg-gray-50 rounded p-4 w-full shadow-lg z-100"
                 ref={resultsRef}
               >
                 {searchResults.length > 0 ? (
                   <ul>
-                    {searchResults.slice(0, 5).map((r, i) => {
-                      console.log(r);
+                    {searchResults.slice(0, sliceNumber).map((r, i) => {
+                      // console.log(r);
                       return (
-                        <li key={i} className="p-1 results__li">
+                        <li
+                          key={i}
+                          className="p-1 results__li rounded-lg hover:bg-gray-100 transition duration-300"
+                        >
                           <Link
                             href={`/movie/[movieId]`}
                             as={`/movie/${r.title}-${r.id}`}
@@ -150,6 +169,18 @@ export default function Navbar() {
                         </li>
                       );
                     })}
+
+                    {/* .slice(0, 5) */}
+                    {searchResults.length > 5 && sliceNumber < 10 && (
+                      <li className="results__li flex justify-center items-center transition duration-300 hover:bg-gray-200 rounded mt-1.5 text-center">
+                        <button
+                          className="w-full py-1 flex justify-center"
+                          onClick={handleOnClickMore}
+                        >
+                          <ChevronDownIcon className="w-4 h-4" />
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   "No results"
@@ -158,7 +189,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <nav className="navbar__nav flex text-gray-400 ">
+          <nav className="navbar__nav flex text-gray-500 ">
             <Link href={`/`}>
               <a className="navbar__link mr-4">Trending</a>
             </Link>

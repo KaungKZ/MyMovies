@@ -128,7 +128,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
           {/* </div> */}
           {ytxData && (
-            <div className="detail__duration flex items-center text-base text-gray-600 mb-8">
+            <div className="detail__duration flex items-center text-base text-gray-600">
               <span>
                 <ClockIcon className="w-5 h-5 text-green-500 mr-1"></ClockIcon>
               </span>
@@ -138,7 +138,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
             </div>
           )}
 
-          <div className="detail__summary text-base mb-8 text-gray-700">
+          <div className="detail__summary text-base my-8 text-gray-700">
             {tmdbData.overview}
           </div>
           {ytxData && (
