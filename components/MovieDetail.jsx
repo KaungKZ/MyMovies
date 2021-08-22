@@ -63,7 +63,6 @@ export default function MovieDetail({ tmdbData, ytxData }) {
       <iframe
         className="h-60 w-full"
         src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=1&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
-        frameborder="0"
       />
       // <embed
       //   src={`https://www.youtube.com/embed/${ytxData.data.movies[0].yt_trailer_code}?rel=0&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
@@ -78,9 +77,9 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between">
+      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] text-0 relative mr-16">
+          <div className="detail__image-wrapper w-[325px] text-0 relative mr-16 xl:mr-24 lg:w-[300px]">
             {tmdbData.img.blurDataURL ? (
               <div className="category__movie-canvas relative">
                 <BlurhashCanvas
@@ -96,7 +95,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                   width="325px"
                   height="500"
                   alt={tmdbData.title}
-                  className="object-cover rounded-lg"
+                  className="object-cover rounded-lg detail__poster"
                 />
               </div>
             ) : (
@@ -105,7 +104,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 width="325px"
                 height="500"
                 alt={tmdbData.title}
-                className="object-cover rounded-lg"
+                className="object-cover rounded-lg detail__poster"
               />
             )}
             <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1" />
@@ -117,7 +116,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
         <div className="detail__content flex-1 max-w-lg">
           {/* <div className="detail__title-wrapper flex items-center font-bold font-secondary text-3xl"> */}
-          <h1 className="detail__title mr-2 text-4xl font-bold text-gray-700 mb-1">
+          <h1 className="detail__title mr-2 text-4xl font-bold text-gray-700 mb-1 lg:text-3xl">
             {tmdbData.title}
             {(tmdbData.release_date !== "" || tmdbData.release_date) && (
               <span className="detail__date ml-2 text-base">{`(${
@@ -196,8 +195,8 @@ export default function MovieDetail({ tmdbData, ytxData }) {
         </div>
       </div>
       {ytxData && (
-        <div className="trailer w-4/5 mx-auto pb-10">
-          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20">
+        <div className="trailer mx-auto pb-10">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">
                 <h1 className="captalize text-3xl underline font-bold font-secondary">
@@ -222,7 +221,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               </div>
             </div>
           </div>
-          <div className="trailer__content flex justify-between">
+          <div className="trailer__content flex justify-between w-4/5 mx-auto lg:w-11/12">
             <div className="trailer__video mr-5 w-2/6">
               {renderYtsMovieDetail()}
             </div>

@@ -95,7 +95,7 @@ export default function HomeMovieCategories(props) {
     <>
       {/* {refreshData()} */}
 
-      <div className="category mt-20 mb-28">
+      <div className="category mt-20 lg:mt-16">
         <div className="category__title w-4/5 mx-auto">
           <div className="category-title-wrapper relative">
             <div className="flex items-center">
@@ -121,7 +121,7 @@ export default function HomeMovieCategories(props) {
             </div>
           </div>
         </div>
-        <div className="category__swiper relative mt-14">
+        <div className="category__swiper relative mt-14 lg:mt-10">
           {movieData.data ? (
             <>
               <Swiper
@@ -132,30 +132,42 @@ export default function HomeMovieCategories(props) {
                     slidesPerView: 1,
                     spaceBetween: 10,
                     slidesPerGroup: 1,
+                    allowTouchMove: true,
                   },
                   320: {
                     slidesPerView: 2,
                     spaceBetween: 20,
                     slidesPerGroup: 2,
+                    allowTouchMove: true,
                   },
                   600: {
                     slidesPerView: 3,
-                    spaceBetween: 40,
+                    spaceBetween: 20,
                     slidesPerGroup: 3,
+                    allowTouchMove: true,
+                  },
+
+                  956: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                    slidesPerGroup: 4,
+                    allowTouchMove: true,
                   },
                   1024: {
                     slidesPerView: 4,
                     spaceBetween: 50,
                     slidesPerGroup: 4,
+                    allowTouchMove: true,
                   },
                   1280: {
                     slidesPerView: 5,
                     spaceBetween: 80,
                     slidesPerGroup: 5,
+                    allowTouchMove: false,
                   },
                 }}
                 loop={true}
-                allowTouchMove={false}
+                // allowTouchMove={false}
                 pagination={true}
                 speed={800}
                 // navigation={true}
@@ -185,7 +197,7 @@ export default function HomeMovieCategories(props) {
                         <a>
                           <div className="category__movie-banner overflow-hidden rounded relative">
                             {/* {movie.img.blurDataURL ? ( */}
-                            <div className="category__movie-canvas relative block h-[340px] transform group-hover:scale-110 transition duration-500">
+                            <div className="category__movie-canvas relative block h-[340px] xl:h-[360px] lg:h-[380px] transform group-hover:scale-110 transition duration-500">
                               <BlurhashCanvas
                                 punch={1}
                                 hash={movie.img.blurDataURL.hash}
@@ -251,7 +263,7 @@ export default function HomeMovieCategories(props) {
                 })}
                 {/* </div> */}
                 <div className="swiper-navigation-wrapper">
-                  <div className="swiper-navigation-prev swiper-navigation-btn left-5">
+                  <div className="swiper-navigation-prev swiper-navigation-btn left-5 xl:right-7">
                     <ChevronLeftIcon className="h-6 w-6 text-white transition duration-300" />
                   </div>
                   <div className="swiper-navigation-next absolute swiper-navigation-btn right-5">

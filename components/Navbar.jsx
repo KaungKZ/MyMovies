@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavbarTitleBgShape from "../public/static/assets/website-title-bg-shape.svg";
-import { SearchIcon, ChevronDownIcon } from "@heroicons/react/outline";
+import {
+  SearchIcon,
+  ChevronDownIcon,
+  // MenuAlt3Icon,
+} from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -17,7 +21,7 @@ export default function Navbar() {
   const resultsRef = useRef();
   const router = useRouter();
 
-  console.log(sliceNumber, searchResults.length);
+  // console.log(sliceNumber, searchResults.length);
 
   useEffect(() => {
     if (closeResults) {
@@ -77,7 +81,7 @@ export default function Navbar() {
 
   return (
     <div className="navbar h-28 shadow-emerald bg-lightGray">
-      <div className="navbar__content flex w-4/5 justify-between items-center m-auto h-full">
+      <div className="navbar__content flex w-4/5 xl:w-11/12 justify-between items-center m-auto h-full">
         <div className="navbar__title relative">
           <Link href={`/`}>
             <a className="navbar__title-link text-gray-600 text-2xl relative z-10">
@@ -189,7 +193,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <nav className="navbar__nav flex text-gray-500 ">
+          <nav className="navbar__nav flex text-gray-500 lg:hidden">
             <Link href={`/`}>
               <a className="navbar__link mr-4">Trending</a>
             </Link>
@@ -211,6 +215,32 @@ export default function Navbar() {
             </a> */}
           </nav>
         </div>
+        {/* <div className="navbar-sm hidden lg:block fixed top-40 right-[4.1666665%] z-100">
+          <MenuAlt3Icon className="w-8 h-8" />
+        </div> */}
+      </div>
+      <div className="navbarSm hidden lg:block">
+        <nav className="navbarSm__nav flex text-gray-500 ">
+          <Link href={`/`}>
+            <a className="navbarSm__link mr-4">Trending</a>
+          </Link>
+          <Link href={`/`}>
+            <a className="navbarSm__link mr-4">Popular</a>
+          </Link>
+          <Link href={`/`}>
+            <a className="navbarSm__link mr-4">Upcoming</a>
+          </Link>
+          <Link href={`/`}>
+            <a className="navbarSm__link">Top Rated</a>
+          </Link>
+
+          {/* <a className="navbar__link mr-4" href="#">
+              Upcoming
+            </a>
+            <a className="navbar__link" href="#">
+              Top Rated
+            </a> */}
+        </nav>
       </div>
     </div>
   );

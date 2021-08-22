@@ -202,3 +202,111 @@
 .download {
   z-index: 101;
 }
+
+@media (max-width: 1280px) {
+  .category {
+    &__myswiper {
+      .swiper-wrapper {
+        padding-bottom: 90px;
+      }
+      .swiper-navigation-wrapper {
+        // display: none;
+
+        .swiper-navigation-btn {
+          pointer-events: all;
+          opacity: 1;
+          top: calc(100% - 50px);
+          box-shadow: none;
+          height: 50px;
+        }
+
+        .swiper-navigation-prev {
+          left: calc(100% - 135px);
+        }
+      }
+    }
+
+    &__movie-date {
+      font-size: 14px;
+    }
+
+    &__movie-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    &__title-text {
+      font-size: 2.8rem;
+    }
+  }
+  .navbar {
+    &__title-link {
+      font-size: 1.3rem;
+    }
+  }
+  // .navbar {
+  //   &__nav {
+  //     flex-direction: column;
+  //     position: absolute;
+  //     right: 4.1666665%;
+  //     top: 0;
+  //     height: 100vh;
+  //     justify-content: space-around;
+  //   }
+  // }
+  .category {
+    &__movie-title {
+      font-size: 1.15rem;
+    }
+    &__myswiper {
+      .swiper-wrapper {
+        padding-bottom: 70px;
+      }
+    }
+
+    &__content-bg-shape {
+      top: 0;
+    }
+
+    &__swiperslide:hover figcaption::before,
+    &__swiperslide:hover &__description {
+      opacity: 0;
+      // -webkit-transform: translate3d(0, 0, 0);
+      // transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 50%, 0);
+      transform: translate3d(0, 50%, 0);
+    }
+
+    // figcaption::before,
+    // &__description {
+    //   opacity: 1;
+    //   -webkit-transform: translate3d(0, 0, 0);
+    //   transform: translate3d(0, 0, 0);
+    // }
+  }
+
+  .detail {
+    &__banner-bg-shape {
+      transform: translate(-50%, -50%) scale(0.9);
+      &:nth-child(2n) {
+        transform: translate(-50%, -50%) scaleX(-1) scale(0.9);
+      }
+    }
+
+    &__poster {
+      width: 300px;
+      height: 475px;
+    }
+  }
+
+  .trailer {
+    &__title {
+      .category-title-wrapper span {
+        margin-bottom: -5px;
+      }
+    }
+  }
+}
