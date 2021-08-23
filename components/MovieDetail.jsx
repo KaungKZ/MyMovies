@@ -77,11 +77,11 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12">
+      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-16 md:mb-8 sm:w-11/12">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] text-0 relative mr-16 xl:mr-24 lg:w-[300px]">
+          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-2/5 sm:h-[350px] sm:mr-6">
             {tmdbData.img.blurDataURL ? (
-              <div className="category__movie-canvas relative">
+              <div className="category__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
                   punch={1}
                   hash={tmdbData.img.blurDataURL.hash}
@@ -92,23 +92,22 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
                 <Image
                   src={tmdbData.img.src}
-                  width="325px"
-                  height="500"
                   alt={tmdbData.title}
+                  layout="fill"
                   className="object-cover rounded-lg detail__poster"
                 />
               </div>
             ) : (
               <Image
                 src={`https://image.tmdb.org/t/p/original${tmdbData.poster_path}`}
-                width="325px"
+                width="325"
                 height="500"
                 alt={tmdbData.title}
                 className="object-cover rounded-lg detail__poster"
               />
             )}
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1" />
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1" />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1 md:hidden " />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1 md:hidden" />
           </div>
         ) : (
           <div>There is no image for this movie</div>
@@ -116,10 +115,10 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
         <div className="detail__content flex-1 max-w-lg">
           {/* <div className="detail__title-wrapper flex items-center font-bold font-secondary text-3xl"> */}
-          <h1 className="detail__title mr-2 text-4xl font-bold text-gray-700 mb-1 lg:text-3xl">
+          <h1 className="detail__title text-4xl font-bold text-gray-700 mb-1 lg:text-3xl md:text-2xl">
             {tmdbData.title}
             {(tmdbData.release_date !== "" || tmdbData.release_date) && (
-              <span className="detail__date ml-2 text-base">{`(${
+              <span className="detail__date ml-2 text-base text-gray-500 font-medium">{`(${
                 ytxData ? tmdbData.release_date.split("-")[0] : getFullDate()
               })`}</span>
             )}
@@ -127,7 +126,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
           {/* </div> */}
           {ytxData && (
-            <div className="detail__duration flex items-center text-base text-gray-600">
+            <div className="detail__duration flex items-center text-base text-gray-600 mb-8">
               <span>
                 <ClockIcon className="w-5 h-5 text-green-500 mr-1"></ClockIcon>
               </span>
@@ -137,29 +136,32 @@ export default function MovieDetail({ tmdbData, ytxData }) {
             </div>
           )}
 
-          <div className="detail__summary text-base my-8 text-gray-700">
+          <div className="detail__summary text-base my-8 text-gray-700 md:hidden">
             {tmdbData.overview}
           </div>
           {ytxData && (
             <>
-              <div className="detail__resolution mb-3 text-gray-600">
-                Available in:
-                {removeDuplicate().map((t, i) => {
-                  return (
-                    <span
-                      key={i}
-                      className="text-green-500 font-medium mr-1.5 last:mr-0 ml-2"
-                    >
-                      {t.quality}
-                    </span>
-                  );
-                })}
+              <div className="detail__resolution mb-3 text-gray-600 flex sm:flex-col">
+                <span>Available in:</span>
+                <div>
+                  {removeDuplicate().map((t, i) => {
+                    return (
+                      <span
+                        key={i}
+                        className="detail__resolution-text text-green-500 font-medium mr-1.5 last:mr-0 ml-2"
+                      >
+                        {t.quality}
+                      </span>
+                    );
+                  })}
+                </div>
+
                 {/* {ytxData.data.movies[0].torrents.map((t, i) => {
                 return <Link href={t.url}>{`${t.quality} (${t.type})`}</Link>;
               })} */}
               </div>
               <div className="detail__voting mb-6 flex items-center text-gray-600">
-                Voting:{" "}
+                <span>Voting:</span>
                 <span className="text-green-500 font-bold ml-2">
                   {tmdbData.vote_average}
                 </span>
@@ -194,12 +196,17 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           )}
         </div>
       </div>
+      <div className="detailSm hidden md:block w-10/12 mx-auto mb-16 sm:w-11/12">
+        <div className="detail__summary text-lg my-8 text-gray-700 sm:text-base">
+          {tmdbData.overview}
+        </div>
+      </div>
       {ytxData && (
         <div className="trailer mx-auto pb-10">
-          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5 md:mb-14">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">
-                <h1 className="captalize text-3xl underline font-bold font-secondary">
+                <h1 className="captalize text-3xl underline font-bold font-secondary md:text-[1.75rem]">
                   Watch trailer
                 </h1>
                 <span>

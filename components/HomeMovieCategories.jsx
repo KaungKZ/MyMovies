@@ -95,11 +95,11 @@ export default function HomeMovieCategories(props) {
     <>
       {/* {refreshData()} */}
 
-      <div className="category mt-20 lg:mt-16">
+      <div className="category mt-20 lg:mt-16 md:mt-8">
         <div className="category__title w-4/5 mx-auto">
           <div className="category-title-wrapper relative">
             <div className="flex items-center">
-              <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline">
+              <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline md:text-[1.75rem] sm:text-2xl">
                 {movieData.title}
               </h1>
               <span className="ml-3 mt-1">
@@ -117,49 +117,50 @@ export default function HomeMovieCategories(props) {
                 height="130.21"
                 placeholder="blur"
                 alt="category title background shape"
+                className="md:scale-90"
               />
             </div>
           </div>
         </div>
-        <div className="category__swiper relative mt-14 lg:mt-10">
+        <div className="category__swiper relative mt-14 lg:mt-10 lg:overflow-hidden">
           {movieData.data ? (
             <>
               <Swiper
                 // ref={swiperRef}
                 onSwiper={(s) => setSwiper(s)}
                 breakpoints={{
-                  280: {
+                  281: {
                     slidesPerView: 1,
                     spaceBetween: 10,
                     slidesPerGroup: 1,
                     allowTouchMove: true,
                   },
-                  320: {
+                  321: {
                     slidesPerView: 2,
                     spaceBetween: 20,
                     slidesPerGroup: 2,
                     allowTouchMove: true,
                   },
-                  600: {
+                  601: {
                     slidesPerView: 3,
                     spaceBetween: 20,
                     slidesPerGroup: 3,
                     allowTouchMove: true,
                   },
 
-                  956: {
+                  957: {
                     slidesPerView: 4,
                     spaceBetween: 20,
                     slidesPerGroup: 4,
                     allowTouchMove: true,
                   },
-                  1024: {
+                  1025: {
                     slidesPerView: 4,
                     spaceBetween: 50,
                     slidesPerGroup: 4,
                     allowTouchMove: true,
                   },
-                  1280: {
+                  1281: {
                     slidesPerView: 5,
                     spaceBetween: 80,
                     slidesPerGroup: 5,
@@ -291,9 +292,9 @@ export default function HomeMovieCategories(props) {
               </div>
             </>
           ) : (
-            <div className="category__notfound h-24 text-lg flex items-center justify-center font-medium text-gray-600">
-              <Notfound className="w-16 h-16 mr-4" /> We couldn't find any
-              movies for you, Please try again later
+            <div className="category__notfound h-24 md:h-28 md:mb-10 text-lg flex items-center justify-center font-medium text-gray-600 md:w-4/5 md:text-center md:flex-col md:mx-auto">
+              <Notfound className="w-16 h-16 mr-4 md:mb-2 md:mr-0" /> We
+              couldn't find any movies for you, Please try again later
             </div>
           )}
 

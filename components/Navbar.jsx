@@ -5,6 +5,12 @@ import {
   ChevronDownIcon,
   // MenuAlt3Icon,
 } from "@heroicons/react/outline";
+import {
+  TrendingUpIcon,
+  FireIcon,
+  ClockIcon,
+  StarIcon,
+} from "@heroicons/react/solid";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -80,11 +86,11 @@ export default function Navbar() {
   // console.log(closeResults);
 
   return (
-    <div className="navbar h-28 shadow-emerald bg-lightGray">
-      <div className="navbar__content flex w-4/5 xl:w-11/12 justify-between items-center m-auto h-full">
+    <div className="navbar h-28 shadow-emerald bg-lightGray lg:shadow-none lg:h-auto">
+      <div className="navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]">
         <div className="navbar__title relative">
           <Link href={`/`}>
-            <a className="navbar__title-link text-gray-600 text-2xl relative z-10">
+            <a className="navbar__title-link text-gray-600 text-2xl relative z-10 lg:text-lg">
               MyMovies
             </a>
           </Link>
@@ -94,7 +100,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="navbar__right-items flex w-8/12 justify-end items-center flex-1">
-          <div className="navbar__search-bar min-w-300 relative mr-10">
+          <div className="navbar__search-bar min-w-300 relative mr-10 lg:mr-0">
             <label
               htmlFor="search"
               className="navbar__label text-gray-500 transition"
@@ -117,13 +123,13 @@ export default function Navbar() {
                   setSearchValue(e.target.value);
                   setCloseResults(false);
                 }}
-                className="navbar__search-input focus:outline-none focus:ring-green-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-green-100 transition rounded-lg text-sm w-full placeholder-gray-400"
+                className="navbar__search-input focus:outline-none focus:ring-green-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-green-100 transition rounded-lg text-base w-full placeholder-gray-400"
                 placeholder="Search Anything .."
               />
             </label>
             {!closeResults && (
               <div
-                className="results absolute top-[50px] left-0 bg-gray-50 rounded p-4 w-full shadow-lg z-100"
+                className="results absolute top-[50px] left-0 bg-lightGray rounded p-4 w-full shadow-lg z-100"
                 ref={resultsRef}
               >
                 {searchResults.length > 0 ? (
@@ -219,19 +225,27 @@ export default function Navbar() {
           <MenuAlt3Icon className="w-8 h-8" />
         </div> */}
       </div>
-      <div className="navbarSm hidden lg:block">
-        <nav className="navbarSm__nav flex text-gray-500 ">
+      <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald">
+        <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
           <Link href={`/`}>
-            <a className="navbarSm__link mr-4">Trending</a>
+            <a className="navbarSm__link mr-2">
+              <TrendingUpIcon className="w-6 h-6" />
+            </a>
           </Link>
           <Link href={`/`}>
-            <a className="navbarSm__link mr-4">Popular</a>
+            <a className="navbarSm__link mr-2">
+              <FireIcon className="w-6 h-6" />
+            </a>
           </Link>
           <Link href={`/`}>
-            <a className="navbarSm__link mr-4">Upcoming</a>
+            <a className="navbarSm__link mr-2">
+              <ClockIcon className="w-6 h-6" />
+            </a>
           </Link>
           <Link href={`/`}>
-            <a className="navbarSm__link">Top Rated</a>
+            <a className="navbarSm__link">
+              <StarIcon className="w-6 h-6" />
+            </a>
           </Link>
 
           {/* <a className="navbar__link mr-4" href="#">
