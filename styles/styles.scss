@@ -368,3 +368,17 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .category {
+    &__title-bg {
+      transform: translateY(-50%) scale(0.75);
+    }
+
+    &__myswiper {
+      .swiper-pagination-bullet {
+        width: 2rem;
+      }
+    }
+  }
+}

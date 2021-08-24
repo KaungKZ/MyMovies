@@ -102,8 +102,8 @@ export default function HomeMovieCategories(props) {
               <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline md:text-[1.75rem] sm:text-2xl">
                 {movieData.title}
               </h1>
-              <span className="ml-3 mt-1">
-                <ArrowNarrowRightIcon className="w-9 h-9 text-green-600" />
+              <span className="ml-3 mt-1 xsm:ml-2">
+                <ArrowNarrowRightIcon className="w-9 h-9 text-green-600 xsm:w-7 xsm:h-7" />
               </span>
             </div>
 
@@ -117,7 +117,6 @@ export default function HomeMovieCategories(props) {
                 height="130.21"
                 placeholder="blur"
                 alt="category title background shape"
-                className="md:scale-90"
               />
             </div>
           </div>

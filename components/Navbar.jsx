@@ -88,7 +88,7 @@ export default function Navbar() {
   return (
     <div className="navbar h-28 shadow-emerald bg-lightGray lg:shadow-none lg:h-auto">
       <div className="navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]">
-        <div className="navbar__title relative">
+        <div className="navbar__title relative xsm:hidden">
           <Link href={`/`}>
             <a className="navbar__title-link text-gray-600 text-2xl relative z-10 lg:text-lg">
               MyMovies
@@ -100,7 +100,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="navbar__right-items flex w-8/12 justify-end items-center flex-1">
-          <div className="navbar__search-bar min-w-300 relative mr-10 lg:mr-0">
+          <div className="navbar__search-bar min-w-300 relative mr-10 lg:mr-0 sm:min-w-3/4 xsm:min-w-full">
             <label
               htmlFor="search"
               className="navbar__label text-gray-500 transition"

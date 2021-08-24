@@ -46,6 +46,7 @@ module.exports = {
       },
       minWidth: {
         300: "300px",
+        "3/4": "75%",
       },
 
       colors: {
@@ -74,6 +75,8 @@ module.exports = {
 
       sm: { max: "600px" },
       // => @media (max-width: 639px) { ... }
+
+      xsm: { max: "480px" },
     },
   },
   variants: {
