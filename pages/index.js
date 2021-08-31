@@ -1,4 +1,4 @@
-// import Head from "next/head";
+import Head from "next/head";
 // import { useEffect, useState } from "react";
 import axios from "axios";
 import Error from "next/error";
@@ -75,6 +75,11 @@ export default function Home(props) {
 
   return (
     <>
+      <Head>
+        <title>My Movies</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:title" content="My Movies" />
+      </Head>
       <HomeHeader></HomeHeader>
       <HomeMovieCategories
         data={props.data.trending}

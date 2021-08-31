@@ -77,9 +77,9 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-16 md:mb-8 sm:w-11/12">
+      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-16 md:mb-8 sm:w-11/12 xsm:flex-col xsm:mt-10">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6">
+          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6 xsm:h-[550px] xsm:w-4/5 xsm:mx-auto xsm:mb-8">
             {tmdbData.img.blurDataURL ? (
               <div className="category__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
@@ -115,7 +115,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
         <div className="detail__content flex-1 max-w-lg">
           {/* <div className="detail__title-wrapper flex items-center font-bold font-secondary text-3xl"> */}
-          <h1 className="detail__title text-4xl font-bold text-gray-700 mb-1 lg:text-3xl md:text-2xl">
+          <h1 className="detail__title text-4xl font-bold text-gray-700 mb-1 lg:text-3xl md:text-2xl xsm:text-3xl">
             {tmdbData.title}
             {(tmdbData.release_date !== "" || tmdbData.release_date) && (
               <span className="detail__date ml-2 text-base text-gray-500 font-medium">{`(${
@@ -126,7 +126,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
 
           {/* </div> */}
           {ytxData && (
-            <div className="detail__duration flex items-center text-base text-gray-600 mb-8">
+            <div className="detail__duration flex items-center text-base text-gray-600 mb-8 xsm:mb-4 xsm:text-sm">
               <span>
                 <ClockIcon className="w-5 h-5 text-green-500 mr-1"></ClockIcon>
               </span>
@@ -141,7 +141,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           </div>
           {ytxData && (
             <>
-              <div className="detail__resolution mb-3 text-gray-600 flex sm:flex-col">
+              <div className="detail__resolution mb-3 text-gray-600 flex sm:flex-col xsm:flex-row">
                 <span>Available in:</span>
                 <div>
                   {removeDuplicate().map((t, i) => {
@@ -197,16 +197,16 @@ export default function MovieDetail({ tmdbData, ytxData }) {
         </div>
       </div>
       <div className="detailSm hidden md:block w-10/12 mx-auto mb-16 sm:w-11/12">
-        <div className="detail__summary text-lg my-8 text-gray-700 sm:text-base">
+        <div className="detail__summary text-lg my-8 text-gray-700">
           {tmdbData.overview}
         </div>
       </div>
       {ytxData && (
         <div className="trailer mx-auto pb-10">
-          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5 md:mb-14">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5 md:mb-14 xsm:mb-10">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">
-                <h1 className="captalize text-3xl underline font-bold font-secondary md:text-[1.75rem]">
+                <h1 className="captalize text-3xl underline font-bold font-secondary md:text-[1.75rem] sm:text-2xl">
                   Watch trailer
                 </h1>
                 <span>

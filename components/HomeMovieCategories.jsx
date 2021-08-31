@@ -134,7 +134,7 @@ export default function HomeMovieCategories(props) {
                     slidesPerGroup: 1,
                     allowTouchMove: true,
                   },
-                  321: {
+                  361: {
                     slidesPerView: 2,
                     spaceBetween: 20,
                     slidesPerGroup: 2,
