@@ -10,6 +10,7 @@ import {
   FireIcon,
   ClockIcon,
   StarIcon,
+  HomeIcon,
 } from "@heroicons/react/solid";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,6 +19,7 @@ import { useRouter } from "next/router";
 // import Link from "next/link";
 
 import axios from "axios";
+import Home from "../pages";
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -227,6 +229,11 @@ export default function Navbar() {
       </div>
       <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald">
         <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
+          <Link href={`/`}>
+            <a className="navbarSm__link">
+              <HomeIcon className="w-6 h-6" />
+            </a>
+          </Link>
           <Link href={`/`}>
             <a className="navbarSm__link mr-2">
               <TrendingUpIcon className="w-6 h-6" />

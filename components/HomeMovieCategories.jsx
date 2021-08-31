@@ -291,9 +291,9 @@ export default function HomeMovieCategories(props) {
               </div>
             </>
           ) : (
-            <div className="category__notfound h-24 md:h-28 md:mb-10 text-lg flex items-center justify-center font-medium text-gray-600 md:w-4/5 md:text-center md:flex-col md:mx-auto">
-              <Notfound className="w-16 h-16 mr-4 md:mb-2 md:mr-0" /> We
-              couldn't find any movies for you, Please try again later
+            <div className="category__notfound h-24 md:h-28 md:mb-10 text-lg sm:text-base flex items-center justify-center font-medium text-gray-600 md:w-4/5 md:text-center md:flex-col md:mx-auto">
+              <Notfound className="w-16 h-16 mr-4 md:mb-2 md:mr-0 xsm:w-12 xsm:h-12" />{" "}
+              We couldn't find any movies for you, Please try again later
             </div>
           )}
 

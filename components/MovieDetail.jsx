@@ -79,7 +79,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
     <>
       <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-16 md:mb-8 sm:w-11/12">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-2/5 sm:h-[350px] sm:mr-6">
+          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6">
             {tmdbData.img.blurDataURL ? (
               <div className="category__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
@@ -229,10 +229,10 @@ export default function MovieDetail({ tmdbData, ytxData }) {
             </div>
           </div>
           <div className="trailer__content flex justify-between w-4/5 mx-auto lg:w-11/12">
-            <div className="trailer__video mr-5 w-2/6">
+            <div className="trailer__video mr-5 w-2/6 xsm:w-full xsm:mr-0">
               {renderYtsMovieDetail()}
             </div>
-            <div className="trailer__banners mr-5 h-60 w-2/6 relative">
+            <div className="trailer__banners mr-5 h-60 w-2/6 relative xsm:hidden">
               <Image
                 src={`https://image.tmdb.org/t/p/original${tmdbData.backdrop_path}`}
                 layout="fill"
@@ -241,7 +241,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 style={{ width: "100%", height: "unset" }}
               />
             </div>
-            <div className="trailer__banners h-60 w-2/6 relative">
+            <div className="trailer__banners h-60 w-2/6 relative xsm:hidden">
               <Image
                 src={`https://image.tmdb.org/t/p/original${
                   tmdbData.belongs_to_collection?.backdrop_path ??
