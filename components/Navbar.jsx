@@ -26,10 +26,23 @@ export default function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
   const [closeResults, setCloseResults] = useState(true);
   const [sliceNumber, setSliceNumber] = useState(5);
+  const [navScroll, setNavScroll] = useState({
+    show: true,
+    scrollPos: 0,
+    scrollDirection: null,
+  });
+  // const [scrollDirection, setScrollDirection] = useState("");
+  // let scroll_direction;
   const resultsRef = useRef();
   const router = useRouter();
 
   // console.log(sliceNumber, searchResults.length);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollDocument);
+
+    return () => window.removeEventListener("scroll", handleScrollDocument);
+  }, []);
 
   useEffect(() => {
     if (closeResults) {
@@ -77,19 +90,44 @@ export default function Navbar() {
     };
   }, [resultsRef]);
 
+  function handleScrollDocument() {
+    setNavScroll((prev) => {
+      return {
+        scrollDirection:
+          document.body.getBoundingClientRect().top > prev.scrollPos
+            ? "up"
+            : "down",
+        scrollPos: document.body.getBoundingClientRect().top,
+      };
+    });
+  }
+
+  // console.log(navScroll);
+
   function handleOnClickMore() {
     // setSearchResults(searchResults.splice(0, 10));
     setSliceNumber((val) => val + 5);
   }
 
+  // console.log(navScroll);
   // console.log(searchResults);
 
   // console.log(searchResults.slice(0, 10));
   // console.log(closeResults);
 
   return (
-    <div className="navbar h-28 shadow-emerald bg-lightGray lg:shadow-none lg:h-auto">
-      <div className="navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]">
+    <div
+      className={`navbar h-28 shadow-emerald bg-lightGray lg:shadow-none lg:h-auto ${
+        navScroll.scrollDirection === "down" && navScroll.scrollPos < 30
+          ? "hide"
+          : navScroll.scrollDirection === "up"
+          ? "show"
+          : ""
+      }`}
+    >
+      <div
+        className={`navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]`}
+      >
         <div className="navbar__title relative xsm:hidden">
           <Link href={`/`}>
             <a className="navbar__title-link text-gray-600 text-2xl relative z-10 lg:text-lg">

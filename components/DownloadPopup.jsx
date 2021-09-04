@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function DownloadPopup({ isOpen }) {
-  console.log(isOpen);
+  // console.log(isOpen);
 
   // useEffect(() => {
   //   if (isOpen) {

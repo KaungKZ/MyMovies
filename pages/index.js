@@ -84,7 +84,7 @@ export default function Home(props) {
       <HomeMovieCategories
         data={props.data.trending}
         title={
-          typeof window !== "undefined" && window.innerWidth < 360
+          typeof window !== "undefined" && window.innerWidth <= 360
             ? "Trending"
             : "Trending Right Now"
         }

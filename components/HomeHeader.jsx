@@ -3,7 +3,7 @@ import HeaderIllustration from "../public/static/assets/home-main-illustration.s
 
 export default function HomeHeader() {
   return (
-    <div className="header my-20 lg:mt-20 lg:mb-24 md:mt-16 sm:mt-12">
+    <div className="header my-20 lg:mt-[calc(5rem+128px)] lg:mb-24 md:mt-[calc(4rem+128px)] sm:mt-[calc(3rem+128px)]">
       <div className="header__title mb-8 w-4/5 mx-auto lg:w-11/12">
         <h1 className="header__title-text capitalize text-5xl font-secondary text-center font-bold text-gray-600">
           Keep track of movies, <span className="text-green-400">here.</span>
