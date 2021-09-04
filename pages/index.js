@@ -6,6 +6,7 @@ import HomeHeader from "../components/HomeHeader";
 import HomeMovieCategories from "../components/HomeMovieCategories";
 // import { getPlaiceholder } from "plaiceholder";
 import { getPlaiceholder } from "plaiceholder";
+import { GA_TRACKING_ID } from "../lib/ga/index";
 
 // -- configuration --
 
@@ -79,6 +80,23 @@ export default function Home(props) {
         <title>My Movies</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta property="og:title" content="My Movies" />
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
       </Head>
       <HomeHeader></HomeHeader>
       <HomeMovieCategories

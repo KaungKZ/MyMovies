@@ -6,6 +6,7 @@ import { getPlaiceholder } from "plaiceholder";
 import Head from "next/head";
 import HomeMovieCategories from "../../components/HomeMovieCategories";
 import { useRouter } from "next/router";
+import { GA_TRACKING_ID } from "../../lib/ga/index";
 
 // import { useRouter } from "next/router";
 
@@ -33,6 +34,23 @@ export default function index(props) {
       <Head>
         <title>{router.query.movieId.split("-").slice(0, -1)}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
       </Head>
       {props.data.detailRes ? (
         <MovieDetail
