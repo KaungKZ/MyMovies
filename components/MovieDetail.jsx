@@ -77,7 +77,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-16 md:mb-8 sm:w-11/12 xsm:flex-col xsm:mt-10">
+      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-[calc(4rem+128px)] md:mb-8 sm:w-11/12 sm:mt-[calc(3rem+128px)] xsm:flex-col xsm:mt-[calc(2.5rem+110px)]">
         {tmdbData.poster_path ? (
           <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6 xsm:h-[550px] xsm:w-4/5 xsm:mx-auto xsm:mb-8">
             {tmdbData.img.blurDataURL ? (
