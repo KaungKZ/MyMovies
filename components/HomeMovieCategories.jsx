@@ -128,9 +128,9 @@ export default function HomeMovieCategories(props) {
                 // ref={swiperRef}
                 onSwiper={(s) => setSwiper(s)}
                 breakpoints={{
-                  281: {
+                  240: {
                     slidesPerView: 1,
-                    spaceBetween: 10,
+                    spaceBetween: 0,
                     slidesPerGroup: 1,
                     allowTouchMove: true,
                   },

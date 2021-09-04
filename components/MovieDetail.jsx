@@ -81,7 +81,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
         {tmdbData.poster_path ? (
           <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6 xsm:h-[550px] xsm:w-4/5 xsm:mx-auto xsm:mb-8">
             {tmdbData.img.blurDataURL ? (
-              <div className="category__movie-canvas relative w-full h-full">
+              <div className="detail__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
                   punch={1}
                   hash={tmdbData.img.blurDataURL.hash}
