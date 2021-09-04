@@ -118,7 +118,9 @@ export default function Navbar() {
   return (
     <div
       className={`navbar h-28 shadow-emerald bg-lightGray lg:shadow-none lg:h-auto ${
-        navScroll.scrollDirection === "down" && navScroll.scrollPos < 30
+        !closeResults
+          ? "show"
+          : navScroll.scrollDirection === "down" && navScroll.scrollPos < 30
           ? "hide"
           : navScroll.scrollDirection === "up"
           ? "show"
