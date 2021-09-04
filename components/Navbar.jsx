@@ -171,7 +171,7 @@ export default function Navbar() {
             </label>
             {!closeResults && (
               <div
-                className="results absolute top-[50px] left-0 bg-lightGray rounded p-4 w-full shadow-lg z-100"
+                className="results absolute top-[50px] left-0 bg-lightGray rounded p-4 w-full shadow-lg z-100 max-h-[calc(100vh-100px)] overflow-y-auto"
                 ref={resultsRef}
               >
                 {searchResults.length > 0 ? (
