@@ -4,36 +4,32 @@ import Error from "next/error";
 import MovieDetail from "../../components/MovieDetail";
 import { getPlaiceholder } from "plaiceholder";
 import Head from "next/head";
+import { GA_TRACKING_ID } from "../../lib/ga/index";
 import HomeMovieCategories from "../../components/HomeMovieCategories";
 import { useRouter } from "next/router";
-import { GA_TRACKING_ID } from "../../lib/ga/index";
 
 // import { useRouter } from "next/router";
 
 export default function index(props) {
   const router = useRouter();
 
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [data, setData] = useState();
-  // if (props.errorCode) {
-  //   return <Error statusCode={errorCode} />;
-  // }
-
-  // console.log(props);
-
-  // console.log(props.data.similarRes);
-
-  // if (router.isFallback) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // console.log(router.query.movieId.split("-"));
+  // console.log(props.data.similarRes.data);
 
   return (
     <>
       <Head>
         <title>{router.query.movieId.split("-").slice(0, -1)}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
+        {/* <meta charset="UTF-8" /> */}
+
+        <meta
+          property="og:title"
+          content={router.query.movieId.split("-").slice(0, -1)}
+        />
+        <meta
+          name="description"
+          content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
+        />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         <script
           async
@@ -60,11 +56,10 @@ export default function index(props) {
       ) : (
         "Detail not found"
       )}
-      {props.data.similarRes && (
+      {props.data.similarRes && props.data.similarRes.data.length > 5 && (
         <HomeMovieCategories
           data={props.data.similarRes.data}
           title="Similiar Movies"
-          noNotFound={true}
         ></HomeMovieCategories>
       )}
     </>
@@ -80,14 +75,18 @@ export async function getStaticPaths() {
   // });
 
   const res = await axios.get(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
-    // `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`
+    // `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    // `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.API_KEY}&language=en-US`
   );
 
   const data = res.data;
 
+  // console.log(data);
+
   return {
     paths: data.results.map((d) => ({ params: { movieId: d.id.toString() } })),
+    // paths: { params: { movieId: data.id.toString() } },
     fallback: "blocking",
   };
 }
@@ -108,23 +107,12 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const [movieId] = context.params.movieId.split("-").slice(-1);
 
-  // console.log(process.env.API_KEY);
-
   const urls = [
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`,
     // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`,
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.API_KEY}&language=en-US&page=1`,
   ];
 
-  // axios
-  //   .get(
-  //     `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`
-  //   )
-  //   .then((data) => {
-  //     console.log(data.data.results);
-  //   });
-
-  // const _data = data.data.results ? data.data.results : [data.data];
   const [detailRes, similarRes] = await Promise.all(
     urls.map((url) =>
       axios.get(url).then(
@@ -144,9 +132,6 @@ export async function getStaticProps(context) {
       )
     )
   ).then((data) => {
-    // console.log(data);
-    // data[0] = { success: data[0].success, ...data[0].data[0] };
-
     const detail =
       data[0].success === false
         ? null

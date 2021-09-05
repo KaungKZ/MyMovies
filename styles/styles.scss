@@ -410,6 +410,12 @@
       }
     }
   }
+
+  .footer {
+    &__bg svg {
+      height: 6rem !important;
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -430,6 +436,12 @@
       &:first-child {
         margin-left: 0.5rem;
       }
+    }
+  }
+
+  .footer {
+    &__bg svg {
+      height: 5.2rem !important;
     }
   }
 }
@@ -466,6 +478,13 @@
     }
     &__myswiper .swiper-pagination-bullet {
       width: 1rem;
+    }
+  }
+
+  .movies {
+    &__coming-soon {
+      height: calc(100vh - 120px);
+      margin-top: 120px;
     }
   }
 }
@@ -548,6 +567,12 @@
       }
     }
   }
+
+  .footer {
+    &__content {
+      height: 3rem;
+    }
+  }
 }
 
 @media (max-width: 320px) {
@@ -563,6 +588,17 @@
   .detail {
     &__image-wrapper {
       height: 425px;
+    }
+  }
+
+  .movies {
+    &__coming-soon {
+      .content {
+        h1 {
+          font-size: 1.25rem;
+          line-height: 1.75rem;
+        }
+      }
     }
   }
 }

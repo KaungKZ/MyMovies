@@ -29,6 +29,8 @@ export default function HomeMovieCategories(props) {
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
 
+  // console.log(movieData);
+
   // console.log("xi");
   // const [height, setHeight] = useState();
   // const divRef = useRef();
@@ -98,14 +100,25 @@ export default function HomeMovieCategories(props) {
       <div className="category mt-20 lg:mt-16 md:mt-8">
         <div className="category__title w-4/5 mx-auto">
           <div className="category-title-wrapper relative">
-            <div className="flex items-center">
-              <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline md:text-[1.75rem] sm:text-2xl">
-                {movieData.title}
-              </h1>
-              <span className="ml-3 mt-1 xsm:ml-2">
-                <ArrowNarrowRightIcon className="w-9 h-9 text-green-600 xsm:w-7 xsm:h-7" />
-              </span>
-            </div>
+            <Link
+              href={`/[category]`}
+              as={`/${
+                movieData.title?.toLowerCase().includes("trending")
+                  ? "Trending"
+                  : movieData.title
+              }`}
+            >
+              <a>
+                <div className="flex items-center">
+                  <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline md:text-[1.75rem] sm:text-2xl">
+                    {movieData.title}
+                  </h1>
+                  <span className="ml-3 mt-1 xsm:ml-2">
+                    <ArrowNarrowRightIcon className="w-9 h-9 text-green-600 xsm:w-7 xsm:h-7" />
+                  </span>
+                </div>
+              </a>
+            </Link>
 
             <div
               // className="category__title-bg"

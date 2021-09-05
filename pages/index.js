@@ -77,9 +77,17 @@ export default function Home(props) {
   return (
     <>
       <Head>
-        <title>My Movies</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta property="og:title" content="My Movies" />
+        <title>MyMovies - Search any movies and download</title>
+        {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
+        {/* <meta charset="UTF-8" /> */}
+        <meta
+          property="og:title"
+          content="MyMovies - Search any movies and download"
+        />
+        <meta
+          name="description"
+          content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
+        />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         <script
           async

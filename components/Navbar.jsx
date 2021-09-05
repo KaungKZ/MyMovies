@@ -242,30 +242,20 @@ export default function Navbar() {
           </div>
 
           <nav className="navbar__nav flex text-gray-500 lg:hidden">
-            <Link href={`/`}>
+            <Link href={`/[category]`} as={`/Trending`}>
               <a className="navbar__link mr-4">Trending</a>
             </Link>
-            <Link href={`/`}>
+            <Link href={`/[category]`} as={`/Popular`}>
               <a className="navbar__link mr-4">Popular</a>
             </Link>
-            <Link href={`/`}>
+            <Link href={`/[category]`} as={`/Upcoming`}>
               <a className="navbar__link mr-4">Upcoming</a>
             </Link>
-            <Link href={`/`}>
+            <Link href={`/[category]`} as={`/Top Rated`}>
               <a className="navbar__link">Top Rated</a>
             </Link>
-
-            {/* <a className="navbar__link mr-4" href="#">
-              Upcoming
-            </a>
-            <a className="navbar__link" href="#">
-              Top Rated
-            </a> */}
           </nav>
         </div>
-        {/* <div className="navbar-sm hidden lg:block fixed top-40 right-[4.1666665%] z-100">
-          <MenuAlt3Icon className="w-8 h-8" />
-        </div> */}
       </div>
       <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald">
         <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
@@ -274,22 +264,22 @@ export default function Navbar() {
               <HomeIcon className="w-6 h-6" />
             </a>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/[category]`} as={`/Trending`}>
             <a className="navbarSm__link mr-2">
               <TrendingUpIcon className="w-6 h-6" />
             </a>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/[category]`} as={`/Popular`}>
             <a className="navbarSm__link mr-2">
               <FireIcon className="w-6 h-6" />
             </a>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/[category]`} as={`/Upcoming`}>
             <a className="navbarSm__link mr-2">
               <ClockIcon className="w-6 h-6" />
             </a>
           </Link>
-          <Link href={`/`}>
+          <Link href={`/[category]`} as={`/Top Rated`}>
             <a className="navbarSm__link">
               <StarIcon className="w-6 h-6" />
             </a>

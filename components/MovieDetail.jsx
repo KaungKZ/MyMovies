@@ -9,7 +9,7 @@ import { StarIcon } from "@heroicons/react/solid";
 import { VideoCameraIcon } from "@heroicons/react/solid";
 import { DownloadIcon } from "@heroicons/react/outline";
 import DetailBgShape from "../public/static/assets/movie-detail-bg-shape.svg";
-import axios from "axios";
+// import axios from "axios";
 // import Image from "next/image";
 
 export default function MovieDetail({ tmdbData, ytxData }) {
