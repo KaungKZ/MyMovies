@@ -420,6 +420,7 @@
 
 @media (max-width: 480px) {
   .category {
+    // display: inline;
     &__title-bg {
       transform: translateY(-50%) scale(0.7);
     }
