@@ -84,6 +84,7 @@ export default function Home(props) {
           property="og:title"
           content="MyMovies - Search any movies and download"
         />
+        <meta property="og:image" content="%PUBLIC_URL%/static/assets/mymovies-thumbnail.jpg" />
         <meta
           name="description"
           content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
