@@ -84,7 +84,9 @@ export default function Home(props) {
           property="og:title"
           content="MyMovies - Search any movies and download"
         />
-        <meta property="og:image" content="https://i.imgur.com/Ye6ZRIN.jpg" />
+        <meta property="og:image" content="https://i.imgur.com/80NFFGZ.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="627" />
         <meta
           name="description"
           content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
