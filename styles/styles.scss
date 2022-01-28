@@ -200,7 +200,7 @@
 }
 
 .download {
-  z-index: 101;
+  z-index: 9999;
 }
 
 @media (max-width: 1280px) {
@@ -267,7 +267,7 @@
 
   .navbar {
     transition: transform 400ms;
-    z-index: 999999;
+    z-index: 99;
     position: fixed;
     top: 0;
     left: 0%;

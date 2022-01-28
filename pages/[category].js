@@ -1,11 +1,12 @@
-import React from "react";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import { GA_TRACKING_ID } from "../lib/ga/index";
-import AllMoviesByCategory from "../components/AllMoviesByCategory";
+import React from 'react'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import { GA_TRACKING_ID } from '../lib/ga/index'
+import AllMoviesByCategory from '../components/AllMoviesByCategory'
 
 export default function index(props) {
-  const router = useRouter();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useRouter()
 
   // console.log(router.query);
 
@@ -16,10 +17,10 @@ export default function index(props) {
         {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
         {/* <meta charset="UTF-8" /> */}
 
-        <meta property="og:title" content={router.query.category} />
+        <meta property='og:title' content={router.query.category} />
         <meta
-          name="description"
-          content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
+          name='description'
+          content='Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !'
         />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         <script
@@ -41,23 +42,23 @@ export default function index(props) {
       </Head>
       <AllMoviesByCategory data={router.query} />
     </>
-  );
+  )
 }
 
 export async function getStaticPaths() {
   return {
     paths: [],
     // paths: { params: { movieId: data.id.toString() } },
-    fallback: "blocking",
-  };
+    fallback: 'blocking',
+  }
 }
 
 export async function getStaticProps(context) {
-  const category = context.params;
+  const category = context.params
 
   // console.log(category);
 
   return {
     props: {},
-  };
+  }
 }
