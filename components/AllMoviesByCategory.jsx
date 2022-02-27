@@ -2,7 +2,7 @@ import React from "react";
 import { LightningBoltIcon } from "@heroicons/react/solid";
 
 export default function AllMoviesByCategory(props) {
-  // console.log(props);
+  console.log(props);
   // const [navbarHeight, setNavbarHeight] = useState(128);
 
   // useEffect(() => {
@@ -14,7 +14,7 @@ export default function AllMoviesByCategory(props) {
   // console.log(navbarHeight);
   return (
     <div className="movies">
-      <div className="movies__coming-soon w-11/12 mx-auto h-[calc(100vh-128px)] flex items-center justify-center lg:mt-[128px]">
+      {/* <div className="movies__coming-soon w-11/12 mx-auto h-[calc(100vh-128px)] flex items-center justify-center lg:mt-[128px]">
         <div className="wrapper text-center flex flex-col justify-center items-center">
           <span className="icon text-green-400 sm:mr-0 mb-4">
             <LightningBoltIcon className="w-10 h-10" />
@@ -38,12 +38,12 @@ export default function AllMoviesByCategory(props) {
             </span>
           </div>
         </div>
-      </div>
-      {/* <div className="movies__category"></div>
+      </div> */}
+      <div className="movies__category"></div>
       <div className="movies__wrapper">
         <div className="movies__list"></div>
         <div className="movies__pagination"></div>
-      </div> */}
+      </div>
     </div>
   );
 }
