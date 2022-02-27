@@ -2,6 +2,8 @@ import Head from "next/head";
 // import { useEffect, useState } from "react";
 import axios from "axios";
 import Error from "next/error";
+import Script from "next/script";
+
 import HomeHeader from "../components/HomeHeader";
 import HomeMovieCategories from "../components/HomeMovieCategories";
 // import { getPlaiceholder } from "plaiceholder";
@@ -92,22 +94,29 @@ export default function Home(props) {
           content="Search any movies with different categories and movie detail along with the option to download into your device. Totally free to use and check it out to search your favourite movie !"
         />
         {/* Global Site Tag (gtag.js) - Google Analytics */}
-        <script
+        <Script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+        {/* <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'GA_MEASUREMENT_ID');
+        `}
+        </Script> */}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
-          `,
-          }}
-        />
+          `}
+        </Script>
       </Head>
       <HomeHeader></HomeHeader>
       <HomeMovieCategories

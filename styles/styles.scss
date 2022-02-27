@@ -1,3 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .navbar__link {
+    @apply hover:text-gray-900 transition font-medium;
+  }
+
+  .swiper-navigation-btn {
+    @apply absolute z-10 bg-green-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 cursor-pointer group-hover:hidden opacity-0 pointer-events-none transition duration-300 hover:bg-green-600;
+  }
+}
+
+@layer utilities {
+  .placeholder-medium::placeholder {
+    @apply font-medium;
+  }
+}
+
 @mixin key_frame($name: "default_anim", $duration: 1s, $count: infinite) {
   @keyframes default_anim {
     100% {
@@ -9,6 +29,50 @@
   animation-duration: $duration;
   animation-iteration-count: $count;
 }
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+body.portal-open {
+  position: relative;
+  overflow: hidden;
+}
+
+body.portal-open::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: theme("colors.gray.800");
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+:root {
+  --bg-color: #f7f7f8;
+  --light-bg-color: #fdfdfd;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@import "./typography.css";
+@import "./movies";
 
 .navbar {
   //   font-family: "Inter", sans-serif;
