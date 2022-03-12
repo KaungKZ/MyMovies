@@ -5,6 +5,7 @@ import Script from "next/script";
 import { GA_TRACKING_ID } from "../lib/ga/index";
 import AllMoviesByCategory from "../components/AllMoviesByCategory";
 import axios from "axios";
+import { getPlaiceholder } from "plaiceholder";
 
 export default function index(props) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -67,19 +68,34 @@ export async function getStaticProps(context) {
 
   const url =
     category.category.toLowerCase() !== "trending"
-      ? `https://api.themoviedb.org/3/movie/${category.category
+      ? `https://api.themoviedb.org/3movie/${category.category
           .toLowerCase()
           .replace(/\s/gi, "_")}?api_key=${process.env.API_KEY}`
       : `https://api.themoviedb.org/3/${category.category.toLowerCase()}/movie/week?api_key=${
           process.env.API_KEY
         }`;
 
-  console.log(url);
+  // console.log(url);
+  // ({ success: true, data: data.data }),
 
   const data = await axios.get(url).then(
-    (data) => ({ success: true, data: data.data }),
+    (data) =>
+      Promise.all(
+        data.data.results.map((one) => {
+          return getPlaiceholder(
+            `https://image.tmdb.org/t/p/w500${one.poster_path}`
+          )
+            .then(({ blurhash, img }) => {
+              return { ...one, img: { ...img, blurDataURL: blurhash } };
+            })
+            .catch(() => ({ ...one, img: { blurDataURL: null } }));
+        })
+      ).then((values) => ({ success: true, data: values })),
+
     () => ({ success: false })
   );
+
+  // console.log(data);
 
   // console.log(data);
 

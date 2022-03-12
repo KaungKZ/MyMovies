@@ -30,6 +30,8 @@ export default function HomeMovieCategories(props) {
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
 
+  // console.log(props);
+
   // console.log(movieData);
 
   // console.log("xi");
@@ -99,7 +101,7 @@ export default function HomeMovieCategories(props) {
       {/* {refreshData()} */}
 
       <div className="category mt-20 lg:mt-16 md:mt-8">
-        <div className="category__title w-4/5 mx-auto">
+        <div className="category__title section-wrapper">
           <div className="category-title-wrapper relative">
             <Link
               href={`/[category]`}
@@ -174,9 +176,9 @@ export default function HomeMovieCategories(props) {
                     allowTouchMove: true,
                   },
                   1281: {
-                    slidesPerView: 5,
+                    slidesPerView: 4,
                     spaceBetween: 80,
-                    slidesPerGroup: 5,
+                    slidesPerGroup: 4,
                     allowTouchMove: false,
                   },
                 }}
@@ -188,11 +190,17 @@ export default function HomeMovieCategories(props) {
                 navigation={
                   (true,
                   {
-                    nextEl: ".swiper-navigation-next",
-                    prevEl: ".swiper-navigation-prev",
+                    nextEl: `.swiper-navigation-next.${props.title.replace(
+                      /\s/gi,
+                      "-"
+                    )}-next`,
+                    prevEl: `.swiper-navigation-prev.${props.title.replace(
+                      /\s/gi,
+                      "-"
+                    )}-prev`,
                   })
                 }
-                className="category__myswiper mySwiper w-[95%] mx-auto pt-10"
+                className="category__myswiper mySwiper section-wrapper pt-10"
               >
                 {/* <div className="test"> */}
                 {movieData.data.map((movie, index) => {
@@ -276,16 +284,26 @@ export default function HomeMovieCategories(props) {
                   );
                 })}
                 {/* </div> */}
-                <div className="swiper-navigation-wrapper">
-                  <div className="swiper-navigation-prev swiper-navigation-btn left-5 xl:right-7">
-                    <ChevronLeftIcon className="h-6 w-6 text-white transition duration-300" />
-                  </div>
-                  <div className="swiper-navigation-next absolute swiper-navigation-btn right-5">
-                    <ChevronRightIcon className="h-6 w-6 text-white transition duration-300" />
-                  </div>
-                </div>
                 <div className="swiper-pagination"></div>
               </Swiper>
+              <div className={`swiper-navigation-wrapper`}>
+                <div
+                  className={`swiper-navigation-prev swiper-navigation-btn left-5 xl:right-7 ${props.title.replace(
+                    /\s/gi,
+                    "-"
+                  )}-prev`}
+                >
+                  <ChevronLeftIcon className="h-6 w-6 text-white transition duration-300" />
+                </div>
+                <div
+                  className={`swiper-navigation-next absolute swiper-navigation-btn right-5  ${props.title.replace(
+                    /\s/gi,
+                    "-"
+                  )}-next`}
+                >
+                  <ChevronRightIcon className="h-6 w-6 text-white transition duration-300" />
+                </div>
+              </div>
               <div className="category__content-bg-shape absolute -top-10 left-0 w-full">
                 <CategoryBgShape
                   className={`mx-auto w-full ${
@@ -307,7 +325,7 @@ export default function HomeMovieCategories(props) {
           ) : (
             <div className="category__notfound h-24 md:h-28 md:mb-10 text-lg sm:text-base flex items-center justify-center font-medium text-gray-600 md:w-4/5 md:text-center md:flex-col md:mx-auto">
               <Notfound className="w-16 h-16 mr-4 md:mb-2 md:mr-0 xsm:w-12 xsm:h-12" />{" "}
-              We couldn't find any movies for you, Please try again later
+              We couldn&apos;t find any movies for you, Please try again later
             </div>
           )}
 

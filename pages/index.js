@@ -53,27 +53,6 @@ import { GA_TRACKING_ID } from "../lib/ga/index";
 // https://image.tmdb.org/t/p/   w500    /kqjL17yufvn9OVLyXYpvtyrFfak.jpg
 
 export default function Home(props) {
-  // const [imgBaseUrl, setImgBaseUrl] = useState("");
-  // const router = useRouter();
-
-  // console.log(props);
-
-  // console.log(props);
-
-  // if (props.errorCode) {
-  //   return <Error statusCode={errorCode} />;
-  // }
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/configuration?api_key=82a18ed118951da924967971e5b70de4`
-  //     )
-  //     .then((data) => {
-  //       setImgBaseUrl(data.data.images.base_url);
-  //     });
-  // }, []);
-
   // console.log(props);
 
   return (
@@ -119,7 +98,26 @@ export default function Home(props) {
         </Script>
       </Head>
       <HomeHeader></HomeHeader>
-      <HomeMovieCategories
+
+      {Object.entries(props.data).map(([key, value]) => {
+        // console.log(key, value);
+        return (
+          <HomeMovieCategories
+            key={key}
+            data={value}
+            title={
+              key === "trending"
+                ? typeof window !== "undefined" && window.innerWidth <= 360
+                  ? "Trending"
+                  : "Trending Right Now"
+                : key.toUpperCase()
+            }
+
+            // index={key}
+          ></HomeMovieCategories>
+        );
+      })}
+      {/* <HomeMovieCategories
         data={props.data.trending}
         title={
           typeof window !== "undefined" && window.innerWidth <= 360
@@ -136,7 +134,7 @@ export default function Home(props) {
       <HomeMovieCategories
         data={props.data.upcoming}
         title="Upcoming"
-      ></HomeMovieCategories>
+      ></HomeMovieCategories> */}
       {/* <div>
         <h1>Trending</h1>
         {props.data.trending.results.map((movie, index) => {

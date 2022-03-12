@@ -8,7 +8,7 @@
   }
 
   .swiper-navigation-btn {
-    @apply absolute z-10 bg-green-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 cursor-pointer group-hover:hidden opacity-0 pointer-events-none transition duration-300 hover:bg-green-600;
+    @apply absolute z-10 bg-green-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-green-600;
   }
 }
 
@@ -71,6 +71,18 @@ a {
   box-sizing: border-box;
 }
 
+.section-wrapper {
+  width: 1167px;
+  max-width: 1167px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.detail-wrapper {
+  width: 1026px;
+  max-width: 1026px;
+}
+
 @import "./typography.css";
 @import "./movies";
 
@@ -93,6 +105,23 @@ a {
   &__title-bg {
     // transform: translateY(calc(-50% - 15px));
     top: calc(50% - 5px);
+  }
+
+  &__swiper {
+    &:hover {
+      .swiper-navigation-wrapper {
+        // display: none;
+
+        .swiper-navigation-btn {
+          // pointer-events: all;
+          // opacity: 1;
+
+          &:hover svg {
+            transform: scale(1.25);
+          }
+        }
+      }
+    }
   }
 
   &__myswiper .swiper-wrapper {
@@ -129,21 +158,6 @@ a {
     // .swiper-navigation-wrapper {
 
     // }
-
-    &:hover {
-      .swiper-navigation-wrapper {
-        // display: none;
-
-        .swiper-navigation-btn {
-          pointer-events: all;
-          opacity: 1;
-
-          &:hover svg {
-            transform: scale(1.25);
-          }
-        }
-      }
-    }
 
     /* change color of next 2 bullets in sequence to white*/
 
@@ -268,6 +282,15 @@ a {
 }
 
 @media (max-width: 1280px) {
+  .section-wrapper {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .detail-wrapper {
+    width: 80%;
+    max-width: 80%;
+  }
   .category {
     &__myswiper {
       &:hover {
@@ -417,6 +440,10 @@ a {
 }
 
 @media (max-width: 768px) {
+  .detail-wrapper {
+    width: 90%;
+    max-width: 90%;
+  }
   .header {
     &__title-text {
       font-size: 2.5rem;
@@ -440,6 +467,12 @@ a {
   }
 
   .detail {
+    &__banner-bg-shape {
+      transform: translate(-50%, -50%) scale(1);
+      &:nth-child(2n) {
+        transform: translate(-50%, -50%) scaleX(-1) scale(1);
+      }
+    }
     &__poster {
       height: 400px !important;
     }
@@ -468,6 +501,12 @@ a {
   }
 
   .detail {
+    &__banner-bg-shape {
+      transform: translate(-50%, -50%) scale(0.9);
+      &:nth-child(2n) {
+        transform: translate(-50%, -50%) scaleX(-1) scale(0.9);
+      }
+    }
     &__resolution-text {
       &:first-child {
         margin-left: 0;

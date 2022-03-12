@@ -128,7 +128,7 @@ export default function Navbar() {
       }`}
     >
       <div
-        className={`navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]`}
+        className={`navbar__content flex section-wrapper justify-between items-center m-auto h-full lg:h-[4.5rem]`}
       >
         <div className="navbar__title relative xsm:hidden">
           <Link href={`/`}>
@@ -257,7 +257,7 @@ export default function Navbar() {
           </nav>
         </div>
       </div>
-      <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald">
+      <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald sm:w-full">
         <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
           <Link href={`/`}>
             <a className="navbarSm__link">

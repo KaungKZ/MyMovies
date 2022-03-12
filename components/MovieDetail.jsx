@@ -78,9 +78,9 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-[calc(4rem+128px)] md:mb-8 sm:w-11/12 sm:mt-[calc(3rem+128px)] xsm:flex-col xsm:mt-[calc(2.5rem+110px)]">
+      <div className="detail detail-wrapper mx-auto my-20 flex justify-between lg:mt-[calc(4rem+128px)] md:mb-8 sm:mt-[calc(3rem+128px)] md:flex-col xsm:mt-[calc(2.5rem+110px)]">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6 xsm:h-[550px] xsm:w-4/5 xsm:mx-auto xsm:mb-8">
+          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[360px] md:h-[480px] xsm:h-[550px] xsm:w-full md:mx-auto md:mb-8">
             {tmdbData.img.blurDataURL ? (
               <div className="detail__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
@@ -107,8 +107,8 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 className="object-cover rounded-lg detail__poster"
               />
             )}
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1 md:hidden " />
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1 md:hidden" />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1 xsm:hidden " />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1 xsm:hidden" />
           </div>
         ) : (
           <div>There is no image for this movie</div>
@@ -202,14 +202,14 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           )}
         </div>
       </div>
-      <div className="detailSm hidden md:block w-10/12 mx-auto mb-16 sm:w-11/12">
+      <div className="detailSm hidden md:block detail-wrapper mb-16 mx-auto">
         <div className="detail__summary text-lg my-8 text-gray-700">
           {tmdbData.overview}
         </div>
       </div>
       {ytxData && (
         <div className="trailer mx-auto pb-10">
-          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5 md:mb-14 xsm:mb-10">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto section-wrapper md:mb-14 xsm:mb-10">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">
                 <h1 className="captalize text-3xl underline font-bold font-secondary md:text-[1.75rem] sm:text-2xl">
@@ -234,7 +234,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               </div>
             </div>
           </div>
-          <div className="trailer__content flex justify-between w-4/5 mx-auto lg:w-11/12">
+          <div className="trailer__content flex justify-between section-wrapper mx-auto">
             <div className="trailer__video mr-5 w-2/6 xsm:w-full xsm:mr-0">
               {renderYtsMovieDetail()}
             </div>
