@@ -68,11 +68,11 @@ export async function getStaticProps(context) {
 
   const url =
     category.category.toLowerCase() !== "trending"
-      ? `https://api.themoviedb.org/3movie/${category.category
+      ? `https://api.themoviedb.org/3/movie/${category.category
           .toLowerCase()
-          .replace(/\s/gi, "_")}?api_key=${process.env.API_KEY}`
+          .replace(/\s/gi, "_")}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       : `https://api.themoviedb.org/3/${category.category.toLowerCase()}/movie/week?api_key=${
-          process.env.API_KEY
+          process.env.NEXT_PUBLIC_API_KEY
         }`;
 
   // console.log(url);

@@ -5,6 +5,10 @@
 @layer components {
   .navbar__link {
     @apply hover:text-gray-900 transition font-medium;
+
+    &.active {
+      @apply underline;
+    }
   }
 
   .swiper-navigation-btn {
@@ -211,8 +215,8 @@ a {
     color: #fff;
   }
 
-  &__swiperslide:hover figcaption::before,
-  &__swiperslide:hover &__description {
+  &__link-wrapper:hover figcaption::before,
+  &__link-wrapper:hover &__description {
     opacity: 1;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);

@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 // import Link from "next/link";
 
 import axios from "axios";
-import Home from "../pages";
+// import Home from "../pages";
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -64,9 +64,11 @@ export default function Navbar() {
     axios
       .get(
         `
-    https://api.themoviedb.org/3/search/movie?api_key=82a18ed118951da924967971e5b70de4&language=en-US&query=${
-      searchValue === "" ? "emptymovie" : searchValue
-    }&page=1&include_adult=false`
+    https://api.themoviedb.org/3/search/movie?api_key=${
+      process.env.NEXT_PUBLIC_API_KEY
+    }&language=en-US&query=${
+          searchValue === "" ? "emptymovie" : searchValue
+        }&page=1&include_adult=false`
       )
       .then((data) => setSearchResults(data.data.results));
   }, [searchValue]);
@@ -107,6 +109,13 @@ export default function Navbar() {
   function handleOnClickMore() {
     // setSearchResults(searchResults.splice(0, 10));
     setSliceNumber((val) => val + 5);
+  }
+
+  function handleOnclickNavLink(e) {
+    // document
+    //   .querySelectorAll(".navbar__link")
+    //   .forEach((link) => link.classList.remove("active"));
+    // e.target.classList.add("active");
   }
 
   // console.log(navScroll);
@@ -243,16 +252,24 @@ export default function Navbar() {
 
           <nav className="navbar__nav flex text-gray-500 lg:hidden">
             <Link href={`/[category]`} as={`/Trending`}>
-              <a className="navbar__link mr-4">Trending</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Trending
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Popular`}>
-              <a className="navbar__link mr-4">Popular</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Popular
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Upcoming`}>
-              <a className="navbar__link mr-4">Upcoming</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Upcoming
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Top Rated`}>
-              <a className="navbar__link">Top Rated</a>
+              <a className="navbar__link" onClick={handleOnclickNavLink}>
+                Top Rated
+              </a>
             </Link>
           </nav>
         </div>
