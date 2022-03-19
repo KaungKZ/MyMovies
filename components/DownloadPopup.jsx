@@ -24,7 +24,7 @@ export default function DownloadPopup({ isOpen, result }) {
                   href={dInfo.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="py-3 px-8 bg-green-400 rounded text-white hover:bg-green-500 transition flex items-center text-base self-center"
+                  className="py-3 px-8 bg-emerald-400 rounded text-white hover:bg-emerald-500 transition flex items-center text-base self-center"
                 >
                   {dInfo.quality}
                 </a>

@@ -50,7 +50,7 @@ export default function HomeMovieCategories(props) {
     // }
   }, [props]);
 
-  // console.log(props);
+  // console.log(movieData);
 
   useEffect(() => {
     if (swiper?.params && props) {
@@ -118,7 +118,7 @@ export default function HomeMovieCategories(props) {
                     {movieData.title}
                   </h1>
                   <span className="ml-3 mt-1 xsm:ml-2">
-                    <ArrowNarrowRightIcon className="w-9 h-9 text-green-600 xsm:w-7 xsm:h-7" />
+                    <ArrowNarrowRightIcon className="w-9 h-9 text-emerald-600 xsm:w-7 xsm:h-7" />
                   </span>
                 </div>
               </a>

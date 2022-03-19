@@ -191,6 +191,8 @@ export async function getStaticProps() {
     // `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.API_KEY}&language=en-US&page=1`,
   ];
 
+  // console.log("insideindex");
+
   const [trendingRes, popularRes, upcomingRes] = await Promise.all(
     urls.map((url) =>
       axios.get(url).then(

@@ -31,6 +31,7 @@ export default function AllMoviesByCategory(props) {
     // let arr = [];
 
     document.querySelectorAll(".navbar__link").forEach((link) => {
+      link.classList.remove("active");
       if (link.innerHTML === router.query.category) {
         link.classList.add("active");
       }
@@ -84,7 +85,9 @@ export default function AllMoviesByCategory(props) {
                 return <MovieList movie={movie} key={movie.id} />;
               })}
             </div>
-            <div className="movies__pagination"></div>
+            <div className="movies__pagination">
+              <button>1</button>
+            </div>
           </div>
         ) : (
           <>No data for this category</>

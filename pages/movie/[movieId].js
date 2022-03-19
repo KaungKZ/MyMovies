@@ -99,11 +99,15 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const [movieId] = context.params.movieId.split("-").slice(-1);
 
+  // console.log(movieId);
+
   const urls = [
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
     // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`,
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
   ];
+
+  console.log(urls);
 
   const [detailRes, similarRes] = await Promise.all(
     urls.map((url) =>
@@ -111,13 +115,18 @@ export async function getStaticProps(context) {
         (data) =>
           Promise.all(
             (data.data.results ? data.data.results : [data.data]).map((one) => {
+              console.log(one);
               return getPlaiceholder(
                 `https://image.tmdb.org/t/p/w500${one.poster_path}`
               )
                 .then(({ blurhash, img }) => {
+                  // console.log("success", img);
                   return { ...one, img: { ...img, blurDataURL: blurhash } };
                 })
-                .catch(() => ({ ...one, img: { blurDataURL: null } }));
+                .catch(() => {
+                  // console.log("error", one);
+                  return { ...one, img: { blurDataURL: null } };
+                });
             })
           ).then((values) => ({ success: true, data: values })),
         () => ({ success: false })
@@ -130,71 +139,24 @@ export async function getStaticProps(context) {
         : { success: data[0].success, ...data[0].data[0] };
     const similar =
       data[1].success === false || !data[1].data.length ? null : data[1];
-
     // console.log(movieId, similar.data);
-
     return [detail, similar];
   });
 
-  // console.log(similarRes);
-
-  // https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1
-  // const res = await axios
-  //   .get(
-  //     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}&language=en-US`
-  //   )
-  //   .then(
-  //     async (data) => {
-  //       return getPlaiceholder(
-  //         `https://image.tmdb.org/t/p/original${data.data.poster_path}`
-  //       ).then(({ blurhash, img }) => {
-  //         return {
-  //           ...data.data,
-  //           img: { ...img, blurDataURL: blurhash },
-  //           success: true,
-  //         };
-  //       });
-  //     },
-  //     () => ({ success: true })
-  //   )
-  //   .then((data) => data);
-
   const imdb_code = detailRes ? detailRes.imdb_id : "";
-
-  // let errorCode;
-
-  // console.log(res);
-
-  // const errorCode = res.success;
-
-  // console.log(imdb_code);
 
   const ytxRes = await axios.get(
     `https://yts.mx/api/v2/list_movies.json?query_term=${imdb_code}`
   );
 
-  // console.log(ytxRes);
-
-  // errorCode = ytxRes.statusText === "OK" ? false : ytxRes.status;
   let ytxData = ytxRes.data;
 
-  // console.log(ytxData);
   if (ytxData.status !== "ok" || ytxData.data.movie_count === 0) {
     ytxData = null;
   }
 
-  // ytxData = ytxRes.data;
-
-  // console.log(movieId, similarRes.data);
-
+  // console.log(detailRes);
   return {
     props: { data: { detailRes, similarRes, ytxData } },
   };
-  // console.log(context);
-  // returns { id: episode.itunes.episode, title: episode.title}
-
-  //you can make DB queries using the data in context.query
-  // return {
-  //   props: {},
-  // };
 }

@@ -174,7 +174,7 @@ export default function Navbar() {
                   setSearchValue(e.target.value);
                   setCloseResults(false);
                 }}
-                className="navbar__search-input focus:outline-none focus:ring-green-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-green-100 transition rounded-lg text-base w-full placeholder-gray-400"
+                className="navbar__search-input focus:outline-none focus:ring-emerald-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-emerald-100 transition rounded-lg text-base w-full placeholder-gray-400"
                 placeholder="Search Anything .."
               />
             </label>

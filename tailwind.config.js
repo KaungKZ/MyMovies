@@ -3,9 +3,15 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   // purge: [],
   // important: "#cass",
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  // mode: "jit",
+
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+
+  // darkMode: false, // or 'media' or 'class'
   theme: {
     aspectRatio: {
       260: "260",
