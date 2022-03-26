@@ -115,7 +115,6 @@ export async function getStaticProps(context) {
         (data) =>
           Promise.all(
             (data.data.results ? data.data.results : [data.data]).map((one) => {
-              console.log(one);
               return getPlaiceholder(
                 `https://image.tmdb.org/t/p/w500${one.poster_path}`
               )

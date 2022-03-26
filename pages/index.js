@@ -110,7 +110,7 @@ export default function Home(props) {
                 ? typeof window !== "undefined" && window.innerWidth <= 360
                   ? "Trending"
                   : "Trending Right Now"
-                : key.toUpperCase()
+                : key.charAt(0).toUpperCase() + key.slice(1)
             }
 
             // index={key}

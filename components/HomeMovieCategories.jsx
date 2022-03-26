@@ -50,6 +50,8 @@ export default function HomeMovieCategories(props) {
     // }
   }, [props]);
 
+  // console.log(props);
+
   // console.log(movieData);
 
   useEffect(() => {

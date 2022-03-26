@@ -2,9 +2,12 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlurhashCanvas } from "react-blurhash";
+import NoimagePlaceHolder from "../../public/static/assets/no-image-placeholder.png";
 
 export default function MovieList(props) {
   const { movie } = props;
+
+  // console.log(movie);
 
   // console.log(movie);
 
@@ -14,19 +17,34 @@ export default function MovieList(props) {
         <div className="category__movie-banner overflow-hidden rounded relative">
           {/* {movie.img.blurDataURL ? ( */}
           <div className="category__movie-canvas relative block h-[340px] xl:h-[360px] lg:h-[380px] transform group-hover:scale-110 transition duration-500">
-            <BlurhashCanvas
-              punch={1}
-              hash={movie.img?.blurDataURL?.hash}
-              width={movie.img?.blurDataURL?.height}
-              height={movie.img?.blurDataURL?.width}
-              className="absolute left-0 top-0 w-full h-full inset-0"
-            />
-            {movie && (
+            {movie.img && movie.img.blurDataURL ? (
+              <>
+                <BlurhashCanvas
+                  punch={1}
+                  hash={movie.img?.blurDataURL?.hash}
+                  width={movie.img?.blurDataURL?.height}
+                  height={movie.img?.blurDataURL?.width}
+                  className="absolute left-0 top-0 w-full h-full inset-0"
+                />
+
+                <Image
+                  src={movie.img.src}
+                  layout="fill"
+                  // alt={movie.title}
+                  className="object-cover w-full"
+                />
+              </>
+            ) : (
               <Image
-                src={movie.img.src}
+                // loader={myLoader}
+                src={NoimagePlaceHolder}
+                alt="Picture of the author"
+                // width={500}
+                // height={350}
+                // layout="fixed"
                 layout="fill"
-                // alt={movie.title}
                 className="object-cover w-full"
+                // height={500}
               />
             )}
           </div>

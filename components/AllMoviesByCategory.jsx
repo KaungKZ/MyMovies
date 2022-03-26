@@ -21,7 +21,7 @@ export default function AllMoviesByCategory(props) {
           process.env.NEXT_PUBLIC_API_KEY
         }`;
 
-  console.log(url);
+  // console.log(url);
 
   // useEffect(() => {
   //   if ()
@@ -59,7 +59,7 @@ export default function AllMoviesByCategory(props) {
           <div className="category-title-wrapper relative">
             <div className="flex items-center">
               <h1 className="category__title-text font-bold font-secondary text-3xl text-gray-700 underline md:text-[1.75rem] sm:text-2xl">
-                {router.query.category}
+                {router.query.category + " " + "Movies"}
               </h1>
             </div>
 
