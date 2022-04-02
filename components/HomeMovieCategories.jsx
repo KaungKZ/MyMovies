@@ -212,7 +212,7 @@ export default function HomeMovieCategories(props) {
                     <SwiperSlide
                       key={index}
                       style={{ width: "auto" }}
-                      className="group category__swiperslide"
+                      className="category__swiperslide"
                     >
                       <MovieList movie={movie} />
                     </SwiperSlide>

@@ -13,7 +13,7 @@ export default function MovieList(props) {
 
   return (
     <Link href={`/movie/[movieId]`} as={`/movie/${movie.title}-${movie.id}`}>
-      <a className="category__link-wrapper">
+      <a className="category__link-wrapper group">
         <div className="category__movie-banner overflow-hidden rounded relative">
           {/* {movie.img.blurDataURL ? ( */}
           <div className="category__movie-canvas relative block h-[340px] xl:h-[360px] lg:h-[380px] transform group-hover:scale-110 transition duration-500">

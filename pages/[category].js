@@ -90,7 +90,12 @@ export async function getStaticProps(context) {
             })
             .catch(() => ({ ...one, img: { blurDataURL: null } }));
         })
-      ).then((values) => ({ success: true, data: values })),
+      ).then((values) => ({
+        success: true,
+        data: values,
+        total_pages: data.data.total_pages,
+        page: data.data.page,
+      })),
 
     () => ({ success: false })
   );
@@ -99,8 +104,15 @@ export async function getStaticProps(context) {
 
   // console.log(data);
 
+  // console.log(data);
+
   return {
-    props: { data: data.success ? data.data : null },
+    props: {
+      data: data.success ? data.data : null,
+      total_pages: data.success ? data.total_pages : null,
+      page: data.success ? data.page : null,
+      url: url,
+    },
     // props: null,
   };
 }
