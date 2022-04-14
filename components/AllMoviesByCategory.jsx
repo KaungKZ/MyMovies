@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-// import { useState, useMemo } from "react";
-import { LightningBoltIcon } from "@heroicons/react/solid";
+
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Link from "next/link";
-import { BlurhashCanvas } from "react-blurhash";
+
 import MovieList from "./utils/MovieList";
 import axios from "axios";
 // import { getPlaiceholder } from "plaiceholder";

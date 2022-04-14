@@ -10,9 +10,6 @@ import { getPlaiceholder } from "plaiceholder";
 export default function index(props) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  // console.log(props);
-
-  // console.log(router.query);
 
   return (
     <>
@@ -47,36 +44,48 @@ export default function index(props) {
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    // paths: { params: { movieId: data.id.toString() } },
-    fallback: "blocking",
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           category: "Trending",
+//         },
+//       },
+//       {
+//         params: {
+//           category: "Popular",
+//         },
+//       },
+//       {
+//         params: {
+//           category: "Upcoming",
+//         },
+//       },
+//       {
+//         params: {
+//           category: "Top Rated",
+//         },
+//       },
+//     ],
+//     fallback: "blocking",
+//   };
+// }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const category = context.params;
-
-  // console.log(category.category);
-
-  // console.log(
-  //   `https://api.themoviedb.org/3/${category.category.toLowerCase()}/movie/week?api_key=${
-  //     process.env.API_KEY
-  //   }`
-  // );
+  const isPageNumberExist = context.query.page ? true : false;
 
   const url =
     category.category.toLowerCase() !== "trending"
       ? `https://api.themoviedb.org/3/movie/${category.category
           .toLowerCase()
-          .replace(/\s/gi, "_")}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          .replace(/\s/gi, "_")}?api_key=${process.env.NEXT_PUBLIC_API_KEY}${
+          isPageNumberExist ? "&page=" + context.query.page : ""
+        }`
       : `https://api.themoviedb.org/3/${category.category.toLowerCase()}/movie/week?api_key=${
           process.env.NEXT_PUBLIC_API_KEY
-        }`;
-
-  // console.log(url);
-  // ({ success: true, data: data.data }),
+        }${isPageNumberExist ? "&page=" + context.query.page : ""}`;
 
   const data = await axios.get(url).then(
     (data) =>
@@ -93,6 +102,7 @@ export async function getStaticProps(context) {
       ).then((values) => ({
         success: true,
         data: values,
+
         total_pages: data.data.total_pages,
         page: data.data.page,
       })),
@@ -100,14 +110,9 @@ export async function getStaticProps(context) {
     () => ({ success: false })
   );
 
-  // console.log(data);
-
-  // console.log(data);
-
-  // console.log(data);
-
   return {
     props: {
+      key: context.params.category,
       data: data.success ? data.data : null,
       total_pages: data.success ? data.total_pages : null,
       page: data.success ? data.page : null,
@@ -116,3 +121,50 @@ export async function getStaticProps(context) {
     // props: null,
   };
 }
+
+// export async function getStaticProps(context) {
+//   const category = context.params;
+
+//   const url =
+//     category.category.toLowerCase() !== "trending"
+//       ? `https://api.themoviedb.org/3/movie/${category.category
+//           .toLowerCase()
+//           .replace(/\s/gi, "_")}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+//       : `https://api.themoviedb.org/3/${category.category.toLowerCase()}/movie/week?api_key=${
+//           process.env.NEXT_PUBLIC_API_KEY
+//         }`;
+
+//   const data = await axios.get(url).then(
+//     (data) =>
+//       Promise.all(
+//         data.data.results.map((one) => {
+//           return getPlaiceholder(
+//             `https://image.tmdb.org/t/p/w500${one.poster_path}`
+//           )
+//             .then(({ blurhash, img }) => {
+//               return { ...one, img: { ...img, blurDataURL: blurhash } };
+//             })
+//             .catch(() => ({ ...one, img: { blurDataURL: null } }));
+//         })
+//       ).then((values) => ({
+//         success: true,
+//         data: values,
+
+//         total_pages: data.data.total_pages,
+//         page: data.data.page,
+//       })),
+
+//     () => ({ success: false })
+//   );
+
+//   return {
+//     props: {
+//       key: context.params.category,
+//       data: data.success ? data.data : null,
+//       total_pages: data.success ? data.total_pages : null,
+//       page: data.success ? data.page : null,
+//       url: url,
+//     },
+//     // props: null,
+//   };
+// }
