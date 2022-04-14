@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <React.Fragment>
       <Layout>
-        <Component {...pageProps} key={router.asPath} />
+        <Component {...pageProps} />
         <NextNprogress
           color="#29D"
           startPosition={0.3}

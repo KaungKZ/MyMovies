@@ -99,15 +99,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const [movieId] = context.params.movieId.split("-").slice(-1);
 
-  // console.log(movieId);
-
   const urls = [
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
     // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.API_KEY}&language=en-US&page=1`,
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
   ];
-
-  console.log(urls);
 
   const [detailRes, similarRes] = await Promise.all(
     urls.map((url) =>
@@ -127,7 +123,10 @@ export async function getStaticProps(context) {
                   return { ...one, img: { blurDataURL: null } };
                 });
             })
-          ).then((values) => ({ success: true, data: values })),
+          ).then((values) => ({
+            success: true,
+            data: values,
+          })),
         () => ({ success: false })
       )
     )
@@ -156,6 +155,9 @@ export async function getStaticProps(context) {
 
   // console.log(detailRes);
   return {
-    props: { data: { detailRes, similarRes, ytxData } },
+    props: {
+      key: context.params.movieId,
+      data: { detailRes, similarRes, ytxData },
+    },
   };
 }

@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-// import { useState, useMemo } from "react";
-import { LightningBoltIcon } from "@heroicons/react/solid";
+
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Link from "next/link";
-import { BlurhashCanvas } from "react-blurhash";
+
 import MovieList from "./utils/MovieList";
 import axios from "axios";
 // import { getPlaiceholder } from "plaiceholder";
@@ -13,45 +11,46 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 
 export default function AllMoviesByCategory(props) {
   // console.log(props);
+  const router = useRouter();
   const [results, setResults] = useState(props.data);
   const [loading, setLoading] = useState(null);
-  // const [paginationCounts, setPaginationCounts] = useState();
-
-  // const { data } = props;
-  const router = useRouter();
-
-  // console.log(results);
-
-  // useMemo(() => {
-
-  // }, [])
-
-  const totalPagination = useMemo(
-    () => generateTotalPagination(results.total_pages),
-    [results.total_pages]
-  );
 
   useEffect(() => {
-    // let arr = [];
-
     document.querySelectorAll(".navbar__link").forEach((link) => {
       link.classList.remove("active");
       if (link.innerHTML === router.query.category) {
         link.classList.add("active");
       }
     });
-
-    // const test = arr.includes(router.query.category);
-
-    // console.log(test);
   }, []);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    if (router.asPath.includes("?page=")) {
+      if (router.query.page) {
+        getMoviesByPage(router.query.page, true);
+      }
+    } else {
+      setResults(props.data);
+    }
+  }, [router.query]);
 
-  // console.log(totalPagination);
+  const totalPagination = useMemo(
+    () => generateTotalPagination(results.total_pages),
+    [results.total_pages]
+  );
+
+  // useEffect(() => {
+  //   router.reload(window.location.pathname);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (isPageNumberExist) {
+  //   }
+  // }, [isPageNumberExist]);
+
+  // console.log(results);
 
   function generateTotalPagination(total_pages) {
-    console.log("calculating total");
     // console.log(total_pages, start);
     // console.log("rendered total pagination function");
     let arr = [];
@@ -62,9 +61,27 @@ export default function AllMoviesByCategory(props) {
     return arr;
   }
 
-  async function getMoviesByPage(e) {
-    const pageNumber = e.currentTarget.dataset.page;
-    const response = await axios.get(results.url + `&page=${pageNumber}`).then(
+  async function getMoviesByPage(pageNumber, initialExist) {
+    // const pageNumber = e.currentTarget.dataset.page;
+
+    console.log("getmoviesbypage");
+
+    let url;
+
+    if (router.asPath.includes("?page=")) {
+      url =
+        router.query.category.toLowerCase() !== "trending"
+          ? `https://api.themoviedb.org/3/movie/${router.query.category
+              .toLowerCase()
+              .replace(/\s/gi, "_")}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          : `https://api.themoviedb.org/3/${router.query.category.toLowerCase()}/movie/week?api_key=${
+              process.env.NEXT_PUBLIC_API_KEY
+            }`;
+    } else {
+      url = results.url;
+    }
+
+    const response = await axios.get(url + `&page=${pageNumber}`).then(
       async (data) =>
         Promise.all(
           data.data.results.map(async (one) => {
@@ -90,104 +107,55 @@ export default function AllMoviesByCategory(props) {
     );
 
     // console.log(response);
-    console.log("done ! ");
 
     if (response.success) {
-      generatePagination(response, pageNumber);
+      generatePagination(response, initialExist);
     }
   }
 
-  async function handleGoSpecificPage(e) {
+  function handleGoSpecificPage(e) {
     setLoading(true);
 
-    getMoviesByPage(e);
-    // console.log(response);
+    // router.push(`?number=${e.currentTarget.dataset.page}`, undefined, {
+    //   shallow: true,
+    // });
 
-    // generatePagination(response.data.)
-    // https://api.themoviedb.org/3/trending/movie/week?api_key=82a18ed118951da924967971e5b70de4&page=2
-    // console.log(e.target.innerHTML);
+    getMoviesByPage(e.currentTarget.dataset.page);
   }
 
-  function generatePagination(data, pageNumber) {
-    // clone the original array
-    // console.log(router.query);
-    // const _total_pages = [...results.total_pages]
-    // remove numbers infront of selected number except the closest one before
-
+  function generatePagination(data, initialExist) {
     setResults({
       ...results,
       data: data.data,
       page: data.page,
     });
 
-    // router.push({
-    //   pathname: router.pathname,
-    //   query: {
-    //     category: router.query.category,
-    //     page: data.page,
-    //   },
-    // });
-
-    // router.push(`${router.asPath}/?page=${data.page}`, undefined, {
-    //   shallow: true,
-    // });
-
-    // console.log(router.query.category[0]);
-
-    // router.push(`?page=${data.page}`, undefined, {
-    //   shallow: true,
-    // });
-
-    // console.log(data.page);
-
     const category = router.query.category;
     const page = data.page;
 
-    // router.push(
-    //   {
-    //     pathname: `/[category]`,
-    //     query: { ...router.query, page: page },
-    //   },
-    //   `/${category}?page=${page}`,
-    //   { shallow: true }
-    // );
+    if (!initialExist) {
+      router.push(
+        {
+          pathname: `/[category]`,
+          query: { category: category, page: page },
+        },
+        `/${category}?page=${page}`,
+        { shallow: true }
+      );
+    }
 
-    // router.push(`${router.asPath}/${data.page}`);
+    // router.push(`${router.asPath}?page=${data.page}`);
 
     setLoading(false);
 
     // console.log(results);
   }
 
-  // useEffect(() => {
-  //   // Always do navigations after the first render
-  //   router.push("/?counter=10", undefined, { shallow: true });
-  // }, []);
+  // function handleGoPreviousPage() {}
 
-  // useEffect(() => {
-  //   const category = router.query.category;
-  //   const page = data.page;
+  // function handleGoNextPage() {}
 
-  //   if (loading === false) {
-  //     router.push(
-  //       {
-  //         pathname: `/[category]`,
-  //         query: { category: category, page: page },
-  //       },
-  //       `/${category}?page=${page}`,
-  //       { shallow: true }
-  //     );
-  //   }
-
-  // }, [loading]);
-
-  // console.log(results.page, totalPagination);
-
-  // console.log(totalPagination);
-
-  // console.log(results);
-
-  function handleGoLastPage() {}
+  // function paginationCalculation() {}
 
   return (
     <div className="movies mt-20">
@@ -295,6 +263,21 @@ export default function AllMoviesByCategory(props) {
                 <ChevronRightIcon className="h-6 w-6 text-black transition duration-300" />
               </button>
             </div>
+            {/* <button
+              onClick={() => {
+                const category = router.query.category;
+                const page = "7";
+                router.push(
+                  {
+                    pathname: `/[category]`,
+                  },
+                  `/${category}?page=${page}`,
+                  { shallow: true }
+                );
+              }}
+            >
+              click
+            </button> */}
           </div>
         ) : (
           <>No data for this category</>
