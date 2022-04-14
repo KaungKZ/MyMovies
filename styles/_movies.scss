@@ -1,11 +1,11 @@
 .movies {
-	&__pagination {
-		.page-number {
-			&.active {
-				background-color: theme("colors.emerald");
-				color: theme("colors.white");
-				border-radius: 4px;
-			}
-		}
-	}
+  &__pagination {
+    .page-number {
+      &.active {
+        background-color: theme("colors.emerald.400");
+        color: theme("colors.white");
+        border-radius: 4px;
+      }
+    }
+  }
 }
