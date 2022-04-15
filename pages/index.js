@@ -53,29 +53,6 @@ import { GA_TRACKING_ID } from "../lib/ga/index";
 // https://image.tmdb.org/t/p/   w500    /kqjL17yufvn9OVLyXYpvtyrFfak.jpg
 
 export default function Home(props) {
-  // const [imgBaseUrl, setImgBaseUrl] = useState("");
-  // const router = useRouter();
-
-  // console.log(props);
-
-  // console.log(props);
-
-  // if (props.errorCode) {
-  //   return <Error statusCode={errorCode} />;
-  // }
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/configuration?api_key=82a18ed118951da924967971e5b70de4`
-  //     )
-  //     .then((data) => {
-  //       setImgBaseUrl(data.data.images.base_url);
-  //     });
-  // }, []);
-
-  // console.log(props);
-
   return (
     <>
       <Head>
@@ -119,7 +96,28 @@ export default function Home(props) {
         </Script>
       </Head>
       <HomeHeader></HomeHeader>
-      <HomeMovieCategories
+
+      {Object.entries(props.data).map(([key, value]) => {
+        {
+          /* console.log(key, value); */
+        }
+        return (
+          <HomeMovieCategories
+            key={key}
+            data={value}
+            title={
+              key === "trending"
+                ? typeof window !== "undefined" && window.innerWidth <= 360
+                  ? "Trending"
+                  : "Trending Right Now"
+                : key.charAt(0).toUpperCase() + key.slice(1)
+            }
+
+            // index={key}
+          ></HomeMovieCategories>
+        );
+      })}
+      {/* <HomeMovieCategories
         data={props.data.trending}
         title={
           typeof window !== "undefined" && window.innerWidth <= 360
@@ -136,7 +134,7 @@ export default function Home(props) {
       <HomeMovieCategories
         data={props.data.upcoming}
         title="Upcoming"
-      ></HomeMovieCategories>
+      ></HomeMovieCategories> */}
       {/* <div>
         <h1>Trending</h1>
         {props.data.trending.results.map((movie, index) => {
@@ -185,13 +183,15 @@ export async function getStaticProps() {
   // console.log(makeDate());
 
   const urls = [
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.API_KEY}`,
-    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
+    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
     `https://api.themoviedb.org/3/discover/movie?api_key=${
-      process.env.API_KEY
+      process.env.NEXT_PUBLIC_API_KEY
     }&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&primary_release_date.gte=${makeDate()}&with_watch_monetization_types=flatrate`,
     // `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.API_KEY}&language=en-US&page=1`,
   ];
+
+  // console.log("insideindex");
 
   const [trendingRes, popularRes, upcomingRes] = await Promise.all(
     urls.map((url) =>

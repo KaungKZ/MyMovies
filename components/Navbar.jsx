@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 // import Link from "next/link";
 
 import axios from "axios";
-import Home from "../pages";
+// import Home from "../pages";
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
@@ -64,9 +64,11 @@ export default function Navbar() {
     axios
       .get(
         `
-    https://api.themoviedb.org/3/search/movie?api_key=82a18ed118951da924967971e5b70de4&language=en-US&query=${
-      searchValue === "" ? "emptymovie" : searchValue
-    }&page=1&include_adult=false`
+    https://api.themoviedb.org/3/search/movie?api_key=${
+      process.env.NEXT_PUBLIC_API_KEY
+    }&language=en-US&query=${
+          searchValue === "" ? "emptymovie" : searchValue
+        }&page=1&include_adult=false`
       )
       .then((data) => setSearchResults(data.data.results));
   }, [searchValue]);
@@ -109,6 +111,13 @@ export default function Navbar() {
     setSliceNumber((val) => val + 5);
   }
 
+  function handleOnclickNavLink(e) {
+    // document
+    //   .querySelectorAll(".navbar__link")
+    //   .forEach((link) => link.classList.remove("active"));
+    // e.target.classList.add("active");
+  }
+
   // console.log(navScroll);
   // console.log(searchResults);
 
@@ -128,7 +137,7 @@ export default function Navbar() {
       }`}
     >
       <div
-        className={`navbar__content flex w-4/5 xl:w-11/12 lg:w-4/6 md:w-4/5 justify-between items-center m-auto h-full lg:h-[4.5rem]`}
+        className={`navbar__content flex section-wrapper justify-between items-center m-auto h-full lg:h-[4.5rem]`}
       >
         <div className="navbar__title relative xsm:hidden">
           <Link href={`/`}>
@@ -165,7 +174,7 @@ export default function Navbar() {
                   setSearchValue(e.target.value);
                   setCloseResults(false);
                 }}
-                className="navbar__search-input focus:outline-none focus:ring-green-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-green-100 transition rounded-lg text-base w-full placeholder-gray-400"
+                className="navbar__search-input focus:outline-none focus:ring-emerald-300 focus:ring-2 focus:border-transparent px-4 pl-10 py-2 text-gray-900 bg-emerald-100 transition rounded-lg text-base w-full placeholder-gray-400"
                 placeholder="Search Anything .."
               />
             </label>
@@ -243,21 +252,29 @@ export default function Navbar() {
 
           <nav className="navbar__nav flex text-gray-500 lg:hidden">
             <Link href={`/[category]`} as={`/Trending`}>
-              <a className="navbar__link mr-4">Trending</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Trending
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Popular`}>
-              <a className="navbar__link mr-4">Popular</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Popular
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Upcoming`}>
-              <a className="navbar__link mr-4">Upcoming</a>
+              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+                Upcoming
+              </a>
             </Link>
             <Link href={`/[category]`} as={`/Top Rated`}>
-              <a className="navbar__link">Top Rated</a>
+              <a className="navbar__link" onClick={handleOnclickNavLink}>
+                Top Rated
+              </a>
             </Link>
           </nav>
         </div>
       </div>
-      <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald">
+      <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald sm:w-full">
         <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
           <Link href={`/`}>
             <a className="navbarSm__link">

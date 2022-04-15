@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -78,23 +79,29 @@ export default function MovieDetail({ tmdbData, ytxData }) {
   // console.log(data);
   return (
     <>
-      <div className="detail w-3/4 mx-auto my-20 flex justify-between xl:w-10/12 lg:mt-[calc(4rem+128px)] md:mb-8 sm:w-11/12 sm:mt-[calc(3rem+128px)] xsm:flex-col xsm:mt-[calc(2.5rem+110px)]">
+      <div className="detail detail-wrapper mx-auto my-20 flex justify-between lg:mt-[calc(4rem+128px)] md:mb-8 sm:mt-[calc(3rem+128px)] md:flex-col xsm:mt-[calc(2.5rem+110px)]">
         {tmdbData.poster_path ? (
-          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[280px] md:h-[400px] md:mr-10 sm:w-[45%] sm:h-[350px] sm:mr-6 xsm:h-[550px] xsm:w-4/5 xsm:mx-auto xsm:mb-8">
+          <div className="detail__image-wrapper w-[325px] h-[475px] text-0 relative mr-24 lg:mr-16 lg:w-[300px] lg:h-[450px] md:w-[360px] md:h-[480px] xsm:h-[550px] xsm:w-full md:mx-auto md:mb-8">
             {tmdbData.img.blurDataURL ? (
               <div className="detail__movie-canvas relative w-full h-full">
                 <BlurhashCanvas
                   punch={1}
-                  hash={tmdbData.img.blurDataURL.hash}
-                  width={tmdbData.img.blurDataURL.height}
-                  height={tmdbData.img.blurDataURL.width}
+                  hash={tmdbData.img?.blurDataURL?.hash}
+                  width={tmdbData.img?.blurDataURL?.height}
+                  height={tmdbData.img?.blurDataURL?.width}
                   className="absolute left-0 top-0 h-full w-full inset-0 rounded-lg"
                 />
 
                 <Image
-                  src={tmdbData.img.src}
+                  src={tmdbData.img?.src}
                   alt={tmdbData.title}
                   layout="fill"
+                  className="object-cover rounded-lg detail__poster"
+                />
+                <img
+                  src={tmdbData.img.src}
+                  layout="fill"
+                  alt={tmdbData.title}
                   className="object-cover rounded-lg detail__poster"
                 />
               </div>
@@ -107,8 +114,8 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 className="object-cover rounded-lg detail__poster"
               />
             )}
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1 md:hidden " />
-            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1 md:hidden" />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-1 xsm:hidden " />
+            <DetailBgShape className="detail__banner-bg-shape absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -scale-x-1 -z-1 xsm:hidden" />
           </div>
         ) : (
           <div>There is no image for this movie</div>
@@ -129,7 +136,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           {ytxData && (
             <div className="detail__duration flex items-center text-base text-gray-600 mb-8 xsm:mb-4 xsm:text-sm">
               <span>
-                <ClockIcon className="w-5 h-5 text-green-500 mr-1"></ClockIcon>
+                <ClockIcon className="w-5 h-5 text-emerald-500 mr-1"></ClockIcon>
               </span>
               {`${Math.floor(tmdbData.runtime / 60)}hr ${
                 tmdbData.runtime % 60
@@ -149,7 +156,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                     return (
                       <span
                         key={i}
-                        className="detail__resolution-text text-green-500 font-medium mr-1.5 last:mr-0 ml-2"
+                        className="detail__resolution-text text-emerald-500 font-medium mr-1.5 last:mr-0 ml-2"
                       >
                         {t.quality}
                       </span>
@@ -163,11 +170,11 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               </div>
               <div className="detail__voting mb-6 flex items-center text-gray-600">
                 <span>Voting:</span>
-                <span className="text-green-500 font-bold ml-2">
+                <span className="text-emerald-500 font-bold ml-2">
                   {tmdbData.vote_average}
                 </span>
                 <span>
-                  <StarIcon className="w-4 h-4 ml-1 text-green-500" />
+                  <StarIcon className="w-4 h-4 ml-1 text-emerald-500" />
                 </span>
               </div>
               <PortalWithState
@@ -180,7 +187,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                   <>
                     <button
                       onClick={openPortal}
-                      className="py-2 px-6 bg-green-400 rounded text-white hover:bg-green-500 transition flex items-center text-base"
+                      className="py-2 px-6 bg-emerald-400 rounded text-white hover:bg-emerald-500 transition flex items-center text-base"
                     >
                       Download
                       <span>
@@ -202,21 +209,21 @@ export default function MovieDetail({ tmdbData, ytxData }) {
           )}
         </div>
       </div>
-      <div className="detailSm hidden md:block w-10/12 mx-auto mb-16 sm:w-11/12">
+      <div className="detailSm hidden md:block detail-wrapper mb-16 mx-auto">
         <div className="detail__summary text-lg my-8 text-gray-700">
           {tmdbData.overview}
         </div>
       </div>
       {ytxData && (
         <div className="trailer mx-auto pb-10">
-          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto w-4/5 md:mb-14 xsm:mb-10">
+          <div className="trailer__title category__title-text text-gray-700  flex items-center mb-20 mx-auto section-wrapper md:mb-14 xsm:mb-10">
             <div className="category-title-wrapper relative">
               <div className="flex items-center">
                 <h1 className="captalize text-3xl underline font-bold font-secondary md:text-[1.75rem] sm:text-2xl">
                   Watch trailer
                 </h1>
                 <span>
-                  <VideoCameraIcon className="w-7 h-7 text-green-500 ml-3" />
+                  <VideoCameraIcon className="w-7 h-7 text-emerald-500 ml-3" />
                 </span>
               </div>
 
@@ -234,7 +241,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               </div>
             </div>
           </div>
-          <div className="trailer__content flex justify-between w-4/5 mx-auto lg:w-11/12">
+          <div className="trailer__content flex justify-between section-wrapper mx-auto">
             <div className="trailer__video mr-5 w-2/6 xsm:w-full xsm:mr-0">
               {renderYtsMovieDetail()}
             </div>
