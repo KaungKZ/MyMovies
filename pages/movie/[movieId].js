@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import Error from "next/error";
 import MovieDetail from "../../components/MovieDetail";
 import { getPlaiceholder } from "plaiceholder";
 import Head from "next/head";

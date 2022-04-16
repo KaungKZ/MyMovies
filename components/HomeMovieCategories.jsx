@@ -31,6 +31,8 @@ export default function HomeMovieCategories(props) {
 
   // console.log(props);
 
+  // console.log(props);
+
   // console.log(movieData);
 
   // console.log("xi");
@@ -191,11 +193,11 @@ export default function HomeMovieCategories(props) {
                 navigation={
                   (true,
                   {
-                    nextEl: `.swiper-navigation-next.${props.title.replace(
+                    nextEl: `.swiper-navigation-next.${props.forSwiperNav.replace(
                       /\s/gi,
                       "-"
                     )}-next`,
-                    prevEl: `.swiper-navigation-prev.${props.title.replace(
+                    prevEl: `.swiper-navigation-prev.${props.forSwiperNav.replace(
                       /\s/gi,
                       "-"
                     )}-prev`,
@@ -221,7 +223,7 @@ export default function HomeMovieCategories(props) {
               </Swiper>
               <div className={`swiper-navigation-wrapper`}>
                 <div
-                  className={`swiper-navigation-prev swiper-navigation-btn left-12 xl:right-7 ${props.title.replace(
+                  className={`swiper-navigation-prev swiper-navigation-btn left-12 xl:right-7 ${props.forSwiperNav.replace(
                     /\s/gi,
                     "-"
                   )}-prev`}
@@ -229,7 +231,7 @@ export default function HomeMovieCategories(props) {
                   <ChevronLeftIcon className="h-6 w-6 text-white transition duration-300" />
                 </div>
                 <div
-                  className={`swiper-navigation-next absolute swiper-navigation-btn right-12  ${props.title.replace(
+                  className={`swiper-navigation-next absolute swiper-navigation-btn right-12  ${props.forSwiperNav.replace(
                     /\s/gi,
                     "-"
                   )}-next`}
