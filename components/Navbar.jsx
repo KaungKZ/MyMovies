@@ -10,7 +10,6 @@ import {
   FireIcon,
   ClockIcon,
   StarIcon,
-  HomeIcon,
 } from "@heroicons/react/solid";
 import Link from "next/link";
 import Image from "next/image";
@@ -252,22 +251,38 @@ export default function Navbar() {
 
           <nav className="navbar__nav flex text-gray-500 lg:hidden">
             <Link href={`/[category]`} as={`/Trending`}>
-              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+              <a
+                className="navbar__link mr-4"
+                onClick={handleOnclickNavLink}
+                data-to="trending"
+              >
                 Trending
               </a>
             </Link>
             <Link href={`/[category]`} as={`/Popular`}>
-              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+              <a
+                className="navbar__link mr-4"
+                onClick={handleOnclickNavLink}
+                data-to="popular"
+              >
                 Popular
               </a>
             </Link>
             <Link href={`/[category]`} as={`/Upcoming`}>
-              <a className="navbar__link mr-4" onClick={handleOnclickNavLink}>
+              <a
+                className="navbar__link mr-4"
+                onClick={handleOnclickNavLink}
+                data-to="upcoming"
+              >
                 Upcoming
               </a>
             </Link>
             <Link href={`/[category]`} as={`/Top Rated`}>
-              <a className="navbar__link" onClick={handleOnclickNavLink}>
+              <a
+                className="navbar__link"
+                onClick={handleOnclickNavLink}
+                data-to="top-rated"
+              >
                 Top Rated
               </a>
             </Link>
@@ -276,28 +291,28 @@ export default function Navbar() {
       </div>
       <div className="navbarSm hidden h-14 bg-lightGray lg:flex items-center shadow-emerald sm:w-full">
         <nav className="navbarSm__nav flex w-full h-full text-gray-500 justify-between items-center">
-          <Link href={`/`}>
+          {/* <Link href={`/`}>
             <a className="navbarSm__link">
               <HomeIcon className="w-6 h-6" />
             </a>
-          </Link>
+          </Link> */}
           <Link href={`/[category]`} as={`/Trending`}>
-            <a className="navbarSm__link mr-2">
+            <a className="navbarSm__link mr-2" data-to="trending">
               <TrendingUpIcon className="w-6 h-6" />
             </a>
           </Link>
           <Link href={`/[category]`} as={`/Popular`}>
-            <a className="navbarSm__link mr-2">
+            <a className="navbarSm__link mr-2" data-to="popular">
               <FireIcon className="w-6 h-6" />
             </a>
           </Link>
           <Link href={`/[category]`} as={`/Upcoming`}>
-            <a className="navbarSm__link mr-2">
+            <a className="navbarSm__link mr-2" data-to="upcoming">
               <ClockIcon className="w-6 h-6" />
             </a>
           </Link>
           <Link href={`/[category]`} as={`/Top Rated`}>
-            <a className="navbarSm__link">
+            <a className="navbarSm__link" data-to="top-rated">
               <StarIcon className="w-6 h-6" />
             </a>
           </Link>

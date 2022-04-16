@@ -1,7 +1,7 @@
 import Head from "next/head";
+
 // import { useEffect, useState } from "react";
 import axios from "axios";
-import Error from "next/error";
 import Script from "next/script";
 
 import HomeHeader from "../components/HomeHeader";
@@ -105,6 +105,7 @@ export default function Home(props) {
           <HomeMovieCategories
             key={key}
             data={value}
+            forSwiperNav={key.charAt(0).toUpperCase() + key.slice(1)}
             title={
               key === "trending"
                 ? typeof window !== "undefined" && window.innerWidth <= 360

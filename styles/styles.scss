@@ -386,6 +386,12 @@ a {
       justify-content: center;
       align-items: center;
       height: 100%;
+
+      &.active {
+        svg {
+          fill: theme("colors.emerald.500");
+        }
+      }
     }
   }
 

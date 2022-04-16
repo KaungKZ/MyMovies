@@ -8,6 +8,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig = {
   reactStrictMode: true,
+  compiler: {
+    // ssr and displayName are configured by default
+    styledComponents: true,
+  },
   future: {
     webpack5: true,
   },

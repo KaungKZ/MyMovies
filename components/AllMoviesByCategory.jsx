@@ -16,12 +16,18 @@ export default function AllMoviesByCategory(props) {
   const [loading, setLoading] = useState(null);
 
   useEffect(() => {
-    document.querySelectorAll(".navbar__link").forEach((link) => {
-      link.classList.remove("active");
-      if (link.innerHTML === router.query.category) {
-        link.classList.add("active");
-      }
-    });
+    document
+      .querySelectorAll(".navbar__link, .navbarSm__link")
+      .forEach((link) => {
+        link.classList.remove("active");
+        console.log(link.dataset.to, router.query.category.toLowerCase());
+        if (
+          link.dataset.to ===
+          router.query.category.toLowerCase().replace(/\s/gi, "-")
+        ) {
+          link.classList.add("active");
+        }
+      });
   }, []);
 
   useEffect(() => {
@@ -63,8 +69,6 @@ export default function AllMoviesByCategory(props) {
 
   async function getMoviesByPage(pageNumber, initialExist) {
     // const pageNumber = e.currentTarget.dataset.page;
-
-    console.log("getmoviesbypage");
 
     let url;
 
@@ -158,7 +162,7 @@ export default function AllMoviesByCategory(props) {
   // function paginationCalculation() {}
 
   return (
-    <div className="movies mt-20">
+    <div className="movies mt-20 lg:mt-[calc(128px+4rem)] sm:mt-[calc(128px+3rem)]">
       <div className="section-wrapper">
         <div className="category__title section-wrapper">
           <div className="category-title-wrapper relative">
@@ -184,7 +188,7 @@ export default function AllMoviesByCategory(props) {
         </div>
 
         {results && results.data ? (
-          <div className="movies__wrapper mt-16">
+          <div className="movies__wrapper mt-16 sm:mt-12">
             <div className="movies__list grid grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1 gap-x-7 gap-y-5">
               {results.data.map((movie) => {
                 return (
