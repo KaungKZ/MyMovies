@@ -59,6 +59,10 @@ export default function index(props) {
       {props.data.similarRes && props.data.similarRes.data.length > 5 && (
         <HomeMovieCategories
           data={props.data.similarRes.data}
+          forSwiperNav={
+            "Similiar Movies".charAt(0).toUpperCase() +
+            "Similiar Movies".slice(1)
+          }
           title="Similiar Movies"
         ></HomeMovieCategories>
       )}
