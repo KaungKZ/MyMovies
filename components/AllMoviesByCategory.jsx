@@ -28,7 +28,7 @@ export default function AllMoviesByCategory(props) {
           link.classList.add("active");
         }
       });
-  }, []);
+  }, [router.query.category]);
 
   // useEffect(() => {
   //   if (router.asPath.includes("?page=")) {
