@@ -93,6 +93,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 />
 
                 <Image
+                  unoptimized
                   src={tmdbData.img?.src}
                   alt={tmdbData.title}
                   layout="fill"
@@ -107,6 +108,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
               </div>
             ) : (
               <Image
+                unoptimized
                 src={`https://image.tmdb.org/t/p/original${tmdbData.poster_path}`}
                 width="325"
                 height="500"
@@ -232,6 +234,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
                 className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
               >
                 <Image
+                  unoptimized
                   src="/static/assets/section-title-bg-shape.png"
                   width="143.38"
                   height="130.21"
@@ -247,6 +250,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
             </div>
             <div className="trailer__banners mr-5 h-60 w-2/6 relative xsm:hidden">
               <Image
+                unoptimized
                 src={`https://image.tmdb.org/t/p/original${tmdbData.backdrop_path}`}
                 layout="fill"
                 objectFit="cover"
@@ -256,6 +260,7 @@ export default function MovieDetail({ tmdbData, ytxData }) {
             </div>
             <div className="trailer__banners h-60 w-2/6 relative xsm:hidden">
               <Image
+                unoptimized
                 src={`https://image.tmdb.org/t/p/original${
                   tmdbData.belongs_to_collection?.backdrop_path ??
                   tmdbData.poster_path

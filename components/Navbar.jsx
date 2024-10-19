@@ -59,18 +59,18 @@ export default function Navbar() {
 
   // console.log(closeResults);
 
-  useEffect(() => {
-    axios
-      .get(
-        `
-    https://api.themoviedb.org/3/search/movie?api_key=${
-      process.env.NEXT_PUBLIC_API_KEY
-    }&language=en-US&query=${
-          searchValue === "" ? "emptymovie" : searchValue
-        }&page=1&include_adult=false`
-      )
-      .then((data) => setSearchResults(data.data.results));
-  }, [searchValue]);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `
+  //   https://api.themoviedb.org/3/search/movie?api_key=${
+  //     process.env.NEXT_PUBLIC_API_KEY
+  //   }&language=en-US&query=${
+  //         searchValue === "" ? "emptymovie" : searchValue
+  //       }&page=1&include_adult=false`
+  //     )
+  //     .then((data) => setSearchResults(data.data.results));
+  // }, [searchValue]);
 
   useEffect(() => {
     /**
@@ -199,6 +199,7 @@ export default function Navbar() {
                               {r.poster_path ? (
                                 <div className="results__photo w-[70px] h-[80px]">
                                   <Image
+                                    unoptimized
                                     src={`https://image.tmdb.org/t/p/original${r.poster_path}`}
                                     width="70"
                                     height="80"

@@ -30,15 +30,15 @@ export default function AllMoviesByCategory(props) {
       });
   }, []);
 
-  useEffect(() => {
-    if (router.asPath.includes("?page=")) {
-      if (router.query.page) {
-        getMoviesByPage(router.query.page, true);
-      }
-    } else {
-      setResults(props.data);
-    }
-  }, [router.query]);
+  // useEffect(() => {
+  //   if (router.asPath.includes("?page=")) {
+  //     if (router.query.page) {
+  //       getMoviesByPage(router.query.page, true);
+  //     }
+  //   } else {
+  //     setResults(props.data);
+  //   }
+  // }, [router.query]);
 
   const totalPagination = useMemo(
     () => generateTotalPagination(results.total_pages),
@@ -124,7 +124,7 @@ export default function AllMoviesByCategory(props) {
     //   shallow: true,
     // });
 
-    getMoviesByPage(e.currentTarget.dataset.page);
+    // getMoviesByPage(e.currentTarget.dataset.page);
   }
 
   function generatePagination(data, initialExist) {
@@ -177,6 +177,7 @@ export default function AllMoviesByCategory(props) {
               className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
             >
               <Image
+                unoptimized
                 src="/static/assets/section-title-bg-shape.png"
                 width="143.38"
                 height="130.21"

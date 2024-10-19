@@ -131,6 +131,7 @@ export default function HomeMovieCategories(props) {
               className="category__title-bg absolute -left-12 transform -translate-y-2/4 -z-1"
             >
               <Image
+                unoptimized
                 src="/static/assets/section-title-bg-shape.png"
                 width="143.38"
                 height="130.21"

@@ -29,6 +29,7 @@ export default function MovieList(props) {
                   className="absolute left-0 top-0 w-full h-full inset-0"
                 />
                 <Image
+                  unoptimized
                   src={movie.img.src}
                   layout="fill"
                   // alt={movie.title}
@@ -37,6 +38,7 @@ export default function MovieList(props) {
               </>
             ) : (
               <Image
+                unoptimized
                 // loader={myLoader}
                 src={NoimagePlaceHolder}
                 alt="Picture of the author"
