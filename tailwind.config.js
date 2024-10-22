@@ -1,94 +1,107 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+/** @type {import('tailwindcss').Config} */
+
+// import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+const colors = require("tailwindcss/colors");
 
 module.exports = {
-  // purge: [],
-  // important: "#cass",
-  // mode: "jit",
-
+  darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-
-  // darkMode: false, // or 'media' or 'class'
   theme: {
-    aspectRatio: {
-      260: "260",
-      391: "391",
-    },
-    scale: {
-      "-1": "-1",
-      110: "1.1",
-    },
-    fontSize: {
-      0: [
-        "0px",
-        {
-          letterSpacing: "0px",
-        },
-      ],
-      xs: ".75rem",
-      sm: ".875rem",
-      base: "1rem",
-      lg: "1.125rem",
-      xl: "1.25rem",
-      "2xl": "1.5rem",
-      "3xl": "1.875rem",
-      "4xl": "2.25rem",
-      "5xl": "3rem",
-      "6xl": "4rem",
-    },
-
     extend: {
+      fontFamily: {
+        sans: ["var(--font-worksans)", ...fontFamily.sans],
+        // mono: ["var(--font-geist-mono)", ...fontFamily.mono],
+      },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: colors.emerald[500],
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
       zIndex: {
-        "-1": "-1",
-        "-10": "-10",
         100: "100",
       },
-      fontFamily: {
-        sans: ["Inter", defaultTheme.fontFamily.sans],
-        secondary: ["Work Sans", "system-ui", "sans-serif"],
+      screens: {
+        "2xl": {
+          min: "1536px",
+        },
+        xl: {
+          min: "1280px",
+        },
+        lg: {
+          min: "1024px",
+        },
+        md: {
+          min: "768px",
+        },
+        sm: {
+          min: "600px",
+        },
+        xsm: {
+          min: "480px",
+        },
+        "3xlmx": {
+          max: "1520px",
+        },
+        "2xlmx": {
+          max: "1360px",
+        },
+        xlmx: {
+          max: "1280px",
+        },
+        lgmx: {
+          max: "1024px",
+        },
+        mdmx: {
+          max: "768px",
+        },
+        smmx: {
+          max: "600px",
+        },
+        xsmmx: {
+          max: "480px",
+        },
       },
-      minWidth: {
-        300: "300px",
-        "3/4": "75%",
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
-
-      colors: {
-        lightGray: "var(--light-bg-color)",
-      },
-      width: {
-        "95%": "95%",
-      },
-      boxShadow: {
-        emerald:
-          "0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06)",
-      },
-    },
-    screens: {
-      "2xl": { max: "1536px" },
-      // => @media (max-width: 1535px) { ... }
-
-      xl: { max: "1280px" },
-      // => @media (max-width: 1279px) { ... }
-
-      lg: { max: "1024px" },
-      // => @media (max-width: 1023px) { ... }
-
-      md: { max: "768px" },
-      // => @media (max-width: 767px) { ... }
-
-      sm: { max: "600px" },
-      // => @media (max-width: 639px) { ... }
-
-      xsm: { max: "480px" },
     },
   },
-  variants: {
-    extend: {
-      textColor: ["group-focus"],
-    },
-  },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require("tailwindcss-animate")],
 };

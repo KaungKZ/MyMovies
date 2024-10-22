@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "extends": "next/core-web-vitals",
+
+  "plugins": ["react"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@/components", "./src/components/"],
+          ["@images", "./public/*"],
+          ["@/app", "./src/app"],
+          ["@/lib", "./src/lib"],
+          ["@/styles/*", "styles/*"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-img-element": "off"
+  }
+}
