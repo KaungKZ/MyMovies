@@ -6,6 +6,15 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .category-custom-pagination .swiper-pagination-bullet {
+    @apply bg-primary opacity-50 w-10 h-[3px] rounded-[4px];
+  }
+
+  .category-custom-pagination
+    .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    @apply bg-primary opacity-100;
+  }
 }
 
 @layer base {

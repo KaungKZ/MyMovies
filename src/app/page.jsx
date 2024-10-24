@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 // import { Image } from "next/image";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import GetCategoryData from "@/components/GetCategoryData";
 
 export default function Home() {
   return (
@@ -9,10 +10,10 @@ export default function Home() {
       <MaxWidthWrapper>
         <div className="my-10">
           <div>
-            <h1 className="text-5xl font-bold">
-              Keep track of Movies, <span className="text-primary">Here</span>
+            <h1 className="text-5xl font-bold text-center">
+              Keep track of movies, <span className="text-primary">Here.</span>
             </h1>
-            <div className="relative w-full h-[464px]">
+            <div className="relative w-full h-[464px] mt-8">
               <Image
                 src="/assets/home-main-illustration.svg"
                 className=""
@@ -20,6 +21,15 @@ export default function Home() {
                 alt="home bannner image"
               />
             </div>
+          </div>
+          <div className="mt-20">
+            <GetCategoryData category="trending" />
+          </div>
+          <div className="mt-20">
+            <GetCategoryData category="popular" />
+          </div>
+          <div className="mt-20">
+            <GetCategoryData category="upcoming" />
           </div>
           {/* <DesignUserOrders orders={orders} /> */}
         </div>

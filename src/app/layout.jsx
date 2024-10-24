@@ -2,6 +2,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import AuthProvider from "@/components/AuthProvider";
 import { constructMetadata } from "@/lib/utils";
+import RQProviders from "@/components/RQProvider";
 import NextTopLoader from "nextjs-toploader";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -40,12 +41,14 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
         className={`${worksans.variable} antialiased font-sans bg-background`}
       >
-        <AuthProvider>
-          <NextTopLoader color="#059669" />
-          <Navbar />
-          {children}
-          <Footer />
-        </AuthProvider>
+        <RQProviders children={children}>
+          <AuthProvider>
+            <NextTopLoader color="#059669" />
+            <Navbar />
+            {children}
+            <Footer />
+          </AuthProvider>
+        </RQProviders>
       </body>
     </html>
   );
