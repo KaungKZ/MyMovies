@@ -8,18 +8,12 @@ const imageBasePath = `https://image.tmdb.org/t/p/w${imageWidth}`;
 export default function MovieCard(props) {
   const { poster_path, img } = props.movie;
 
-  console.log(img);
+  console.log(props.movie);
+
   return (
     <div className="">
       <div className="w-[250px] relative ">
         <AspectRatio ratio={2 / 3}>
-          {/* <BlurhashCanvas
-            punch={1}
-            hash={img.blurDataURL}
-            width="250"
-            height="auto"
-            className="absolute left-0 top-0 w-full h-full inset-0"
-          /> */}
           <Image
             src={imageBasePath + poster_path}
             fill
@@ -27,6 +21,9 @@ export default function MovieCard(props) {
             // blurDataURL={img?.blurDataURL}
           />
         </AspectRatio>
+      </div>
+      <div>
+        <h5></h5>
       </div>
     </div>
   );

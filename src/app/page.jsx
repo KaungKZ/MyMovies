@@ -7,8 +7,9 @@ import GetCategoryData from "@/components/GetCategoryData";
 export default function Home() {
   return (
     <section>
-      <MaxWidthWrapper>
-        <div className="my-10">
+      {/* <MaxWidthWrapper> */}
+      <div className="my-10">
+        <MaxWidthWrapper>
           <div>
             <h1 className="text-5xl font-bold text-center">
               Keep track of movies, <span className="text-primary">Here.</span>
@@ -22,18 +23,20 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="mt-20">
-            <GetCategoryData category="trending" />
-          </div>
-          <div className="mt-20">
-            <GetCategoryData category="popular" />
-          </div>
-          <div className="mt-20">
-            <GetCategoryData category="upcoming" />
-          </div>
-          {/* <DesignUserOrders orders={orders} /> */}
+        </MaxWidthWrapper>
+
+        <div className="mt-20">
+          <GetCategoryData category="trending" />
         </div>
-      </MaxWidthWrapper>
+        <div className="mt-20">
+          <GetCategoryData category="popular" />
+        </div>
+        <div className="mt-20">
+          <GetCategoryData category="upcoming" />
+        </div>
+        {/* <DesignUserOrders orders={orders} /> */}
+      </div>
+      {/* </MaxWidthWrapper> */}
     </section>
   );
 }

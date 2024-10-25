@@ -52,6 +52,10 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      scale: {
+        "-1": "-1",
+        110: "1.1",
+      },
       zIndex: {
         100: "100",
       },
