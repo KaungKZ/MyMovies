@@ -14,7 +14,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-worksans)", ...fontFamily.sans],
+        sans: ["var(--font-inter)", "var(--font-worksans)", ...fontFamily.sans],
+        title: ["var(--font-worksans)", ...fontFamily.sans],
         // mono: ["var(--font-geist-mono)", ...fontFamily.mono],
       },
       colors: {

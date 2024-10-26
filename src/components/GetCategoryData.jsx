@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
-import handleRequest from "@/app/actions";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { handleRequest } from "@/app/actions";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 
@@ -30,26 +30,26 @@ const matchTitle = {
 };
 
 export default function GetCategoryData({ category }) {
-  const { data, mutate, isPending, isError, error } = useMutation({
-    mutationKey: [`get-category-data-${category}`],
-    mutationFn: handleRequest,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: [`get-category-data-${category}`],
+    // refetchOnWindowFocus: false,
+    queryFn: () => handleRequest({ category: category }),
     onError: (err) => {
-      // console.log("api got error");
       throw new Error(err);
     },
   });
 
-  // console.log(`.swiper-navig11ation-prev.${category}-prev`);
+  // console.log(isload);
 
-  useEffect(() => {
-    mutate({ category: category });
-  }, []);
+  // useEffect(() => {
+  //   mutate({ category: category });
+  // }, []);
 
   return (
     <>
       <MaxWidthWrapper>
         <div className="relative flex items-center space-x-2">
-          <h1 className="text-3xl font-bold text-gray-700 underline">
+          <h1 className="text-3xl font-bold text-gray-700 underline title">
             {matchTitle[category]}
           </h1>
           <span>
@@ -70,15 +70,15 @@ export default function GetCategoryData({ category }) {
         ) : isPending ? (
           <SkeletonPlaceholders />
         ) : (
-          <div className="relative py-10">
+          <div className="relative py-5">
             <MaxWidthWrapper cls="relative">
               <div
                 className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category}`}
               ></div>
               <Swiper
-                slidesPerView={4}
-                slidesPerGroup={4}
-                spaceBetween={65}
+                slidesPerView={5}
+                slidesPerGroup={5}
+                spaceBetween={15}
                 pagination={{
                   el: `.category-custom-pagination.${category}`,
 
@@ -106,12 +106,12 @@ export default function GetCategoryData({ category }) {
               </Swiper>
               <div className="swiper-navigation-wrapper">
                 <div
-                  className={`swiper-navigation-prev absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -left-4 ${category}-prev`}
+                  className={`swiper-navigation-prev absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -left-0 ${category}-prev`}
                 >
                   <ArrowLeft className="h-6 w-6 text-white transition duration-300" />
                 </div>
                 <div
-                  className={`swiper-navigation-next absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -right-4 ${category}-next`}
+                  className={`swiper-navigation-next absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -right-0 ${category}-next`}
                 >
                   <ArrowRight className="h-6 w-6 text-white transition duration-300" />
                 </div>
@@ -120,9 +120,9 @@ export default function GetCategoryData({ category }) {
             {/* <div> */}
 
             {/* </div> */}
-            <div className="w-full h-full absolute left-0 top-12 -z-10">
-              <SectionBgShape class="scale-x-1 w-full" />
-              <SectionBgShape class="-scale-x-1 rotate-180 w-full" />
+            <div className="w-full h-full absolute left-0 top-6 -z-10">
+              <SectionBgShape className="scale-x-1 w-full" />
+              <SectionBgShape className="-scale-x-1 rotate-180 w-full" />
             </div>
           </div>
         )}

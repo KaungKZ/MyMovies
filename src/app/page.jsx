@@ -11,7 +11,7 @@ export default function Home() {
       <div className="my-10">
         <MaxWidthWrapper>
           <div>
-            <h1 className="text-5xl font-bold text-center">
+            <h1 className="text-5xl font-bold text-center title text-zinc-600">
               Keep track of movies, <span className="text-primary">Here.</span>
             </h1>
             <div className="relative w-full h-[464px] mt-8">

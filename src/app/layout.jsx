@@ -32,6 +32,31 @@ const worksans = localFont({
   variable: "--font-worksans",
 });
 
+const inter = localFont({
+  src: [
+    {
+      path: "./fonts/Inter-Regular.woff",
+      weight: "400",
+    },
+    {
+      path: "./fonts/Inter-Medium.woff",
+
+      weight: "500",
+    },
+    {
+      path: "./fonts/Inter-SemiBold.woff",
+
+      weight: "600",
+    },
+    {
+      path: "./fonts/Inter-Bold.woff",
+
+      weight: "700",
+    },
+  ],
+  variable: "--font-inter",
+});
+
 export const metadata = constructMetadata();
 
 export default function RootLayout({ children }) {
@@ -39,7 +64,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${worksans.variable} antialiased font-sans bg-background`}
+        className={`${worksans.variable} ${inter.variable} antialiased font-sans bg-background`}
       >
         <RQProviders children={children}>
           <AuthProvider>

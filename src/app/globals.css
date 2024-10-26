@@ -7,6 +7,10 @@
     text-wrap: balance;
   }
 
+  .title {
+    @apply font-title;
+  }
+
   .category-custom-pagination .swiper-pagination-bullet {
     @apply bg-primary opacity-30 w-10 h-[3px] rounded-[4px];
   }

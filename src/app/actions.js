@@ -7,7 +7,7 @@ const matchURLs = {
   upcoming: "https://api.themoviedb.org/3/movie/upcoming",
 };
 
-export default async function handleRequest({ category }) {
+export const handleRequest = async ({ category }) => {
   const url = matchURLs[category];
   //   console.log(process.env.NEXTAUTH_URL);
 
@@ -61,4 +61,34 @@ export default async function handleRequest({ category }) {
   // ).then(({ blurhash, img }) => {
   //   return { ...one, img: { ...img, blurDataURL: blurhash } };
   // })
-}
+};
+
+export const getMovieDetail = async (params) => {
+  const movieID = params.split("-")[params.split("-").length - 1];
+
+  // get IMDB movie id
+
+  const res = await fetch(
+    `${process.env.IMDB_BASE_PATH}movie/${movieID}?api_key=${process.env.IMDB_API_KEY}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Errorwith IMDB api call");
+  }
+
+  const body = await res.json();
+
+  const IMDB_id = body.imdb_id;
+
+  const YTXres = await fetch(
+    `${process.env.YTS_BASE_PATH}movie_details.json?imdb_id=${IMDB_id}&with_images=true&with_cast=true`
+  );
+
+  if (!YTXres.ok) {
+    throw new Error("Error with YTX api call");
+  }
+
+  const YTXbody = await YTXres.json();
+
+  return [body, YTXbody.data];
+};
