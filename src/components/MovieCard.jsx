@@ -38,7 +38,9 @@ export default function MovieCard(props) {
       </Link>
       <div className="mt-2">
         <Link href={`/movie/${title.replace(/\s/gi, "-")}-${id}`}>
-          <h5 className="font-bold text-base hover:underline">{title}</h5>
+          <h5 className="font-bold text-base hover:underline hover:decoration-2">
+            {title}
+          </h5>
         </Link>
         <div>
           <span className="text-zinc-700 text-sm">

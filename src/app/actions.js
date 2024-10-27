@@ -7,8 +7,20 @@ const matchURLs = {
   upcoming: "https://api.themoviedb.org/3/movie/upcoming",
 };
 
-export const handleRequest = async ({ category }) => {
-  const url = matchURLs[category];
+export const handleRequest = async ({ category, movieId }) => {
+  let url;
+
+  if (category === "similar") {
+    // let movieId;
+
+    // const simiarURL = `https://api.themoviedb.org/3/movie/${movieId}/recommendations`;
+    url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations`;
+  } else {
+    url = matchURLs[category];
+  }
+
+  // console.log(url);
+
   //   console.log(process.env.NEXTAUTH_URL);
 
   try {
@@ -90,5 +102,5 @@ export const getMovieDetail = async (params) => {
 
   const YTXbody = await YTXres.json();
 
-  return [body, YTXbody.data];
+  return [body, YTXbody.data.movie];
 };

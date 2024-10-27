@@ -34,18 +34,7 @@ export default function Home() {
         <div className="mt-20">
           <GetCategoryData category="upcoming" />
         </div>
-        {/* <DesignUserOrders orders={orders} /> */}
       </div>
-      {/* </MaxWidthWrapper> */}
     </section>
   );
 }
-
-// const urls = [
-//   `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.IMDB_API_KEY}`,
-//   `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=1`,
-//   `https://api.themoviedb.org/3/discover/movie?api_key=${
-//     process.env.IMDB_API_KEY
-//   }&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&primary_release_date.gte=${makeDate()}&with_watch_monetization_types=flatrate`,
-//   // `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.API_KEY}&language=en-US&page=1`,
-// ];

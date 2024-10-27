@@ -8,11 +8,8 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
-// import "./styles.css";
 
 import { Navigation, Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -21,19 +18,18 @@ import SkeletonPlaceholders from "./SkeletonPlaceholders";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { SectionBgShape } from "./LoadSvgShapes";
 
-// import "../lib/config/envConfig";
-
 const matchTitle = {
   trending: "Trending this week",
   upcoming: "Upcoming",
   popular: "Popular",
+  similar: "Similar Movies",
 };
 
-export default function GetCategoryData({ category }) {
+export default function GetCategoryData({ category, movieId = null }) {
   const { data, isPending, isError, error } = useQuery({
     queryKey: [`get-category-data-${category}`],
     // refetchOnWindowFocus: false,
-    queryFn: () => handleRequest({ category: category }),
+    queryFn: () => handleRequest({ category: category, movieId: movieId }),
     onError: (err) => {
       throw new Error(err);
     },
@@ -60,6 +56,7 @@ export default function GetCategoryData({ category }) {
               src="/assets/section-title-bg-shape.png"
               width="143"
               height="130"
+              alt="section title bg shape"
             />
           </div>
         </div>
@@ -98,7 +95,7 @@ export default function GetCategoryData({ category }) {
               >
                 {data?.results?.map((d) => {
                   return (
-                    <SwiperSlide>
+                    <SwiperSlide key={d.id}>
                       <MovieCard movie={d} />
                     </SwiperSlide>
                   );
