@@ -2,13 +2,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 // import { Image } from "next/image";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import GetCategoryData from "@/components/GetCategoryData";
+import GetCategoryData from "@/components/GetCategorySectionData";
 
 export default function Home() {
   return (
-    <section>
+    <section className="my-10">
       {/* <MaxWidthWrapper> */}
-      <div className="my-10">
+      <div>
         <MaxWidthWrapper>
           <div>
             <h1 className="text-5xl font-bold text-center title text-zinc-600">

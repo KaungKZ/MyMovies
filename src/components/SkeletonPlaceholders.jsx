@@ -1,5 +1,9 @@
 import React from "react";
 
-export default function SkeletonPlaceholders() {
+export const SkeletonSectionPlaceholders = () => {
   return <div>SkeletonPlaceholders</div>;
-}
+};
+
+export const SkeletonPagePlaceholders = () => {
+  return <div>SkeletonPlaceholders</div>;
+};

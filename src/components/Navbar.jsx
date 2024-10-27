@@ -2,10 +2,25 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export default function Navbar() {
   return (
@@ -26,30 +41,54 @@ export default function Navbar() {
           </Link>
 
           <div className="flex space-x-4">
-            <Link
-              href="/trending"
-              // className="hover:underline hover:decoration-2"
-            >
-              Trending
-            </Link>
-            <Link
-              href="/popular"
-              // className="hover:underline hover:decoration-2"
-            >
-              Popular
-            </Link>
-            <Link
-              href="/top-rated"
-              // className="hover:underline hover:decoration-2"
-            >
-              Top rated
-            </Link>
-            <Link
-              href="/upcoming"
-              // className="hover:underline hover:decoration-2"
-            >
-              Upcoming
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="link"
+                  className="text-base hover:no-underline text-zinc-600"
+                >
+                  Categories <ChevronDown className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-40">
+                {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+                {/* <DropdownMenuSeparator /> */}
+                <DropdownMenuGroup>
+                  <DropdownMenuItem className="">
+                    <Link
+                      href="/trending"
+                      className="px-2 py-1.5 w-full hover:text-white hover:rounded-sm hover:bg-primary"
+                    >
+                      Trending
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link
+                      href="/popular"
+                      className="px-2 py-1.5 w-full hover:text-white hover:rounded-sm hover:bg-primary"
+                    >
+                      Popular
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link
+                      href="/top-rated"
+                      className="px-2 py-1.5 w-full hover:text-white hover:rounded-sm hover:bg-primary"
+                    >
+                      Top rated
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link
+                      href="/upcoming"
+                      className="px-2 py-1.5 w-full hover:text-white hover:rounded-sm hover:bg-primary"
+                    >
+                      Upcoming
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </MaxWidthWrapper>

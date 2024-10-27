@@ -4,7 +4,7 @@ import { getMovieDetail } from "@/app/actions";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { AspectRatio } from "./ui/aspect-ratio";
-import GetCategoryData from "./GetCategoryData";
+import GetCategoryData from "./GetCategorySectionData";
 import {
   Dialog,
   DialogContent,

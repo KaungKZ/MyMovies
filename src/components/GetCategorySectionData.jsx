@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import MovieCard from "./MovieCard";
-import SkeletonPlaceholders from "./SkeletonPlaceholders";
+import { SkeletonSectionPlaceholders } from "./SkeletonPlaceholders";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { SectionBgShape } from "./LoadSvgShapes";
 
@@ -25,7 +25,7 @@ const matchTitle = {
   similar: "Similar Movies",
 };
 
-export default function GetCategoryData({ category, movieId = null }) {
+export default function GetCategorySectionData({ category, movieId = null }) {
   const { data, isPending, isError, error } = useQuery({
     queryKey: [`get-category-data-${category}`],
     // refetchOnWindowFocus: false,
@@ -65,7 +65,7 @@ export default function GetCategoryData({ category, movieId = null }) {
         {isError ? (
           <div>APi got error</div>
         ) : isPending ? (
-          <SkeletonPlaceholders />
+          <SkeletonSectionPlaceholders />
         ) : (
           <div className="relative py-5">
             <MaxWidthWrapper cls="relative">
