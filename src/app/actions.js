@@ -62,8 +62,10 @@ export const getMovieDetail = async (params) => {
   return [body, YTXbody.data.movie];
 };
 
-export const getMoviesByPage = async ({ pageNumber }) => {
+export const getMoviesByPage = async ({ category, pageNumber }) => {
   const url = matchURLs[category];
+
+  console.log(url, pageNumber);
 
   try {
     const req = await fetch(

@@ -16,7 +16,7 @@ export default async function Page(params) {
   //   params.params.slug.split("-")[params.params.slug.split("-").length - 1];
   // const params = useParams();
 
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient(); // becaue useQueryClient() only works in client components
 
   await queryClient.prefetchQuery({
     queryKey: ["get-movie-detail"],

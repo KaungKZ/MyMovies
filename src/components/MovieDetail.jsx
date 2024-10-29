@@ -157,14 +157,23 @@ export default function MovieDetail() {
                         done.
                       </DialogDescription> */}
                     </DialogHeader>
-                    <div className="grid grid-cols-4 gap-4 py-4">
+                    <div className="grid grid-cols-4 py-4">
                       {YTX_Detail.torrents.map((torrent) => (
+                        // <div>
                         <div
                           key={torrent.hash}
-                          className="flex flex-col items-center border-zinc-400 [&:not(:last-child)]:border-r"
+                          className="flex flex-col space-y-3 items-center border-zinc-300 [&:not(:first-child)]:pl-2 [&:not(:last-child)]:pr-2 [&:not(:last-child)]:border-r"
                         >
-                          <Link href={torrent.url}>{torrent.quality}</Link>
+                          <Link
+                            href={torrent.url}
+                            className="bg-primary px-4 py-3 text-white rounded-[3px]"
+                          >
+                            {torrent.quality}
+                          </Link>
+                          <span>{torrent.type.toUpperCase()}</span>
+                          <span>{torrent.size}</span>
                         </div>
+                        // </div>
                       ))}
                     </div>
                     {/* <DialogFooter>
