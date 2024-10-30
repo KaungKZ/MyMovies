@@ -7,22 +7,38 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import { useMutation } from "@tanstack/react-query";
+import { searchMoviesByInput } from "@/app/actions";
+import { Input } from "./ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
 export default function Navbar() {
+  const [searchInput, setSearchInput] = useState("");
+  let searchtimer;
+  const { mutate, data, isPending, isError } = useMutation({
+    // mutationKey: [`get-category-page-data`, category],
+    // refetchOnWindowFocus: false,
+    mutationFn: searchMoviesByInput,
+    onError: (err) => {
+      throw new Error(err);
+    },
+  });
+
+  console.log(data);
+
+  // useEffect(() => {
+  //   mutate(searchInput);
+  // }, [searchInput]);
+
+  // console.log(searchInput, data);
   return (
     <nav className="bg-background py-4">
       <MaxWidthWrapper>
@@ -41,6 +57,21 @@ export default function Navbar() {
           </Link>
 
           <div className="flex space-x-4">
+            <div>
+              <Input
+                type="text"
+                placeholder="Search movies.."
+                onChange={(e) => {
+                  clearTimeout(searchtimer); // <--- The solution is here
+                  searchtimer = setTimeout(() => {
+                    mutate({ searchInput: e.target.value });
+
+                    // console.log(e.target.value);
+                    // setSearchInput(e.target.value);
+                  }, 1000);
+                }}
+              />
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button

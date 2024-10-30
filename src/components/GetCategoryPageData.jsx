@@ -65,8 +65,6 @@ export default function GetCategoryPageData({ category }) {
     },
   });
 
-  console.log(isPendingQuery, isPendingMutate);
-
   useEffect(() => {
     if (isPageNumberExist) {
       handleGoSpecificPage(isPageNumberExist);

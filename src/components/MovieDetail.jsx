@@ -43,7 +43,7 @@ export default function MovieDetail() {
 
   const [IMDB_Detail, YTX_Detail] = data;
 
-  console.log(IMDB_Detail, YTX_Detail);
+  // console.log(IMDB_Detail, YTX_Detail);
 
   // console.log(IMDB_Detail, YTX_Detail);
 
@@ -157,7 +157,13 @@ export default function MovieDetail() {
                         done.
                       </DialogDescription> */}
                     </DialogHeader>
-                    <div className="grid grid-cols-4 py-4">
+                    <div
+                      className="grid  py-4 items-center"
+                      style={{
+                        gridTemplateColumns:
+                          "repeat(auto-fit, minmax(min(100% / 3, max(90px, 100% / 4)), 1fr))",
+                      }}
+                    >
                       {YTX_Detail.torrents.map((torrent) => (
                         // <div>
                         <div

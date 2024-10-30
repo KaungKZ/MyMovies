@@ -65,12 +65,30 @@ export const getMovieDetail = async (params) => {
 export const getMoviesByPage = async ({ category, pageNumber }) => {
   const url = matchURLs[category];
 
-  console.log(url, pageNumber);
-
   try {
     const req = await fetch(
       `${url}?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=${pageNumber}`
     );
+
+    const body = await req.json();
+
+    return body;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export const searchMoviesByInput = async ({ searchInput }) => {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${
+    process.env.IMDB_API_KEY
+  }&language=en-US&query=${
+    searchInput === "" ? "emptymovie" : searchInput
+  }&page=1&include_adult=false`;
+
+  console.log(url);
+
+  try {
+    const req = await fetch(url);
 
     const body = await req.json();
 
