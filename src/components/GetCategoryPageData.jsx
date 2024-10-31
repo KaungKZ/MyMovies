@@ -34,6 +34,7 @@ export default function GetCategoryPageData({ category }) {
   } = useQuery({
     queryKey: [`get-category-page-data-${category}`],
     refetchOnWindowFocus: false,
+
     queryFn: () =>
       getMoviesByPage({
         category: category,
@@ -64,6 +65,8 @@ export default function GetCategoryPageData({ category }) {
       queryClient.setQueryData([`get-category-page-data-${category}`], data);
     },
   });
+
+  console.log(isError);
 
   useEffect(() => {
     if (isPageNumberExist) {
@@ -110,7 +113,7 @@ export default function GetCategoryPageData({ category }) {
 
   return (
     <div>
-      {isErrorMutate ? (
+      {isError || isErrorMutate ? (
         <div>APi got error</div>
       ) : isPendingQuery ? (
         <SkeletonPagePlaceholders />

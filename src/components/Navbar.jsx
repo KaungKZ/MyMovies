@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+// import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { useMutation } from "@tanstack/react-query";
@@ -15,28 +16,34 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default function Navbar() {
   const [searchInput, setSearchInput] = useState("");
+  const [inputWidth, setInputWidth] = useState(null);
+  // const [dropDownOpen, setDropdownOpen] = useState(null);
+  const inputRef = useRef();
   let searchtimer;
   const { mutate, data, isPending, isError } = useMutation({
     // mutationKey: [`get-category-page-data`, category],
-    // refetchOnWindowFocus: false,
+    mutationKey: ["get-movies-searchbar"],
     mutationFn: searchMoviesByInput,
     onError: (err) => {
       throw new Error(err);
     },
   });
 
-  console.log(data);
+  // console.log(data);
 
-  // useEffect(() => {
-  //   mutate(searchInput);
-  // }, [searchInput]);
+  useEffect(() => {
+    if (inputRef && inputRef.current) {
+      setInputWidth(inputRef.current.getBoundingClientRect().width);
+    }
+  }, [inputRef]);
+
+  console.log(data, isPending);
 
   // console.log(searchInput, data);
   return (
@@ -57,20 +64,56 @@ export default function Navbar() {
           </Link>
 
           <div className="flex space-x-4">
-            <div>
-              <Input
-                type="text"
-                placeholder="Search movies.."
-                onChange={(e) => {
-                  clearTimeout(searchtimer); // <--- The solution is here
-                  searchtimer = setTimeout(() => {
-                    mutate({ searchInput: e.target.value });
-
-                    // console.log(e.target.value);
-                    // setSearchInput(e.target.value);
-                  }, 1000);
-                }}
-              />
+            <div className="relative">
+              <Popover>
+                <PopoverTrigger>
+                  <Input
+                    type="text"
+                    ref={inputRef}
+                    startIcon={Search}
+                    placeholder="Search movies.."
+                    onChange={(e) => {
+                      clearTimeout(searchtimer); // <--- The solution is here
+                      searchtimer = setTimeout(() => {
+                        // setDropdownOpen(true);
+                        setSearchInput(e.target.value);
+                        // if (e.target.value !== "") {
+                        mutate({ searchInput: e.target.value });
+                        // }
+                      }, 1000);
+                    }}
+                  />
+                </PopoverTrigger>
+                <PopoverContent
+                  onOpenAutoFocus={(e) => e.preventDefault()}
+                  style={{
+                    width: `${inputWidth}px`,
+                  }}
+                >
+                  {isPending ? (
+                    <div className="">
+                      <span className="text-sm">Searching ...</span>
+                    </div>
+                  ) : isError || !data || searchInput === "" ? (
+                    <div className="">
+                      <span className="text-sm">There is no results..</span>
+                    </div>
+                  ) : (
+                    <div className="">
+                      {data.results.map((result) => (
+                        <Link
+                          href={`/movie/${result.title.replace(/\s/gi, "-")}-${
+                            result.id
+                          }`}
+                        >
+                          <div>{result.title}</div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  {/* </DropdownMenuGroup> */}
+                </PopoverContent>
+              </Popover>
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

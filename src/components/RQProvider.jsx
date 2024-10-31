@@ -3,7 +3,22 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { ReactNode } from "react";
 
-const client = new QueryClient();
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (failureCount) => {
+        if (failureCount >= 1) {
+          return false;
+        }
+
+        return true;
+      },
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
 
 export default function RQProviders({ children }) {
   // to fetch from the cache data instead of calling same api repeatly
