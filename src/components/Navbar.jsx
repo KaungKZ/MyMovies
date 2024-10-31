@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown, Search, Image as LucideImage } from "lucide-react";
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
 // import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useMutation } from "@tanstack/react-query";
 import { searchMoviesByInput } from "@/app/actions";
 import { Input } from "./ui/input";
@@ -18,17 +19,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { truncateString } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+
+const imageWidth = 500;
+const imageBasePath = `https://image.tmdb.org/t/p/w${imageWidth}`;
 
 export default function Navbar() {
   const [searchInput, setSearchInput] = useState("");
   const [inputWidth, setInputWidth] = useState(null);
-  // const [dropDownOpen, setDropdownOpen] = useState(null);
+  const [dropDownOpen, setDropdownOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef();
   let searchtimer;
   const { mutate, data, isPending, isError } = useMutation({
     // mutationKey: [`get-category-page-data`, category],
     mutationKey: ["get-movies-searchbar"],
+    retry: false,
     mutationFn: searchMoviesByInput,
     onError: (err) => {
       throw new Error(err);
@@ -43,9 +50,6 @@ export default function Navbar() {
     }
   }, [inputRef]);
 
-  console.log(data, isPending);
-
-  // console.log(searchInput, data);
   return (
     <nav className="bg-background py-4">
       <MaxWidthWrapper>
@@ -65,27 +69,30 @@ export default function Navbar() {
 
           <div className="flex space-x-4">
             <div className="relative">
-              <Popover>
-                <PopoverTrigger>
+              <Popover open={dropDownOpen} onOpenChange={setDropdownOpen}>
+                <PopoverTrigger asChild>
                   <Input
                     type="text"
                     ref={inputRef}
                     startIcon={Search}
+                    className="rounded-[10px]"
+                    value={searchValue}
                     placeholder="Search movies.."
                     onChange={(e) => {
-                      clearTimeout(searchtimer); // <--- The solution is here
+                      setSearchValue(e.target.value); // set immediately
+
+                      clearTimeout(searchtimer);
                       searchtimer = setTimeout(() => {
-                        // setDropdownOpen(true);
-                        setSearchInput(e.target.value);
-                        // if (e.target.value !== "") {
+                        setDropdownOpen(true);
+                        setSearchInput(e.target.value); // set after 650ms
                         mutate({ searchInput: e.target.value });
-                        // }
-                      }, 1000);
+                      }, 650);
                     }}
                   />
                 </PopoverTrigger>
                 <PopoverContent
                   onOpenAutoFocus={(e) => e.preventDefault()}
+                  className="p-2"
                   style={{
                     width: `${inputWidth}px`,
                   }}
@@ -94,19 +101,58 @@ export default function Navbar() {
                     <div className="">
                       <span className="text-sm">Searching ...</span>
                     </div>
-                  ) : isError || !data || searchInput === "" ? (
+                  ) : isError ||
+                    !data ||
+                    searchValue === "" ||
+                    data.results.length === 0 ? (
                     <div className="">
                       <span className="text-sm">There is no results..</span>
                     </div>
                   ) : (
-                    <div className="">
-                      {data.results.map((result) => (
+                    <div className="flex flex-col space-y-5">
+                      {(data.results.length > 5
+                        ? data.results.slice(0, 5)
+                        : data.results
+                      ).map((result) => (
                         <Link
                           href={`/movie/${result.title.replace(/\s/gi, "-")}-${
                             result.id
                           }`}
+                          className="group"
+                          onClick={() => {
+                            setSearchValue("");
+                            setDropdownOpen(false);
+                          }}
+                          key={result.id}
                         >
-                          <div>{result.title}</div>
+                          <div className="flex space-x-4">
+                            {result.poster_path ? (
+                              <div className="relative w-[60px] flex-grow-0 rounded-[5px]">
+                                <AspectRatio ratio={2 / 3}>
+                                  <Image
+                                    src={imageBasePath + result.poster_path}
+                                    fill
+                                    className="rounded-[5px]"
+                                    alt="search result movie cover"
+                                  />
+                                </AspectRatio>
+                              </div>
+                            ) : (
+                              <div className="w-[60px]  flex justify-center items-center bg-[#CECECE] flex-grow-0 rounded-[5px]">
+                                <AspectRatio ratio={2 / 3}>
+                                  <LucideImage className="w-6 h-6 text-gray-100 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+                                </AspectRatio>
+                              </div>
+                            )}
+                            <div className="flex flex-col flex-1">
+                              <h5 className="font-semibold group-hover:underline decoration-1">
+                                {truncateString(result.title, 20)}
+                              </h5>
+                              <span className="text-sm text-zinc-600 mt-1 block">
+                                {result.release_date.split("-")[0]}
+                              </span>
+                            </div>
+                          </div>
                         </Link>
                       ))}
                     </div>

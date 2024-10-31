@@ -15,7 +15,13 @@ const client = new QueryClient({
       },
     },
     mutations: {
-      retry: false,
+      retry: (failureCount) => {
+        if (failureCount >= 1) {
+          return false;
+        }
+
+        return true;
+      },
     },
   },
 });

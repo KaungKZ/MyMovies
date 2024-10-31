@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import React from "react";
-import { Star, Clock, Download, Video } from "lucide-react";
+import { Star, Clock, Download, Video, UserRound } from "lucide-react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -219,12 +219,18 @@ export default function MovieDetail() {
               {YTX_Detail.cast.map((cast) => (
                 <div key={cast.name} className="flex items-center space-x-3">
                   <div className="relative w-[64px] h-[64px] rounded-full">
-                    <Image
-                      src={cast.url_small_image}
-                      fill
-                      className="rounded-full"
-                      alt="movie cast"
-                    />
+                    {cast.url_small_image ? (
+                      <Image
+                        src={cast.url_small_image}
+                        fill
+                        className="rounded-full"
+                        alt="movie cast"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#CECECE] rounded-full">
+                        <UserRound className="w-7 h-7 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-100" />
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col">
                     <span className="text-zinc-500">{cast.name}</span>
