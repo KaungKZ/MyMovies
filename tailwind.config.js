@@ -101,6 +101,9 @@ module.exports = {
         xsmmx: {
           max: "480px",
         },
+        "2xsmmx": {
+          max: "420px",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -230,9 +230,12 @@ export default function MovieDetail() {
                 />
               </div>
             </div> */}
-            <div className="flex flex-wrap gap-x-6 gap-y-6 mt-12">
+            <div className="flex flex-wrap gap-x-6 gap-y-6 mt-12 xsmmx:grid xsmmx:grid-cols-2 xsmmx:gap-x-3 2xsmmx:flex 2xsmmx:flex-col 2xsmmx:gap-x-0 2xsmmx:gap-y-6">
               {YTX_Detail.cast.map((cast) => (
-                <div key={cast.name} className="flex items-center space-x-3">
+                <div
+                  key={cast.name}
+                  className="flex items-center space-x-3 xsmmx:items-start "
+                >
                   <div className="relative w-[64px] h-[64px] rounded-full mdmx:w-12 mdmx:h-12">
                     {cast.url_small_image ? (
                       <Image
@@ -283,10 +286,10 @@ export default function MovieDetail() {
                 />
               </div>
             </div> */}
-            <div className="grid grid-cols-3 gap-x-4 mt-12 mdmx:grid-cols-2">
+            <div className="grid grid-cols-3 gap-x-4 mt-12 mdmx:grid-cols-2 xsmmx:grid-cols-1">
               <div>
                 <iframe
-                  className="h-60 w-full lgmx:h-44"
+                  className="h-60 w-full lgmx:h-44 xsmmx:h-56"
                   src={`https://www.youtube.com/embed/${YTX_Detail.yt_trailer_code}?rel=1&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
                 />
               </div>
@@ -298,7 +301,7 @@ export default function MovieDetail() {
                   alt="movie screenshot"
                 />
               </div>
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full xsmmx:hidden">
                 <Image
                   src={YTX_Detail.large_screenshot_image2}
                   fill

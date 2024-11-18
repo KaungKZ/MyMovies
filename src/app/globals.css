@@ -8,7 +8,7 @@
   }
 
   .title {
-    @apply font-title smmx:text-2xl;
+    @apply font-title;
   }
 
   .category-custom-pagination .swiper-pagination-bullet {

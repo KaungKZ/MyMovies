@@ -92,8 +92,6 @@ export const searchMoviesByInput = async ({ searchInput }) => {
     searchInput === "" ? "emptymovie" : searchInput
   }&page=1&include_adult=false`;
 
-  console.log(url);
-
   try {
     const req = await fetch(url);
 

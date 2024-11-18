@@ -36,7 +36,7 @@ export default function GetCategorySectionData({ category, movieId = null }) {
     },
   });
 
-  console.log(data, isPending, isFetching, isLoading);
+  // console.log(data, isPending, isFetching, isLoading);
 
   // console.log(isload);
 
@@ -81,7 +81,7 @@ export default function GetCategorySectionData({ category, movieId = null }) {
               {data.results.length > 0 ? (
                 <>
                   <div
-                    className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category}`}
+                    className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category} smmx:hidden`}
                   ></div>
                   <Swiper
                     // slidesPerView={5}
@@ -94,12 +94,12 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                     }}
                     breakpoints={{
                       240: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                        slidesPerGroup: 1,
+                        slidesPerView: 2,
+                        spaceBetween: 7,
+                        slidesPerGroup: 2,
                         allowTouchMove: true,
                       },
-                      361: {
+                      420: {
                         slidesPerView: 3,
                         spaceBetween: 15,
                         slidesPerGroup: 3,
@@ -139,7 +139,7 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                         prevEl: `.swiper-navigation-prev.${category}-prev`,
                       })
                     }
-                    className="mySwiper relative"
+                    className="mySwiper relative smmx:mt-7"
                   >
                     {data?.results?.map((d) => {
                       return (
@@ -152,17 +152,17 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                   <div className="swiper-navigation-wrapper">
                     <div
                       className={`swiper-navigation-prev absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -left-0 ${category}-prev
-                      2xlmx:left-8 xlmx:h-14 xlmx:w-8
+                      2xlmx:left-8 xlmx:h-14 xlmx:w-8 mdmx:h-12 mdmx:w-8 mdmx:top
                       `}
                     >
-                      <ArrowLeft className="h-6 w-6 text-white transition duration-300" />
+                      <ArrowLeft className="h-6 w-6 text-white transition duration-300 mdmx-h-5 mdmx:w-5" />
                     </div>
                     <div
                       className={`swiper-navigation-next absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -right-0 ${category}-next
-                       2xlmx:right-8 xlmx:h-14 xlmx:w-8
+                       2xlmx:right-8 xlmx:h-14 xlmx:w-8  mdmx:h-12 mdmx:w-8
                       `}
                     >
-                      <ArrowRight className="h-6 w-6 text-white transition duration-300" />
+                      <ArrowRight className="h-6 w-6 text-white transition duration-300 mdmx-h-5 mdmx:w-5" />
                     </div>
                   </div>
                 </>

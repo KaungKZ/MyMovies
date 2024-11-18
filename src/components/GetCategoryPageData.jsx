@@ -66,7 +66,7 @@ export default function GetCategoryPageData({ category }) {
     },
   });
 
-  console.log(isError);
+  // console.log(isError);
 
   useEffect(() => {
     if (isPageNumberExist) {
