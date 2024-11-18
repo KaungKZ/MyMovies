@@ -75,7 +75,7 @@ export default function Navbar() {
                     type="text"
                     ref={inputRef}
                     startIcon={Search}
-                    className="rounded-[10px]"
+                    className="rounded-[10px] placeholder:text-base min-w-[320px]"
                     value={searchValue}
                     placeholder="Search movies.."
                     onChange={(e) => {

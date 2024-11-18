@@ -15,7 +15,7 @@ export default function MovieCard(props) {
   return (
     <div className="">
       <Link href={`/movie/${title.replace(/\s/gi, "-")}-${id}`} className="">
-        <div className="w-[220px] relative rounded-[6px]  overflow-hidden">
+        <div className="w-[220px] relative rounded-[6px]  overflow-hidden 2xlmx:w-auto">
           <AspectRatio ratio={2 / 3}>
             <Image
               src={imageBasePath + poster_path}

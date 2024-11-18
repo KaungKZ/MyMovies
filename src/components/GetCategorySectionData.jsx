@@ -26,14 +26,17 @@ const matchTitle = {
 };
 
 export default function GetCategorySectionData({ category, movieId = null }) {
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, error, isFetching, isLoading } = useQuery({
     queryKey: [`get-category-data-${category}`],
+
     // refetchOnWindowFocus: false,
     queryFn: () => handleRequest({ category: category, movieId: movieId }),
     onError: (err) => {
       throw new Error(err);
     },
   });
+
+  console.log(data, isPending, isFetching, isLoading);
 
   // console.log(isload);
 
@@ -69,55 +72,102 @@ export default function GetCategorySectionData({ category, movieId = null }) {
         ) : (
           <div className="relative py-5">
             <MaxWidthWrapper cls="relative">
-              <div
-                className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category}`}
-              ></div>
-              <Swiper
-                slidesPerView={5}
-                slidesPerGroup={5}
-                spaceBetween={15}
-                pagination={{
-                  el: `.category-custom-pagination.${category}`,
+              {data.results.length > 0 ? (
+                <>
+                  <div
+                    className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category}`}
+                  ></div>
+                  <Swiper
+                    // slidesPerView={5}
+                    // slidesPerGroup={5}
+                    spaceBetween={15}
+                    pagination={{
+                      el: `.category-custom-pagination.${category}`,
 
-                  clickable: false,
-                }}
-                modules={[Pagination, Navigation]}
-                speed={800}
-                // navigation={true}
-                navigation={
-                  (true,
-                  {
-                    nextEl: `.swiper-navigation-next.${category}-next`,
-                    prevEl: `.swiper-navigation-prev.${category}-prev`,
-                  })
-                }
-                className="mySwiper relative"
-              >
-                {data?.results?.map((d) => {
-                  return (
-                    <SwiperSlide key={d.id}>
-                      <MovieCard movie={d} />
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-              <div className="swiper-navigation-wrapper">
-                <div
-                  className={`swiper-navigation-prev absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -left-0 ${category}-prev`}
-                >
-                  <ArrowLeft className="h-6 w-6 text-white transition duration-300" />
-                </div>
-                <div
-                  className={`swiper-navigation-next absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -right-0 ${category}-next`}
-                >
-                  <ArrowRight className="h-6 w-6 text-white transition duration-300" />
-                </div>
-              </div>
+                      clickable: false,
+                    }}
+                    breakpoints={{
+                      240: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                        slidesPerGroup: 1,
+                        allowTouchMove: true,
+                      },
+                      361: {
+                        slidesPerView: 3,
+                        spaceBetween: 15,
+                        slidesPerGroup: 3,
+                        allowTouchMove: true,
+                      },
+                      // 601: {
+                      //   slidesPerView: 3,
+                      //   spaceBetween: 15,
+                      //   slidesPerGroup: 3,
+                      //   allowTouchMove: true,
+                      // },
+
+                      601: {
+                        slidesPerView: 4,
+                        spaceBetween: 15,
+                        slidesPerGroup: 4,
+                        allowTouchMove: true,
+                      },
+                      1025: {
+                        slidesPerView: 5,
+                        // spaceBetween: 25,
+                        slidesPerGroup: 5,
+                        allowTouchMove: false,
+                      },
+                      // 1366: {
+                      //   slidesPerView: 5,
+                      //   slidesPerGroup: 5,
+                      //   allowTouchMove: false,
+                      // },
+                    }}
+                    modules={[Pagination, Navigation]}
+                    speed={800}
+                    navigation={
+                      (true,
+                      {
+                        nextEl: `.swiper-navigation-next.${category}-next`,
+                        prevEl: `.swiper-navigation-prev.${category}-prev`,
+                      })
+                    }
+                    className="mySwiper relative"
+                  >
+                    {data?.results?.map((d) => {
+                      return (
+                        <SwiperSlide key={d.id}>
+                          <MovieCard movie={d} />
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                  <div className="swiper-navigation-wrapper">
+                    <div
+                      className={`swiper-navigation-prev absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -left-0 ${category}-prev
+                      2xlmx:left-8 xlmx:h-14 xlmx:w-8
+                      `}
+                    >
+                      <ArrowLeft className="h-6 w-6 text-white transition duration-300" />
+                    </div>
+                    <div
+                      className={`swiper-navigation-next absolute z-10 bg-emerald-500 h-16 w-10 flex justify-center items-center rounded shadow-xl transform -translate-y-1/2 top-1/2 cursor-pointer group-hover:hidden transition duration-300 hover:bg-emerald-600 -right-0 ${category}-next
+                       2xlmx:right-8 xlmx:h-14 xlmx:w-8
+                      `}
+                    >
+                      <ArrowRight className="h-6 w-6 text-white transition duration-300" />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>There is no result for this category</div>
+                </>
+              )}
             </MaxWidthWrapper>
-            {/* <div> */}
 
-            {/* </div> */}
-            <div className="w-full h-full absolute left-0 top-6 -z-10">
+            <div className="w-full h-full absolute left-0 top-6 -z-10 lgmx:hidden">
               <SectionBgShape className="scale-x-1 w-full" />
               <SectionBgShape className="-scale-x-1 rotate-180 w-full" />
             </div>

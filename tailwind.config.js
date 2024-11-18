@@ -64,6 +64,7 @@ module.exports = {
         "2xl": {
           min: "1536px",
         },
+
         xl: {
           min: "1280px",
         },
@@ -83,7 +84,7 @@ module.exports = {
           max: "1520px",
         },
         "2xlmx": {
-          max: "1360px",
+          max: "1366px",
         },
         xlmx: {
           max: "1280px",

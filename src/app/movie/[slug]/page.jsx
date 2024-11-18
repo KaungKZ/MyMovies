@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 import MovieDetail from "@/components/MovieDetail";
 import { getMovieDetail } from "@/app/actions";
+import { handleRequest } from "@/app/actions";
 
 // import { useParams } from "next/navigation";
 
@@ -22,6 +23,18 @@ export default async function Page(params) {
     queryKey: ["get-movie-detail"],
     queryFn: () => getMovieDetail(params.params.slug),
   });
+
+  // await queryClient.prefetchQuery({
+  //   queryKey: [`get-category-data-similar`],
+  //   queryFn: () =>
+  //     handleRequest({
+  //       category: "similar",
+  //       movieId:
+  //         params.params.slug.split("-")[params.params.split("-").length - 1],
+  //     }),
+
+  //   // queryFn: () => getMovieDetail(params.params.slug),
+  // });
 
   // console.log(data)
   // console.log(params.params.slug);

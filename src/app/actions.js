@@ -19,12 +19,19 @@ export const handleRequest = async ({ category, movieId }) => {
     url = matchURLs[category];
   }
 
+  // console.log(url, category, movieId);
+
   try {
     const req = await fetch(
       `${url}?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=1`
     );
 
     const body = await req.json();
+
+    // console.log(
+    //   `${url}?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=1`,
+    //   body
+    // );
 
     return body;
   } catch (err) {

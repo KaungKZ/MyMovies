@@ -4,7 +4,7 @@ import { getMovieDetail } from "@/app/actions";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { AspectRatio } from "./ui/aspect-ratio";
-import GetCategoryData from "./GetCategorySectionData";
+import GetCategorySectionData from "./GetCategorySectionData";
 import {
   Dialog,
   DialogContent,
@@ -28,22 +28,19 @@ export default function MovieDetail() {
   const params = useParams();
 
   //   console.log(params);
-  const { data, error, isFetching, isPending } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryKey: ["get-movie-detail"],
     refetchOnWindowFocus: false,
     queryFn: () => getMovieDetail(params.slug),
     // throwOnError: true,
   });
-
-  // console.log(isFetching, isPending);
+  console.log(data);
 
   if (error) {
     return <div>Movie detail not found</div>;
   }
 
   const [IMDB_Detail, YTX_Detail] = data;
-
-  // console.log(IMDB_Detail, YTX_Detail);
 
   // console.log(IMDB_Detail, YTX_Detail);
 
@@ -59,6 +56,19 @@ export default function MovieDetail() {
     return `${h} ${m}`;
   };
 
+  function removeDuplicate(arr) {
+    var result = arr.reduce((unique, o) => {
+      if (!unique.some((obj) => obj.quality === o.quality)) {
+        unique.push(o);
+      }
+      return unique;
+    }, []);
+
+    // console.log(result)
+
+    return result;
+  }
+
   // console.log(IMDB_Detail, YTX_Detail);
 
   //   console.log(data, error, isFetching);
@@ -68,7 +78,7 @@ export default function MovieDetail() {
     <section className="py-16">
       <MaxWidthWrapper>
         <div className="grid grid-cols-12 grid-x-12">
-          <div className="col-span-6">
+          <div className="col-span-5">
             <div className="relative w-[350px]">
               <AspectRatio ratio={2 / 3}>
                 {YTX_Detail.large_cover_image ? (
@@ -106,7 +116,7 @@ export default function MovieDetail() {
               </div>
             </div>
           </div>
-          <div className="col-span-6 flex flex-col space-y-6">
+          <div className="col-span-7 flex flex-col space-y-6">
             <div>
               <h2 className="text-4xl font-bold">{IMDB_Detail.title}</h2>
               <span className="text-base text-zinc-700 mt-2 block">
@@ -164,7 +174,7 @@ export default function MovieDetail() {
                           "repeat(auto-fit, minmax(min(100% / 3, max(90px, 100% / 4)), 1fr))",
                       }}
                     >
-                      {YTX_Detail.torrents.map((torrent) => (
+                      {removeDuplicate(YTX_Detail.torrents).map((torrent) => (
                         // <div>
                         <div
                           key={torrent.hash}
@@ -215,7 +225,7 @@ export default function MovieDetail() {
                 />
               </div>
             </div>
-            <div className="flex flex-wrap space-x-6 mt-12">
+            <div className="flex flex-wrap gap-x-6 gap-y-6 mt-12">
               {YTX_Detail.cast.map((cast) => (
                 <div key={cast.name} className="flex items-center space-x-3">
                   <div className="relative w-[64px] h-[64px] rounded-full">
@@ -290,7 +300,7 @@ export default function MovieDetail() {
         )}
       </MaxWidthWrapper>
       <div className="mt-24">
-        <GetCategoryData category="similar" movieId={IMDB_Detail.id} />
+        <GetCategorySectionData category="similar" movieId={IMDB_Detail.id} />
       </div>
     </section>
   );
