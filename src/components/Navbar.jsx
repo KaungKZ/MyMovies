@@ -67,7 +67,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 mdmx:space-x-2">
             <div className="relative">
               <Popover open={dropDownOpen} onOpenChange={setDropdownOpen}>
                 <PopoverTrigger asChild>
@@ -75,7 +75,7 @@ export default function Navbar() {
                     type="text"
                     ref={inputRef}
                     startIcon={Search}
-                    className="rounded-[10px] placeholder:text-base min-w-[320px]"
+                    className="rounded-[10px] placeholder:text-base min-w-[320px] mdmx:min-w-[260px]"
                     value={searchValue}
                     placeholder="Search movies.."
                     onChange={(e) => {
@@ -165,7 +165,7 @@ export default function Navbar() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="link"
-                  className="text-base hover:no-underline text-zinc-600"
+                  className="text-base hover:no-underline text-zinc-600 px-1"
                 >
                   Categories <ChevronDown className="w-4 h-4" />
                 </Button>

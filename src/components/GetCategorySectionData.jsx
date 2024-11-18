@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { handleRequest } from "@/app/actions";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
-
+import SectionHeader from "./SectionHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -47,7 +47,13 @@ export default function GetCategorySectionData({ category, movieId = null }) {
   return (
     <>
       <MaxWidthWrapper>
-        <div className="relative flex items-center space-x-2">
+        <SectionHeader
+          title={matchTitle[category]}
+          icon={
+            <MoveRight className="h-11 w-11 text-primary smmx:w-8 smmx:h-8" />
+          }
+        />
+        {/* <div className="relative flex items-center space-x-2">
           <h1 className="text-3xl font-bold text-gray-700 underline title">
             {matchTitle[category]}
           </h1>
@@ -62,7 +68,7 @@ export default function GetCategorySectionData({ category, movieId = null }) {
               alt="section title bg shape"
             />
           </div>
-        </div>
+        </div> */}
       </MaxWidthWrapper>
       <div className="relative">
         {isError ? (

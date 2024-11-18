@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { AspectRatio } from "./ui/aspect-ratio";
 import GetCategorySectionData from "./GetCategorySectionData";
+import SectionHeader from "./SectionHeader";
 import {
   Dialog,
   DialogContent,
@@ -75,11 +76,11 @@ export default function MovieDetail() {
 
   //   console.log(data);
   return (
-    <section className="py-16">
+    <section className="py-16 lgmx:py-12 smmx:py-8">
       <MaxWidthWrapper>
-        <div className="grid grid-cols-12 grid-x-12">
-          <div className="col-span-5">
-            <div className="relative w-[350px]">
+        <div className="grid grid-cols-12 grid-x-12 xlmx:gap-x-16 lgmx:flex lgmx:flex-col lgmx:gap-x-0 lgmx:space-y-8">
+          <div className="col-span-5 lgmx:flex lgmx:justify-center">
+            <div className="relative w-[350px] lgmx:w-[320px] mdmx:w-[280px] smmx:w-[235px]">
               <AspectRatio ratio={2 / 3}>
                 {YTX_Detail.large_cover_image ? (
                   <Image
@@ -101,7 +102,7 @@ export default function MovieDetail() {
                   />
                 )}
               </AspectRatio>
-              <div className="w-[500px] h-full absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="w-[500px] h-full absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 xlmx:hidden lgmx:block mdmx:w-[400px] smmx:w-[340px]">
                 <Image
                   src="/assets/movie-detail-bg-shape.svg"
                   fill
@@ -118,7 +119,9 @@ export default function MovieDetail() {
           </div>
           <div className="col-span-7 flex flex-col space-y-6">
             <div>
-              <h2 className="text-4xl font-bold">{IMDB_Detail.title}</h2>
+              <h2 className="text-4xl font-bold smmx:text-3xl">
+                {IMDB_Detail.title}
+              </h2>
               <span className="text-base text-zinc-700 mt-2 block">
                 {IMDB_Detail.release_date}
               </span>
@@ -208,14 +211,16 @@ export default function MovieDetail() {
           </div>
         </div>
         {YTX_Detail.cast && (
-          <div className="mt-24">
-            <div className="relative flex items-center space-x-2">
+          <div className="mt-24 mdmx:mt-16">
+            <SectionHeader
+              title="Casts"
+              // icon={<Video className="h-7 w-7 text-primary fill-primary" />}
+            />
+            {/* <div className="relative flex items-center space-x-2">
               <h1 className="text-3xl font-bold text-gray-700 underline title">
                 Casts
               </h1>
-              {/* <span>
-            <MoveRight className="h-11 w-11 text-primary" />
-          </span> */}
+        
               <div className="absolute left-0 top-0 -translate-x-[45px] -translate-y-[60px] -z-10">
                 <Image
                   src="/assets/section-title-bg-shape.png"
@@ -224,11 +229,11 @@ export default function MovieDetail() {
                   alt="section title bg shape"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-wrap gap-x-6 gap-y-6 mt-12">
               {YTX_Detail.cast.map((cast) => (
                 <div key={cast.name} className="flex items-center space-x-3">
-                  <div className="relative w-[64px] h-[64px] rounded-full">
+                  <div className="relative w-[64px] h-[64px] rounded-full mdmx:w-12 mdmx:h-12">
                     {cast.url_small_image ? (
                       <Image
                         src={cast.url_small_image}
@@ -255,8 +260,14 @@ export default function MovieDetail() {
           </div>
         )}
         {YTX_Detail.yt_trailer_code && (
-          <div className="mt-24">
-            <div className="relative flex items-center space-x-2">
+          <div className="mt-24 mdmx:mt-16">
+            <SectionHeader
+              title="Watch Trailer"
+              icon={
+                <Video className="h-7 w-7 text-primary fill-primary smmx:h-5 smmx:w-5" />
+              }
+            />
+            {/* <div className="relative flex items-center space-x-2">
               <h1 className="text-3xl font-bold text-gray-700 underline title">
                 Watch Trailer
               </h1>
@@ -271,15 +282,15 @@ export default function MovieDetail() {
                   alt="section title bg shape"
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-x-4 mt-12">
+            </div> */}
+            <div className="grid grid-cols-3 gap-x-4 mt-12 mdmx:grid-cols-2">
               <div>
                 <iframe
-                  className="h-60 w-full"
+                  className="h-60 w-full lgmx:h-44"
                   src={`https://www.youtube.com/embed/${YTX_Detail.yt_trailer_code}?rel=1&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
                 />
               </div>
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full mdmx:hidden">
                 <Image
                   src={YTX_Detail.large_screenshot_image1}
                   fill
@@ -299,7 +310,7 @@ export default function MovieDetail() {
           </div>
         )}
       </MaxWidthWrapper>
-      <div className="mt-24">
+      <div className="mt-24 mdmx:mt-16">
         <GetCategorySectionData category="similar" movieId={IMDB_Detail.id} />
       </div>
     </section>
