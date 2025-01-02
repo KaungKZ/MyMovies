@@ -75,7 +75,7 @@ export default function Navbar() {
                     type="text"
                     ref={inputRef}
                     startIcon={Search}
-                    className="rounded-[10px] placeholder:text-base min-w-[320px] mdmx:min-w-[260px]"
+                    className="rounded-[6px] placeholder:text-base min-w-[320px] mdmx:min-w-[260px] py-5"
                     value={searchValue}
                     placeholder="Search movies.."
                     onChange={(e) => {

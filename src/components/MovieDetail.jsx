@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import React from "react";
+import React, { useState } from "react";
 import { Star, Clock, Download, Clapperboard, UserRound } from "lucide-react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Image from "next/image";
@@ -24,9 +24,13 @@ import Link from "next/link";
 
 const imageWidth = 500;
 const imageBasePath = `https://image.tmdb.org/t/p/w${imageWidth}`;
+const errorImagePath = "/assets/no-image.png";
 
 export default function MovieDetail() {
   const params = useParams();
+
+  const [image1Err, setImage1Err] = useState(null);
+  const [image2Err, setImage2Err] = useState(null);
 
   //   console.log(params);
   const { data, error, isPending } = useQuery({
@@ -35,7 +39,7 @@ export default function MovieDetail() {
     queryFn: () => getMovieDetail(params.slug),
     // throwOnError: true,
   });
-  console.log(data);
+  // console.log(imageErr);
 
   if (error) {
     return <div>Movie detail not found</div>;
@@ -70,11 +74,8 @@ export default function MovieDetail() {
     return result;
   }
 
-  // console.log(IMDB_Detail, YTX_Detail);
+  console.log(YTX_Detail);
 
-  //   console.log(data, error, isFetching);
-
-  //   console.log(data);
   return (
     <section className="py-16 lgmx:py-12 smmx:py-8">
       <MaxWidthWrapper>
@@ -241,6 +242,7 @@ export default function MovieDetail() {
                   <div className="relative w-[64px] h-[64px] rounded-full mdmx:w-12 mdmx:h-12">
                     {cast.url_small_image ? (
                       <Image
+                        // onError={(err) => console.log("true cast")}
                         src={cast.url_small_image}
                         fill
                         className="rounded-full"
@@ -297,17 +299,51 @@ export default function MovieDetail() {
                   src={`https://www.youtube.com/embed/${YTX_Detail.yt_trailer_code}?rel=1&wmode=transparent&border=0&autoplay=0&iv_load_policy=3`}
                 />
               </div>
+              {/* {YTX_Detail.large_screenshot_image1 ? ( */}
               <div className="relative w-full h-full mdmx:hidden">
+                <Image
+                  onError={() => {
+                    return setImage1Err(true);
+                  }}
+                  src={
+                    !image1Err
+                      ? YTX_Detail.large_screenshot_image1
+                      : errorImagePath
+                  }
+                  fill
+                  className="object-cover"
+                  alt="movie screenshot"
+                />
+              </div>
+              {/* ) : ( */}
+              {/* <div className="relative w-full h-full mdmx:hidden">
+                  <Image
+                    src="./assets/no-image.png"
+                    fill
+                    className="object-cover"
+                    alt="movie screenshot"
+                  />
+                </div> */}
+              {/* )} */}
+              {/* <div className="relative w-full h-full mdmx:hidden">
                 <Image
                   src={YTX_Detail.large_screenshot_image1}
                   fill
                   className="object-cover"
                   alt="movie screenshot"
                 />
-              </div>
+              </div> */}
               <div className="relative w-full h-full xsmmx:hidden">
                 <Image
-                  src={YTX_Detail.large_screenshot_image2}
+                  onError={() => {
+                    return setImage2Err(true);
+                  }}
+                  // src={YTX_Detail.large_screenshot_image2}
+                  src={
+                    !image2Err
+                      ? YTX_Detail.large_screenshot_image2
+                      : errorImagePath
+                  }
                   fill
                   className="object-cover"
                   alt="movie screenshot"
