@@ -8,8 +8,8 @@ export const SkeletonSectionPlaceholders = () => {
     <div className="py-5">
       <MaxWidthWrapper>
         <div className="grid grid-cols-5 grid-rows-2 items-center gap-y-6 gap-x-4 mt-16">
-          {[...Array(10)].map((_) => (
-            <div>
+          {[...Array(10)].map((_, i) => (
+            <div key={i}>
               <Skeleton className="min-w-[220px] h-[330px]" />
               <Skeleton className="w-[164px] h-3 mt-4" />
               <Skeleton className="w-[80px] h-3 mt-2" />

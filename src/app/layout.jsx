@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
         className={`${worksans.variable} ${inter.variable} antialiased font-sans bg-background`}
       >
-        <RQProviders children={children}>
+        <RQProviders>
           <AuthProvider>
             <NextTopLoader color="#059669" />
             <Navbar />
