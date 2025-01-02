@@ -85,7 +85,7 @@ export default function GetCategoryPageData({ category }) {
     let arr = [];
     const _total_pages = total_pages > 500 ? 500 : total_pages; // set to 500 if total page is over 500 as api limit is 500
 
-    for (let i = 0; i <= _total_pages; i++) {
+    for (let i = 1; i <= _total_pages; i++) {
       arr.push(i);
     }
 
@@ -109,6 +109,20 @@ export default function GetCategoryPageData({ category }) {
     await mutate({ category: category, pageNumber: pageNumber });
   }
 
+  async function handleGoNextPage(currentPageNumber) {
+    router.push(
+      pathname + "?" + createQueryString("page", currentPageNumber + 1)
+    );
+    await mutate({ category: category, pageNumber: currentPageNumber + 1 });
+  }
+
+  async function handleGoPrevPage(currentPageNumber) {
+    router.push(
+      pathname + "?" + createQueryString("page", currentPageNumber - 1)
+    );
+    await mutate({ category: category, pageNumber: currentPageNumber - 1 });
+  }
+
   // console.log(totalPagination, data);
 
   return (
@@ -129,12 +143,15 @@ export default function GetCategoryPageData({ category }) {
             {/* </div> */}
           </div>
           <div className="flex justify-center mt-8">
-            <button className="left-pagination mr-4 sm:mr-1">
+            <button
+              className="left-pagination mr-4 sm:mr-1"
+              onClick={() => handleGoPrevPage(data.page)}
+            >
               <ChevronLeft className="h-6 w-6 text-black transition duration-300 sm:w-5 sm:h-5" />
             </button>
 
             <div className="page-numbers ">
-              {/* <button
+              <button
                 className={`page-number ${
                   totalPagination[0] === data.page
                     ? "bg-primary text-white rounded-[3px]"
@@ -150,8 +167,8 @@ export default function GetCategoryPageData({ category }) {
                 disabled={isPendingMutate}
               >
                 {totalPagination[0]}
-              </button> */}
-              {/* {data.page >= 6 ? <span>...</span> : <></>} */}
+              </button>
+              {data.page >= 6 ? <span>...</span> : <></>}
               {[
                 // if total page is over 6
                 ...(totalPagination.length > 6
@@ -163,7 +180,7 @@ export default function GetCategoryPageData({ category }) {
                       (data.total_pages > 500 ? 500 : data.total_pages) - 4
                     ? totalPagination.slice(
                         totalPagination[totalPagination.length - 7], // show only numbers which are 7 index away from last
-                        totalPagination[totalPagination.length - 1] // remove last and show before last
+                        totalPagination[totalPagination.length - 2] // remove last and show before last
                       )
                     : // anything else (if current page is not less than 6 or within 4 pages away from last page)
                       totalPagination.slice(data.page - 3, data.page + 2)
@@ -223,6 +240,7 @@ export default function GetCategoryPageData({ category }) {
               className={`right-pagination ml-4 sm:ml-1 cursor-not-allowed ${
                 isPendingMutate ? "cursor-not-allowed" : ""
               }`}
+              onClick={() => handleGoNextPage(data.page)}
             >
               <ChevronRight className="h-6 w-6 text-black transition duration-300 sm:w-5 sm:h-5" />
             </button>

@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import React from "react";
 import Image from "next/image";
+import { Award } from "lucide-react";
 import GetCategoryPageData from "@/components/GetCategoryPageData";
 
 export default function Page() {
@@ -12,6 +13,9 @@ export default function Page() {
             <h1 className="text-3xl font-bold text-gray-700 underline title">
               Top rated Movies
             </h1>
+            <span>
+              <Award className="h-12 w-12 text-white fill-primary smmx:w-8 smmx:h-8" />
+            </span>
 
             <div className="absolute left-0 top-0 -translate-x-[45px] -translate-y-[60px] -z-10">
               <Image

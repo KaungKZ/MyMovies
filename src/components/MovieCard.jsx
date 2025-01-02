@@ -16,15 +16,28 @@ export default function MovieCard(props) {
     <div className="">
       <Link href={`/movie/${title.replace(/\s/gi, "-")}-${id}`} className="">
         <div className="w-[220px] relative rounded-[6px]  overflow-hidden 2xlmx:w-auto">
-          <AspectRatio ratio={2 / 3}>
-            <Image
-              src={imageBasePath + poster_path}
-              fill
-              alt="movie poster"
-              className="rounded-[6px] hover:scale-110 transition-all duration-500"
-              // blurDataURL={img?.blurDataURL}
-            />
-          </AspectRatio>
+          {poster_path ? (
+            <AspectRatio ratio={2 / 3}>
+              <Image
+                src={imageBasePath + poster_path}
+                fill
+                alt="movie poster"
+                className="rounded-[6px] hover:scale-110 transition-all duration-500"
+                // blurDataURL={img?.blurDataURL}
+              />
+            </AspectRatio>
+          ) : (
+            <AspectRatio ratio={2 / 3}>
+              <Image
+                src="/assets/no-image.png"
+                fill
+                alt="no movie"
+                className="rounded-[6px] "
+                // blurDataURL={img?.blurDataURL}
+              />
+            </AspectRatio>
+          )}
+
           <div className="bg-[#161D25] px-2 py-[2px] rounded-[8px] absolute left-[10px] top-[10px]">
             <div className="flex items-center">
               <Star className="text-yellow-400 fill-yellow-400 text-base w-4 h-4 mr-2" />{" "}

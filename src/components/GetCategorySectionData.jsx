@@ -3,20 +3,30 @@
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { handleRequest } from "@/app/actions";
-import { MoveRight } from "lucide-react";
+import Link from "next/link";
+import {
+  MoveRight,
+  TrendingUp,
+  Flame,
+  Award,
+  Clock,
+  Clapperboard,
+} from "lucide-react";
 import Image from "next/image";
 import SectionHeader from "./SectionHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/grid";
 
-import { Navigation, Pagination } from "swiper/modules";
+import { Grid, Navigation, Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import MovieCard from "./MovieCard";
 import { SkeletonSectionPlaceholders } from "./SkeletonPlaceholders";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { SectionBgShape } from "./LoadSvgShapes";
+import { Button, buttonVariants } from "./ui/button";
 
 const matchTitle = {
   trending: "Trending this week",
@@ -25,9 +35,20 @@ const matchTitle = {
   similar: "Similar Movies",
 };
 
-export default function GetCategorySectionData({ category, movieId = null }) {
-  const { data, isPending, isError, error, isFetching, isLoading } = useQuery({
-    queryKey: [`get-category-data-${category}`],
+const matchLinks = {
+  trending: "trending",
+  upcoming: "upcoming",
+  popular: "popular",
+  similar: "/",
+};
+
+export default function GetCategorySectionData({
+  category,
+  movieId = null,
+  browseAll = true,
+}) {
+  const { data, isError, isPending, error, isFetching, isLoading } = useQuery({
+    queryKey: [`get-category-data-${category}-${movieId}`],
 
     // refetchOnWindowFocus: false,
     queryFn: () => handleRequest({ category: category, movieId: movieId }),
@@ -35,6 +56,10 @@ export default function GetCategorySectionData({ category, movieId = null }) {
       throw new Error(err);
     },
   });
+
+  // const isPending = true;
+
+  // console.log(data.results);
 
   // console.log(data, isPending, isFetching, isLoading);
 
@@ -50,25 +75,19 @@ export default function GetCategorySectionData({ category, movieId = null }) {
         <SectionHeader
           title={matchTitle[category]}
           icon={
-            <MoveRight className="h-11 w-11 text-primary smmx:w-8 smmx:h-8" />
+            category === "trending" ? (
+              <TrendingUp className="h-11 w-11 text-primary smmx:w-8 smmx:h-8" />
+            ) : category === "popular" ? (
+              <Flame className="h-9 w-9 text-primary smmx:w-8 smmx:h-8 fill-primary" />
+            ) : category === "upcoming" ? (
+              <Clock className="h-9 w-9 text-white smmx:w-8 smmx:h-8 fill-primary" />
+            ) : category === "similar" ? (
+              <Clapperboard className="h-9 w-9 text-white fill-primary smmx:w-8 smmx:h-8" />
+            ) : (
+              <Award className="h-11 w-11 text-primary smmx:w-8 smmx:h-8" />
+            )
           }
         />
-        {/* <div className="relative flex items-center space-x-2">
-          <h1 className="text-3xl font-bold text-gray-700 underline title">
-            {matchTitle[category]}
-          </h1>
-          <span>
-            <MoveRight className="h-11 w-11 text-primary" />
-          </span>
-          <div className="absolute left-0 top-0 -translate-x-[45px] -translate-y-[60px] -z-10">
-            <Image
-              src="/assets/section-title-bg-shape.png"
-              width="143"
-              height="130"
-              alt="section title bg shape"
-            />
-          </div>
-        </div> */}
       </MaxWidthWrapper>
       <div className="relative">
         {isError ? (
@@ -86,11 +105,15 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                   <Swiper
                     // slidesPerView={5}
                     // slidesPerGroup={5}
-                    spaceBetween={15}
+                    spaceBetween={20}
                     pagination={{
                       el: `.category-custom-pagination.${category}`,
 
                       clickable: false,
+                    }}
+                    grid={{
+                      rows: 2,
+                      fill: "row",
                     }}
                     breakpoints={{
                       240: {
@@ -105,12 +128,6 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                         slidesPerGroup: 3,
                         allowTouchMove: true,
                       },
-                      // 601: {
-                      //   slidesPerView: 3,
-                      //   spaceBetween: 15,
-                      //   slidesPerGroup: 3,
-                      //   allowTouchMove: true,
-                      // },
 
                       601: {
                         slidesPerView: 4,
@@ -124,13 +141,8 @@ export default function GetCategorySectionData({ category, movieId = null }) {
                         slidesPerGroup: 5,
                         allowTouchMove: false,
                       },
-                      // 1366: {
-                      //   slidesPerView: 5,
-                      //   slidesPerGroup: 5,
-                      //   allowTouchMove: false,
-                      // },
                     }}
-                    modules={[Pagination, Navigation]}
+                    modules={[Pagination, Navigation, Grid]}
                     speed={800}
                     navigation={
                       (true,
@@ -173,7 +185,22 @@ export default function GetCategorySectionData({ category, movieId = null }) {
               )}
             </MaxWidthWrapper>
 
-            <div className="w-full h-full absolute left-0 top-6 -z-10 lgmx:hidden">
+            {browseAll && (
+              <MaxWidthWrapper>
+                <div className="mt-10 flex justify-center">
+                  <Link
+                    className={buttonVariants({
+                      variant: "outline",
+                      // className: "hidden",
+                    })}
+                    href={`/${matchLinks[category]}`}
+                  >
+                    Browse All
+                  </Link>
+                </div>
+              </MaxWidthWrapper>
+            )}
+            <div className="w-full h-fit absolute left-0 top-1/2 -translate-y-1/2 -z-10 lgmx:hidden">
               <SectionBgShape className="scale-x-1 w-full" />
               <SectionBgShape className="-scale-x-1 rotate-180 w-full" />
             </div>

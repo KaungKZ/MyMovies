@@ -16,7 +16,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import React from "react";
-import { Star, Clock, Download, Video, UserRound } from "lucide-react";
+import { Star, Clock, Download, Clapperboard, UserRound } from "lucide-react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -127,11 +127,13 @@ export default function MovieDetail() {
               </span>
             </div>
 
-            <span className="flex items-center text-zinc-700">
+            <span className="flex items-center text-zinc-800">
               <Clock className="text-white fill-primary text-base w-6 h-6 mr-2" />{" "}
               {minutesToHour(IMDB_Detail.runtime)}
             </span>
-            <p className="text-lg">{IMDB_Detail.overview}</p>
+            <p className=" text-zinc-700 leading-relaxed">
+              {IMDB_Detail.overview}
+            </p>
             <div className="flex space-x-1">
               <span>Voting:</span>
               <span className="flex items-flex-start">
@@ -251,10 +253,12 @@ export default function MovieDetail() {
                     )}
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-zinc-500">{cast.name}</span>
-                    <span>
+                    <span className="text-zinc-700 font-bold">{cast.name}</span>
+                    <span className="text-zinc-500">
                       as{" "}
-                      <span className="font-medium">{cast.character_name}</span>
+                      <span className="font-medium text-zinc-700">
+                        {cast.character_name}
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -267,7 +271,7 @@ export default function MovieDetail() {
             <SectionHeader
               title="Watch Trailer"
               icon={
-                <Video className="h-7 w-7 text-primary fill-primary smmx:h-5 smmx:w-5" />
+                <Clapperboard className="h-9 w-9 text-white fill-primary smmx:h-5 smmx:w-5" />
               }
             />
             {/* <div className="relative flex items-center space-x-2">
@@ -314,7 +318,11 @@ export default function MovieDetail() {
         )}
       </MaxWidthWrapper>
       <div className="mt-24 mdmx:mt-16">
-        <GetCategorySectionData category="similar" movieId={IMDB_Detail.id} />
+        <GetCategorySectionData
+          category="similar"
+          movieId={IMDB_Detail.id}
+          browseAll={false}
+        />
       </div>
     </section>
   );

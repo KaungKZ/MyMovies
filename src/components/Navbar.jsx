@@ -148,9 +148,11 @@ export default function Navbar() {
                               <h5 className="font-semibold group-hover:underline decoration-1">
                                 {truncateString(result.title, 20)}
                               </h5>
-                              <span className="text-sm text-zinc-600 mt-1 block">
-                                {result.release_date.split("-")[0]}
-                              </span>
+                              {result.release_date && (
+                                <span className="text-sm text-zinc-600 mt-1 block">
+                                  {result.release_date.split("-")[0]}
+                                </span>
+                              )}
                             </div>
                           </div>
                         </Link>

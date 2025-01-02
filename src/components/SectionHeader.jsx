@@ -1,11 +1,12 @@
 import React from "react";
 // import { Video } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function SectionHeader({ title, icon }) {
   return (
     <>
-      <div className="relative flex items-center space-x-2">
+      <div className="relative flex items-center space-x-2 ju">
         <h1 className="text-3xl font-bold text-gray-700 underline title smmx:text-2xl">
           {title}
         </h1>

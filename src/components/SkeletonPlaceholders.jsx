@@ -7,8 +7,16 @@ export const SkeletonSectionPlaceholders = () => {
   return (
     <div className="py-5">
       <MaxWidthWrapper>
-        <div className="flex items-center space-x-5 mt-16">
-          <div>
+        <div className="grid grid-cols-5 grid-rows-2 items-center gap-y-6 gap-x-4 mt-16">
+          {[...Array(10)].map((_) => (
+            <div>
+              <Skeleton className="min-w-[220px] h-[330px]" />
+              <Skeleton className="w-[164px] h-3 mt-4" />
+              <Skeleton className="w-[80px] h-3 mt-2" />
+            </div>
+          ))}
+
+          {/* <div>
             <Skeleton className="w-[220px] h-[330px]" />
             <Skeleton className="w-[164px] h-3 mt-4" />
             <Skeleton className="w-[80px] h-3 mt-2" />
@@ -27,12 +35,7 @@ export const SkeletonSectionPlaceholders = () => {
             <Skeleton className="w-[220px] h-[330px]" />
             <Skeleton className="w-[164px] h-3 mt-4" />
             <Skeleton className="w-[80px] h-3 mt-2" />
-          </div>
-          <div>
-            <Skeleton className="w-[220px] h-[330px]" />
-            <Skeleton className="w-[164px] h-3 mt-4" />
-            <Skeleton className="w-[80px] h-3 mt-2" />
-          </div>
+          </div> */}
 
           {/* </div> */}
         </div>
