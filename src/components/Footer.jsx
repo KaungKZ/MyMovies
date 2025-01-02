@@ -4,8 +4,8 @@ import { Zap } from "lucide-react";
 export default function Footer() {
   return (
     <div className="footer w-full h-20 flex justify-center items-center mt-32 xl:mt-28 lg:mt-20 sm:mt-16 relative xsm:mt-10">
-      <div className="footer__wrapper w-full">
-        <div className="footer__bg -z-1 w-full">
+      <div className="footer__wrapper w-full -z-10">
+        <div className="footer__bg w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
