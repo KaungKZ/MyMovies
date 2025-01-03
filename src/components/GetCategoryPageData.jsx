@@ -25,6 +25,7 @@ export default function GetCategoryPageData({ category }) {
   const router = useRouter();
   const pathname = usePathname();
   const isPageNumberExist = searchParams.get("page");
+  // const isPendingQuery = true;
 
   const {
     data,
@@ -133,7 +134,7 @@ export default function GetCategoryPageData({ category }) {
         <SkeletonPagePlaceholders />
       ) : (
         <div>
-          <div className="mt-16 relative py-5 grid grid-cols-5 gap-x-4 gap-y-8">
+          <div className="my-16 relative py-5 grid grid-cols-5 gap-x-4 gap-y-8">
             {data?.results?.map((d) => {
               return <MovieCard key={d.id} movie={d} />;
             })}

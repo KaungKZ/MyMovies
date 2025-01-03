@@ -12,7 +12,7 @@ export default function Home() {
       <div>
         <MaxWidthWrapper>
           <div>
-            <h1 className="text-5xl font-bold text-center title text-zinc-600 xsmmx:text-4xl">
+            <h1 className="text-5xl font-bold text-center title text-zinc-700 xsmmx:text-4xl">
               Keep track of movies, <span className="text-primary">Here.</span>
             </h1>
             <div className="relative w-full h-[464px] mt-8 lgmx:h-[350px] mdmx:h-[260px] smmx:mt-3 smmx:h-[240px]">
