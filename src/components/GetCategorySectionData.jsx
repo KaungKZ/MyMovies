@@ -120,19 +120,31 @@ export default function GetCategorySectionData({
                         slidesPerView: 2,
                         spaceBetween: 7,
                         slidesPerGroup: 2,
+                        grid: {
+                          rows: 4,
+                          fill: "row",
+                        },
                         allowTouchMove: true,
                       },
                       420: {
                         slidesPerView: 3,
                         spaceBetween: 15,
                         slidesPerGroup: 3,
+                        grid: {
+                          rows: 3,
+                          fill: "row",
+                        },
                         allowTouchMove: true,
                       },
 
-                      601: {
+                      701: {
                         slidesPerView: 4,
                         spaceBetween: 15,
                         slidesPerGroup: 4,
+                        grid: {
+                          rows: 2,
+                          fill: "row",
+                        },
                         allowTouchMove: true,
                       },
                       1025: {
