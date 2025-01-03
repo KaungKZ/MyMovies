@@ -45,6 +45,8 @@ export default function MovieDetail() {
     return <div>Movie detail not found</div>;
   }
 
+  console.log(data);
+
   const [IMDB_Detail, YTX_Detail] = data;
 
   // console.log(IMDB_Detail, YTX_Detail);
