@@ -2,7 +2,7 @@
 
 const matchURLs = {
   trending: "https://api.themoviedb.org/3/trending/movie/week",
-  "top-rated": "https://api.themoviedb.org/3/movie/top_rated",
+  topRated: "https://api.themoviedb.org/3/movie/top_rated",
   popular: "https://api.themoviedb.org/3/movie/popular",
   upcoming: "https://api.themoviedb.org/3/movie/upcoming",
 };
@@ -73,6 +73,9 @@ export const getMoviesByPage = async ({ category, pageNumber }) => {
   const url = matchURLs[category];
 
   try {
+    // console.log(
+    //   `${url}?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=${pageNumber}`
+    // );
     const req = await fetch(
       `${url}?api_key=${process.env.IMDB_API_KEY}&language=en-US&page=${pageNumber}`
     );

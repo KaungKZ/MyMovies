@@ -3,9 +3,9 @@ import { Zap } from "lucide-react";
 
 export default function Footer() {
   return (
-    <div className="footer w-full h-20 flex justify-center items-center mt-32 xl:mt-28 lg:mt-20 sm:mt-16 relative xsm:mt-10">
-      <div className="footer__wrapper w-full -z-10">
-        <div className="footer__bg w-full">
+    <div className="w-full h-20 flex justify-center items-center mt-32 xl:mt-28 lg:mt-20 sm:mt-16 relative xsm:mt-10">
+      <div className=" w-full -z-10">
+        <div className="w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
@@ -23,11 +23,11 @@ export default function Footer() {
             ></path>
           </svg>
         </div>
-        <div className="footer__content font-bold flex justify-center items-center w-full h-20 bg-emerald-200 md:h-16 xsm:h-14 -mt-[1px]">
+        <div className="font-bold flex justify-center items-center w-full h-20 bg-emerald-200 md:h-16 xsm:h-14 -mt-[1px]">
           <span className="icon mr-1 text-emerald-500 mb-4 xsm:mb-2">
             <Zap className="w-5 h-5 fill-primary" />
           </span>
-          <div className="footer__title text-gray-700 mb-4 text-lg xsm:text-base xsm:mb-2">
+          <div className=" text-gray-700 mb-4 text-lg xsm:text-base xsm:mb-2">
             Developed by{" "}
             <a
               href="https://github.com/KaungKZ/MyMovies"

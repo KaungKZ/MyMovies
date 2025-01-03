@@ -134,7 +134,7 @@ export default function GetCategoryPageData({ category }) {
         <SkeletonPagePlaceholders />
       ) : (
         <div>
-          <div className="my-16 relative py-5 grid grid-cols-5 gap-x-4 gap-y-8">
+          <div className="my-16 relative py-5 grid grid-cols-5 gap-x-4 gap-y-8 mdmx:grid-cols-4 2xsmmx:grid-cols-2 smmx:grid-cols-3 mdmx:gap-x-2 mdmx:gap-y-5 mdmx:my-12">
             {data?.results?.map((d) => {
               return <MovieCard key={d.id} movie={d} />;
             })}

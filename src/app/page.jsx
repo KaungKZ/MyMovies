@@ -10,7 +10,7 @@ export default function Home() {
     <section className="my-10">
       {/* <MaxWidthWrapper> */}
       <div>
-        <MaxWidthWrapper>
+        <MaxWidthWrapper cls="mdmx:pb-4 ">
           <div>
             <h1 className="text-5xl font-bold text-center title text-zinc-700 xsmmx:text-4xl">
               Keep track of movies, <span className="text-primary">Here.</span>
@@ -26,14 +26,17 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
 
-        <div className="mt-20 lgmx:mt-16">
+        <div className="mt-20 lgmx:mt-14 mdmx:mt-8 smmx:mt-4">
           <GetCategoryData category="trending" />
         </div>
-        <div className="mt-20 lgmx:mt-16">
+        <div className="mt-20 lgmx:mt-14 mdmx:mt-8 smmx:mt-4">
           <GetCategoryData category="popular" />
         </div>
-        <div className="mt-20 lgmx:mt-16">
+        <div className="mt-20 lgmx:mt-14 mdmx:mt-8 smmx:mt-4">
           <GetCategoryData category="upcoming" />
+        </div>
+        <div className="mt-20 lgmx:mt-14 mdmx:mt-8 smmx:mt-4">
+          <GetCategoryData category="topRated" />
         </div>
       </div>
     </section>

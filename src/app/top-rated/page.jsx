@@ -29,7 +29,7 @@ export default function Page() {
             </div>
           </div>
           <div>
-            <GetCategoryPageData category="top-rated" />
+            <GetCategoryPageData category="topRated" />
           </div>
         </MaxWidthWrapper>
       </section>

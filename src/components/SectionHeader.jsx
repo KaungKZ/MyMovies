@@ -17,7 +17,7 @@ export default function SectionHeader({ title, icon }) {
           </span>
         )}
 
-        <div className="absolute left-0 top-0 -translate-x-[45px] -translate-y-[60px] -z-10 mdmx:-translate-x-[34px] mdmx:-translate-y-[30px]">
+        <div className="absolute left-0 top-0 -translate-x-[45px] -translate-y-[60px] -z-10 mdmx:-translate-x-[34px] mdmx:-translate-y-[30px] smmx:hidden">
           <Image
             src="/assets/section-title-bg-shape.png"
             width="143"

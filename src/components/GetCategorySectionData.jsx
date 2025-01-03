@@ -11,6 +11,7 @@ import {
   Award,
   Clock,
   Clapperboard,
+  Star,
 } from "lucide-react";
 import Image from "next/image";
 import SectionHeader from "./SectionHeader";
@@ -33,12 +34,14 @@ const matchTitle = {
   upcoming: "Upcoming",
   popular: "Popular",
   similar: "Similar Movies",
+  topRated: "Top Rated",
 };
 
 const matchLinks = {
   trending: "trending",
   upcoming: "upcoming",
   popular: "popular",
+  topRated: "top-rated",
   similar: "/",
 };
 
@@ -81,6 +84,8 @@ export default function GetCategorySectionData({
               <Flame className="h-9 w-9 text-primary smmx:w-8 smmx:h-8 fill-primary" />
             ) : category === "upcoming" ? (
               <Clock className="h-9 w-9 text-white smmx:w-8 smmx:h-8 fill-primary" />
+            ) : category === "topRated" ? (
+              <Star className="h-9 w-9 text-primary smmx:w-8 smmx:h-8 fill-primary" />
             ) : category === "similar" ? (
               <Clapperboard className="h-9 w-9 text-white fill-primary smmx:w-8 smmx:h-8" />
             ) : (
@@ -100,7 +105,7 @@ export default function GetCategorySectionData({
               {data.results.length > 0 ? (
                 <>
                   <div
-                    className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category} smmx:hidden`}
+                    className={`category-custom-pagination flex space-x-1 my-8 justify-end ${category} smmx:hidden mdmx:my-5`}
                   ></div>
                   <Swiper
                     // slidesPerView={5}
@@ -199,7 +204,7 @@ export default function GetCategorySectionData({
 
             {browseAll && (
               <MaxWidthWrapper>
-                <div className="mt-10 flex justify-center">
+                <div className="mt-10 flex justify-center lgmx:mt-6 mdmx:mt-3">
                   <Link
                     className={buttonVariants({
                       variant: "outline",
