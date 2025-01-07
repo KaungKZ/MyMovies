@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { handleRequest } from "@/app/actions";
 import Link from "next/link";
@@ -50,6 +50,10 @@ export default function GetCategorySectionData({
   movieId = null,
   browseAll = true,
 }) {
+  // const [dimensions, setDimensions] = useState({
+  //   width: window.innerWidth,
+  //   height: window.innerHeight,
+  // });
   const { data, isError, isPending, error, isFetching, isLoading } = useQuery({
     queryKey: [`get-category-data-${category}-${movieId}`],
 

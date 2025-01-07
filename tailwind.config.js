@@ -95,6 +95,9 @@ module.exports = {
         mdmx: {
           max: "768px",
         },
+        "700mx": {
+          max: "700px",
+        },
         smmx: {
           max: "600px",
         },
